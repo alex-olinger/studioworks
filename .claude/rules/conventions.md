@@ -6,6 +6,41 @@
 - Avoid `any` — prefer `unknown` with runtime Zod parsing at service boundaries
 
 ## Schema & Validation
+
+### RenderSpec
+
+The canonical cross-service contract. Defined in `packages/shared/render-spec.ts` — never duplicated, always imported from `@studioworks/shared`.
+
+**Shape:**
+```ts
+{
+  projectId: string,           // opaque string in MVP — no FK enforcement until Part 3
+  scenes: [                    // min 1
+    {
+      id: string,
+      shots: [                 // min 1
+        {
+          id: string,
+          prompt: string,      // min length 1
+          durationSeconds: number  // must be positive
+        }
+      ]
+    }
+  ]
+}
+```
+
+**Construction:** `apps/web` builds the `RenderSpec` from form input and validates it client-side using `RenderSpecSchema.safeParse()` before submission. This catches shape errors early without a round-trip.
+
+**Ingestion:** `apps/api` re-validates the incoming body with `RenderSpecSchema.parse()` on `POST /render-jobs`. Never trust the client — always parse server-side. On failure, return a structured 400.
+
+**Storage:** The validated spec is written into the `RenderJob.spec` JSON column as-is and never modified. The worker reads it back out by `renderJobId` — it never receives the spec directly over the queue.
+
+**Immutability rule:** Once a `RenderJob` is written, its embedded spec is frozen. To change a spec, create a new `RenderJob`. This is a hard architectural constraint, not a preference.
+
+**Adding fields:** Update the Zod schema in `packages/shared/render-spec.ts` first, then rebuild (`pnpm build --filter @studioworks/shared`), then update consumers. See the checklist in `workflow.md`.
+
+### General validation rules
 - All API endpoints must validate request bodies and params with Zod — never skip
 - Zod errors surface as structured 400 responses, not unhandled exceptions
 
