@@ -1,0 +1,12 @@
+# PodDisruptionBudget — apply to any Deployment with >1 replica
+# Ensures at least 1 pod stays available during node drains or rolling updates
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: <APP_NAME>-pdb
+  namespace: <NAMESPACE>
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: <APP_NAME>

@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: worker
+  namespace: <NAMESPACE>
+  labels:
+    app.kubernetes.io/name: worker
+    app.kubernetes.io/component: worker
+    app.kubernetes.io/part-of: <APP_NAME>
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: worker
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: worker
+        app.kubernetes.io/component: worker
+        app.kubernetes.io/part-of: <APP_NAME>
+    spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                labelSelector:
+                  matchLabels:
+                    app.kubernetes.io/name: worker
+                topologyKey: kubernetes.io/hostname
+
+      # Must be higher than WORKER_SHUTDOWN_TIMEOUT to allow job drain
+      terminationGracePeriodSeconds: 120
+
+      containers:
+        - name: worker
+          image: <REGISTRY>/<IMAGE>:<TAG>
+          imagePullPolicy: IfNotPresent
+
+          env:
+            - name: NODE_ENV
+              value: production
+            - name: WORKER_SHUTDOWN_TIMEOUT
+              value: "90000"
+          envFrom:
+            - configMapRef:
+                name: worker-config
+            - secretRef:
+                name: worker-secrets
+
+          resources:
+            requests:
+              cpu: 200m
+              memory: 256Mi
+            limits:
+              cpu: 1000m
+              memory: 1Gi
+
+          # Workers have no HTTP port — liveness checks process health
+          livenessProbe:
+            exec:
+              command:
+                - node
+                - -e
+                - "require('./dist/health')"
+            initialDelaySeconds: 15
+            periodSeconds: 30
+            timeoutSeconds: 10
+            failureThreshold: 3
+
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1001
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true

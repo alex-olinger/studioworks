@@ -1,0 +1,50 @@
+# Dockerfile for Fastify API
+# Usage: docker build -f apps/api/Dockerfile -t studioworks-api .
+# Must be built from the monorepo root for Turbo build context
+
+FROM node:20-alpine AS base
+RUN corepack enable && corepack prepare pnpm@latest --activate
+
+# ─── Builder ────────────────────────────────────────────────────────────────
+FROM base AS builder
+WORKDIR /app
+
+# Copy manifests first for layer cache
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml turbo.json ./
+COPY apps/api/package.json ./apps/api/
+COPY packages/ ./packages/
+
+# Install all deps (including dev for build)
+RUN pnpm install --frozen-lockfile
+
+# Copy source and build
+COPY apps/api ./apps/api
+COPY packages ./packages
+RUN pnpm --filter api build
+
+# Prune to production deps only
+RUN pnpm --filter api --prod deploy /app/pruned
+
+# ─── Runner ─────────────────────────────────────────────────────────────────
+FROM node:20-alpine AS runner
+WORKDIR /app
+
+ENV NODE_ENV=production
+ENV PORT=3000
+
+# Create non-root user
+RUN addgroup --system --gid 1001 nodejs \
+ && adduser --system --uid 1001 fastify
+
+# Copy pruned production build
+COPY --from=builder --chown=fastify:nodejs /app/pruned ./
+COPY --from=builder --chown=fastify:nodejs /app/apps/api/dist ./dist
+
+USER fastify
+
+EXPOSE 3000
+
+HEALTHCHECK --interval=15s --timeout=5s --start-period=10s --retries=3 \
+  CMD wget -qO- http://localhost:3000/health || exit 1
+
+CMD ["node", "dist/server.js"]
