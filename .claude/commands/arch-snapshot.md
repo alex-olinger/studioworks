@@ -127,7 +127,7 @@ List 3–5 notable architectural choices with brief rationale. Focus on decision
 
 ## Step 3 — Output two formats
 
-### Format A: Full snapshot (for `docs/ARCHITECTURE.md`)
+### Format A: Full snapshot (for `docs/architecture.md`)
 The complete output above, in markdown, ready to commit.
 
 ### Format B: Resume bullet set (3–5 bullets)
@@ -152,4 +152,4 @@ Example:
 - Only describe what actually exists in the repo — no aspirational content
 - If something is partially implemented, note it as "in progress"
 - Resume bullets should lead with the most platform/DevEx-relevant signals
-- Format A goes in `docs/ARCHITECTURE.md`, Format B goes wherever you need it
+- Format A goes in `docs/architecture.md`, Format B goes wherever you need it

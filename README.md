@@ -29,11 +29,11 @@ studioworks/
   docker/
     compose.dev.yml
   docs/
-    ARCHITECTURE.md
-    RENDER-PIPELINE.md
-    DEPLOYMENT-PLAN.md
-    LOCAL-DEV.md
-    PLAN.md
+    architecture.md
+    render-pipeline.md
+    deployment-plan.md
+    local-dev.md
+    plan.md
 ```
 
 ### Services
@@ -104,7 +104,7 @@ pnpm --filter @studioworks/db db:migrate:deploy         # apply migrations (firs
 pnpm dev                                                # web (3000), api (4000), worker
 ```
 
-See [`docs/LOCAL-DEV.md`](docs/LOCAL-DEV.md) for the full setup walkthrough.
+See [`docs/local-dev.md`](docs/local-dev.md) for the full setup walkthrough.
 
 ---
 
@@ -116,7 +116,7 @@ The core render pipeline is implemented and tested end-to-end:
 - Worker consumes the queue, drives the state machine, calls the provider adapter stub
 - 9 tests passing across shared schema, API route, and worker processor
 
-The frontend (`/render`, `/render/[id]`) and API read endpoints (`GET /render-jobs`, `GET /render-jobs/:id`) are in progress — see [`docs/PLAN.md`](docs/PLAN.md) for the detailed build plan.
+The frontend (`/render`, `/render/[id]`) and API read endpoints (`GET /render-jobs`, `GET /render-jobs/:id`) are in progress — see [`docs/plan.md`](docs/plan.md) for the detailed build plan.
 
 ---
 
@@ -169,11 +169,11 @@ Route scaffolding and shared type placeholders are already in place under `apps/
 
 | Document | Description |
 |---|---|
-| [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) | System design, key decisions, source file map |
-| [`docs/RENDER-PIPELINE.md`](docs/RENDER-PIPELINE.md) | Render job lifecycle, data flows, state machine, gotchas |
-| [`docs/PLAN.md`](docs/PLAN.md) | MVP build plan — Days 1–4 complete, Days 5–9 remaining |
-| [`docs/DEPLOYMENT-PLAN.md`](docs/DEPLOYMENT-PLAN.md) | Deployment status and post-MVP production roadmap |
-| [`docs/LOCAL-DEV.md`](docs/LOCAL-DEV.md) | Local development setup |
+| [`docs/architecture.md`](docs/architecture.md) | System design, key decisions, source file map |
+| [`docs/render-pipeline.md`](docs/render-pipeline.md) | Render job lifecycle, data flows, state machine, gotchas |
+| [`docs/plan.md`](docs/plan.md) | MVP build plan — Days 1–4 complete, Days 5–9 remaining |
+| [`docs/deployment-plan.md`](docs/deployment-plan.md) | Deployment status and post-MVP production roadmap |
+| [`docs/local-dev.md`](docs/local-dev.md) | Local development setup |
 
 ---
 

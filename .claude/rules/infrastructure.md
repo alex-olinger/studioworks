@@ -21,7 +21,7 @@ pnpm dev                                                 # runs web (3000), api 
 
 Infrastructure commands: `pnpm infra:up / infra:down / infra:logs / infra:reset`
 
-Full setup: `docs/LOCAL-DEV.md`
+Full setup: `docs/local-dev.md`
 
 ## Environment Variables
 
