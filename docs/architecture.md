@@ -82,6 +82,39 @@ db.renderJob.create({ data: { status: 'INVALID' } })  // ✗ TypeScript error �
 
 ---
 
+## Zod vs Prisma
+
+These serve different purposes and operate at different layers — never conflate them.
+
+**Zod** validates untrusted input at trust boundaries. The HTTP request body is the most common case, but the rule is broader — any data that crosses a trust boundary should be parsed with Zod:
+
+- HTTP request body, params, query string — from clients
+- Webhook bodies — from third parties (Stripe, GitHub, etc.)
+- S3 event payloads — from AWS
+- Environment variables — `process.env` is untyped at runtime
+- File contents being parsed (CSV, JSON uploads)
+
+Data that does **not** need Zod: Prisma query results, data from other internal services in the same monorepo (already validated at their own boundary), and constants defined in your own code.
+
+**Prisma** talks to Postgres. It generates TypeScript types from `schema.prisma`, applies migrations, and handles all DB reads and writes. It has no knowledge of HTTP.
+
+```
+HTTP request body (untrusted)
+      │
+      ▼
+  RenderSpecSchema.parse()     ← Zod: reject bad input before it touches the DB
+      │
+      ▼
+  db.renderJob.create()        ← Prisma: write validated data to Postgres
+      │
+      ▼
+  Prisma result (trusted)      ← no Zod needed — typed by generated client
+```
+
+**Rule:** Never use Zod to validate Prisma query results. Data returned from Prisma is trusted internal infrastructure — it was written through a validated path and is fully typed by the generated client. Double-validating it adds noise without safety.
+
+---
+
 ## Source File Map
 
 ### `packages/shared`
