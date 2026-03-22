@@ -29,11 +29,11 @@ Full setup: `docs/local-dev.md`
 |---|---|---|
 | `DATABASE_URL` | `.env` + Docker | Prisma / Postgres connection |
 | `REDIS_URL` | `.env` + Docker | BullMQ connection |
-| `NEXTAUTH_SECRET` | `.env` + Docker | Auth.js secret |
-| `NEXTAUTH_URL` | `.env` + Docker | Auth.js base URL |
-| `AWS_ACCESS_KEY_ID` | `.env` + Docker | S3 access |
-| `AWS_SECRET_ACCESS_KEY` | `.env` + Docker | S3 secret |
-| `AWS_S3_BUCKET` | `.env` + Docker | S3 bucket name |
-| `AWS_REGION` | `.env` + Docker | S3 region |
+| `NEXTAUTH_SECRET` | `.env` + Docker | Auth.js secret _(not yet implemented)_ |
+| `NEXTAUTH_URL` | `.env` + Docker | Auth.js base URL _(not yet implemented)_ |
+| `AWS_ACCESS_KEY_ID` | `.env` + Docker | S3 access _(not yet implemented)_ |
+| `AWS_SECRET_ACCESS_KEY` | `.env` + Docker | S3 secret _(not yet implemented)_ |
+| `AWS_S3_BUCKET` | `.env` + Docker | S3 bucket name _(not yet implemented)_ |
+| `AWS_REGION` | `.env` + Docker | S3 region _(not yet implemented)_ |
 
 When writing code that requires a new env var, flag it: name, purpose, and which files it belongs in.
