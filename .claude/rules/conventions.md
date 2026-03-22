@@ -40,6 +40,23 @@ The canonical cross-service contract. Defined in `packages/shared/render-spec.ts
 
 **Adding fields:** Update the Zod schema in `packages/shared/render-spec.ts` first, then rebuild (`pnpm build --filter @studioworks/shared`), then update consumers. See the checklist in `workflow.md`.
 
+### Zod vs Prisma
+
+These are two different tools at two different layers — never conflate them.
+
+**Zod** — validates untrusted input at trust boundaries. HTTP is the most common case, but the rule is broader: use Zod for any data that crosses a trust boundary — HTTP body/params/query, webhook payloads, S3 event payloads, environment variables, and uploaded file contents. Do not use Zod for Prisma results, intra-monorepo data, or constants defined in your own code.
+
+**Prisma** — talks to Postgres. Generates TypeScript types from `prisma/schema.prisma`. Handles migrations. Has no knowledge of HTTP.
+
+They meet in the route handler:
+
+```ts
+const result = RenderSpecSchema.parse(request.body)  // Zod: validate untrusted input
+const job = await db.renderJob.create({ data: { spec: result.data } })  // Prisma: write to DB
+```
+
+**Rule:** Never use Zod to validate Prisma query results. Data returned from Prisma is trusted internal infrastructure — it has already been written through a validated path and typed by the generated client.
+
 ### General validation rules
 - All API endpoints must validate request bodies and params with Zod — never skip
 - Zod errors surface as structured 400 responses, not unhandled exceptions

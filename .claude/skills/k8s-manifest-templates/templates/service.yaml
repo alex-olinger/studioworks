@@ -1,0 +1,18 @@
+# ClusterIP Service — reuse for any HTTP app
+# Replace <APP_NAME> and port if needed
+apiVersion: v1
+kind: Service
+metadata:
+  name: <APP_NAME>
+  namespace: <NAMESPACE>
+  labels:
+    app.kubernetes.io/name: <APP_NAME>
+    app.kubernetes.io/part-of: <APP_NAME>
+spec:
+  selector:
+    app.kubernetes.io/name: <APP_NAME>
+  ports:
+    - name: http
+      port: 80
+      targetPort: http
+  type: ClusterIP

@@ -1,0 +1,45 @@
+# Dockerfile for BullMQ Worker
+# Usage: docker build -f apps/worker/Dockerfile -t studioworks-worker .
+# Must be built from the monorepo root for Turbo build context
+
+FROM node:20-alpine AS base
+RUN corepack enable && corepack prepare pnpm@latest --activate
+
+# ─── Builder ────────────────────────────────────────────────────────────────
+FROM base AS builder
+WORKDIR /app
+
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml turbo.json ./
+COPY apps/worker/package.json ./apps/worker/
+COPY packages/ ./packages/
+
+RUN pnpm install --frozen-lockfile
+
+COPY apps/worker ./apps/worker
+COPY packages ./packages
+RUN pnpm --filter worker build
+
+RUN pnpm --filter worker --prod deploy /app/pruned
+
+# ─── Runner ─────────────────────────────────────────────────────────────────
+FROM node:20-alpine AS runner
+WORKDIR /app
+
+ENV NODE_ENV=production
+
+RUN addgroup --system --gid 1001 nodejs \
+ && adduser --system --uid 1001 worker
+
+COPY --from=builder --chown=worker:nodejs /app/pruned ./
+COPY --from=builder --chown=worker:nodejs /app/apps/worker/dist ./dist
+
+USER worker
+
+# Workers don't expose HTTP — health check via process signal
+# BullMQ worker stays alive processing jobs; no port needed
+HEALTHCHECK --interval=30s --timeout=10s --start-period=15s --retries=3 \
+  CMD node -e "require('./dist/health')" || exit 1
+
+# terminationGracePeriodSeconds in K8s should be >= job drain timeout
+# Set WORKER_SHUTDOWN_TIMEOUT env var to control graceful drain (default 60s)
+CMD ["node", "dist/index.js"]
