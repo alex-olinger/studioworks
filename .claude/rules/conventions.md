@@ -99,3 +99,9 @@ const job = await db.renderJob.create({ data: { spec: result.data } })  // Prism
 ## Commits & PRs
 - Scope changes to a single service or package where possible
 - Changes to `@studioworks/shared` or `@studioworks/db` must be called out explicitly in the PR description
+
+## Branch Naming
+- Pattern: `type/short-description` (kebab-case, no spaces)
+- Type must be one of: `feat`, `fix`, `docs`, `chore`, `refactor`, `test`, `ci`, `style`, `perf`, `build`, `revert`
+- These match the conventional commit types enforced by `.github/workflows/pr-checks.yml`
+- Examples: `feat/render-job-polling`, `fix/queue-name-typo`, `docs/zod-vs-prisma`, `ci/add-pr-checks`
