@@ -1,0 +1,109 @@
+name: Promotion Changelog
+
+on:
+  pull_request:
+    # Only fires on open — prevents overwriting a body the author has manually edited
+    types: [opened]
+
+jobs:
+  generate-changelog:
+    name: Auto-fill PR body with merged PR changelog
+    # Only run for testing → main promotion PRs
+    if: >
+      github.event.pull_request.base.ref == 'main' &&
+      github.event.pull_request.head.ref == 'testing'
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write  # Required to update the PR body
+
+    steps:
+      - name: Generate changelog from merged testing PRs
+        id: changelog
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          # Find the merge date of the most recent testing → main promotion PR
+          # ISO 8601 dates sort lexicographically so string comparison works
+          LAST_PROMOTION_DATE=$(gh pr list \
+            --repo "$REPO" \
+            --base main \
+            --head testing \
+            --state merged \
+            --json mergedAt \
+            --jq '.[0].mergedAt // empty' \
+            --limit 1)
+
+          # Fall back to epoch if this is the first-ever promotion (include all PRs)
+          if [ -z "$LAST_PROMOTION_DATE" ]; then
+            LAST_PROMOTION_DATE="2000-01-01T00:00:00Z"
+          fi
+
+          echo "Last promotion date: $LAST_PROMOTION_DATE"
+
+          # Fetch all PRs merged into testing since the last promotion (up to 200)
+          MERGED_PRS=$(gh pr list \
+            --repo "$REPO" \
+            --base testing \
+            --state merged \
+            --json number,title,mergedAt \
+            --jq "[.[] | select(.mergedAt > \"$LAST_PROMOTION_DATE\")]" \
+            --limit 200)
+
+          echo "Merged PRs since last promotion:"
+          echo "$MERGED_PRS"
+
+          # Build the changelog body grouped by conventional commit type
+          BODY="## Summary\n\nPromotion of \`testing\` into \`main\`.\n"
+
+          # Map of type prefix → display label (order determines section order)
+          declare -A LABELS=(
+            [feat]="Features"
+            [fix]="Bug Fixes"
+            [perf]="Performance"
+            [refactor]="Refactoring"
+            [docs]="Documentation"
+            [test]="Tests"
+            [ci]="CI"
+            [chore]="Chores"
+            [style]="Style"
+            [build]="Build"
+            [revert]="Reverts"
+          )
+
+          # Section ordering (associative arrays are unordered in bash)
+          TYPE_ORDER=(feat fix perf refactor docs test ci chore style build revert)
+
+          for TYPE in "${TYPE_ORDER[@]}"; do
+            LABEL="${LABELS[$TYPE]}"
+            # Match titles starting with this type (e.g. "feat:" or "feat(scope):")
+            MATCHES=$(echo "$MERGED_PRS" | jq -r \
+              "[.[] | select(.title | test(\"^${TYPE}[:(]\"))] | .[] | \"- \(.title) (#\(.number))\"")
+            if [ -n "$MATCHES" ]; then
+              BODY+="\n### ${LABEL}\n${MATCHES}\n"
+            fi
+          done
+
+          # Catch PRs that don't follow conventional commit format (shouldn't happen with validation)
+          UNCATEGORIZED=$(echo "$MERGED_PRS" | jq -r \
+            "[.[] | select(.title | test(\"^(feat|fix|docs|chore|refactor|test|ci|style|perf|build|revert)[:(]\") | not)] | .[] | \"- \(.title) (#\(.number))\"")
+          if [ -n "$UNCATEGORIZED" ]; then
+            BODY+="\n### Other\n${UNCATEGORIZED}\n"
+          fi
+
+          # Write body to a temp file to avoid shell escaping issues with multiline content
+          printf "%b" "$BODY" > /tmp/pr_body.md
+          echo "Generated body:"
+          cat /tmp/pr_body.md
+
+      - name: Update PR body with changelog
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          REPO: ${{ github.repository }}
+        run: |
+          # Update the PR body using the generated changelog file
+          gh pr edit "$PR_NUMBER" \
+            --repo "$REPO" \
+            --body-file /tmp/pr_body.md

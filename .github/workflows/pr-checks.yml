@@ -1,0 +1,50 @@
+name: PR Checks
+
+on:
+  pull_request:
+    # Run on all branches whenever a PR is opened, edited, or updated
+    types: [opened, edited, synchronize, reopened]
+
+jobs:
+  validate-title:
+    name: Validate PR Title
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check conventional commit format
+        # Pass title via env var to prevent script injection
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+        run: |
+          # Conventional commit pattern: type(optional-scope): description
+          PATTERN='^(feat|fix|docs|chore|refactor|test|ci|style|perf|build|revert)(\(.+\))?: .+'
+          if [[ ! "$PR_TITLE" =~ $PATTERN ]]; then
+            echo "::error::PR title must follow conventional commit format."
+            echo "::error::Expected: type(scope): description"
+            echo "::error::Valid types: feat, fix, docs, chore, refactor, test, ci, style, perf, build, revert"
+            echo "::error::Got: $PR_TITLE"
+            exit 1
+          fi
+
+  validate-description:
+    name: Validate PR Description
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check for Summary section with content
+        # Pass body via env var to prevent script injection
+        env:
+          PR_BODY: ${{ github.event.pull_request.body }}
+        run: |
+          # Require a ## Summary heading to be present
+          if ! echo "$PR_BODY" | grep -qi '^## Summary'; then
+            echo "::error::PR description must contain a '## Summary' section."
+            exit 1
+          fi
+
+          # Extract content between ## Summary and the next ## heading (or end of body)
+          SUMMARY_CONTENT=$(echo "$PR_BODY" | awk '/^## Summary/{found=1; next} found && /^## /{exit} found{print}')
+
+          # Require at least one bullet point line under Summary
+          if ! echo "$SUMMARY_CONTENT" | grep -qE '^\s*[-*] .+'; then
+            echo "::error::The '## Summary' section must contain at least one bullet point (e.g. '- description')."
+            exit 1
+          fi
