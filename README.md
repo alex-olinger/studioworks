@@ -67,6 +67,7 @@ Frontend builds RenderSpec
 - **Immutable RenderJob specs** — the spec is persisted at submission time and never modified. The worker only receives a `renderJobId` and loads the spec from Postgres itself. This decouples the worker from the API's request lifecycle entirely.
 - **Minimal queue payload** — only `{ renderJobId }` is enqueued, never the full spec. Queue stays lightweight regardless of spec size.
 - **Shared TypeScript contracts** — `@studioworks/shared` is the single source of truth for all cross-service types (`RenderSpec`, `RENDER_QUEUE_NAME`). `@studioworks/db` is the only path to the database — never import `@prisma/client` directly.
+- **Zod guards trust boundaries, Prisma owns the DB** — Zod validates any data that originates outside code we control: HTTP request bodies, webhook payloads, environment variables, uploaded file contents. Prisma query results are trusted internal infrastructure — already validated at write time and fully typed by the generated client. Never double-validate Prisma results with Zod.
 - **Provider-agnostic worker** — the worker calls a provider adapter stub, making it straightforward to swap or extend with additional AI video providers without touching API or queue logic.
 - **Python GPU path** — the worker can be replaced or augmented with a Python-based GPU rendering service without touching the API or frontend boundaries.
 
