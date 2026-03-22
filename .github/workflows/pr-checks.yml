@@ -79,8 +79,9 @@ jobs:
           for TYPE in "${TYPE_ORDER[@]}"; do
             LABEL="${LABELS[$TYPE]}"
             # Match titles starting with this type (e.g. "feat:" or "feat(scope):")
+            # Use #number only — GitHub auto-renders the PR title as the link text, avoiding duplication
             MATCHES=$(echo "$MERGED_PRS" | jq -r \
-              "[.[] | select(.title | test(\"^${TYPE}[:(]\"))] | .[] | \"- \(.title) (#\(.number))\"")
+              "[.[] | select(.title | test(\"^${TYPE}[:(]\"))] | .[] | \"- #\(.number)\"")
             if [ -n "$MATCHES" ]; then
               BODY+="\n### ${LABEL}\n${MATCHES}\n"
             fi
@@ -88,7 +89,7 @@ jobs:
 
           # Catch any PRs that don't match conventional commit format
           UNCATEGORIZED=$(echo "$MERGED_PRS" | jq -r \
-            "[.[] | select(.title | test(\"^(feat|fix|docs|chore|refactor|test|ci|style|perf|build|revert)[:(]\") | not)] | .[] | \"- \(.title) (#\(.number))\"")
+            "[.[] | select(.title | test(\"^(feat|fix|docs|chore|refactor|test|ci|style|perf|build|revert)[:(]\") | not)] | .[] | \"- #\(.number)\"")
           if [ -n "$UNCATEGORIZED" ]; then
             BODY+="\n### Other\n${UNCATEGORIZED}\n"
           fi
