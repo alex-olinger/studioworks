@@ -395,7 +395,9 @@ This spec is implemented in two distinct phases with different executors:
 
 **Phase 1 — Refactoring (agent-executed):** Agents handle the mechanical pivot from the old video platform — deleting dead files, renaming constants/models/schemas per the Pivot Mapping section, and applying the new Prisma schema with a migration. Plans for this phase should be written as agent instructions.
 
-**Phase 2 — Implementation (human hand-coded):** A human writes all internal logic. Plans for this phase should:
+Phase 1 is complete when: all files listed under "Gets Deleted" are gone, all renames in "Gets Renamed/Replaced" are applied, the new Prisma schema is migrated, and the monorepo compiles with no remaining references to the old video platform.
+
+**Phase 2 — Implementation (human hand-coded):** A human writes all internal logic. Implement in dependency order: `@studioworks/shared` → `@studioworks/db` → `apps/api` → `apps/worker` → `apps/web`. Plans for this phase should:
 
 - Scaffold file structure, function signatures, type definitions, and Zod schemas in full
 - Leave all function bodies as `// TODO` — the human fills in the logic
@@ -403,3 +405,4 @@ This spec is implemented in two distinct phases with different executors:
 - Note dependencies between steps (e.g. "build shared before touching api") as prose
 - Include a general checklist at the top of the plan — high-level tasks in plain language (e.g. "Implement invoice generation logic", "Wire up time entry list to project detail page"), not code. This gives the human a bird's-eye view of what needs to be done before diving into the scaffolded files.
 - All Phase 2 checklist items must use markdown checkbox syntax (`- [ ] Task`) so the human can toggle them as they go
+- Do not scaffold tests — the human writes tests themselves as part of learning good testing practices
