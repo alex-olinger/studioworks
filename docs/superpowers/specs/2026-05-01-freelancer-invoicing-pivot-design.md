@@ -406,3 +406,4 @@ Phase 1 is complete when: all files listed under "Gets Deleted" are gone, all re
 - Include a general checklist at the top of the plan — high-level tasks in plain language (e.g. "Implement invoice generation logic", "Wire up time entry list to project detail page"), not code. This gives the human a bird's-eye view of what needs to be done before diving into the scaffolded files.
 - All Phase 2 checklist items must use markdown checkbox syntax (`- [ ] Task`) so the human can toggle them as they go
 - Do not scaffold tests — the human writes tests themselves as part of learning good testing practices
+- For each implementation area, include a `## Tests to Write` checklist of recommended tests in plain language (e.g. "- [ ] POST /clients returns 400 when name is missing") — what to test and why, not how to write it
