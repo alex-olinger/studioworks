@@ -391,10 +391,13 @@ These are explicitly out of scope for MVP but the architecture supports them wit
 
 ## Implementation Guidance
 
-Plans derived from this spec are intended for a developer to follow and hand-code. Plan writers should:
+This spec is implemented in two distinct phases with different executors:
 
-- Cover the full pivot: start with the refactoring steps in the Pivot Mapping section (deletions, renames) before scaffolding new code — the plan must account for both tearing down the old video platform and building the invoicing platform
-- Scaffold file structure, function signatures, type definitions, and Prisma/Zod schemas in full
-- Leave all function bodies as `// TODO` — the developer writes the internal logic themselves
-- Write step-by-step instructions a human can read and act on; mentioning commands (e.g. `pnpm build`, `prisma migrate dev`) as prose guidance is fine, but plans should not be automation scripts
-- Note dependencies between steps (e.g. "build shared before touching api") as prose, not sequential shell commands
+**Phase 1 — Refactoring (agent-executed):** Agents handle the mechanical pivot from the old video platform — deleting dead files, renaming constants/models/schemas per the Pivot Mapping section, and applying the new Prisma schema with a migration. Plans for this phase should be written as agent instructions.
+
+**Phase 2 — Implementation (human hand-coded):** A human writes all internal logic. Plans for this phase should:
+
+- Scaffold file structure, function signatures, type definitions, and Zod schemas in full
+- Leave all function bodies as `// TODO` — the human fills in the logic
+- Be written as step-by-step human-readable instructions, not agent automation scripts
+- Note dependencies between steps (e.g. "build shared before touching api") as prose
