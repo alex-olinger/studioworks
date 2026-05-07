@@ -401,3 +401,4 @@ This spec is implemented in two distinct phases with different executors:
 - Leave all function bodies as `// TODO` — the human fills in the logic
 - Be written as step-by-step human-readable instructions, not agent automation scripts
 - Note dependencies between steps (e.g. "build shared before touching api") as prose
+- Include a general checklist at the top of the plan — high-level tasks in plain language (e.g. "Implement invoice generation logic", "Wire up time entry list to project detail page"), not code. This gives the human a bird's-eye view of what needs to be done before diving into the scaffolded files.
