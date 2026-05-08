@@ -1,15 +1,13 @@
-import { db } from '@studioworks/db'
-import { providerAdapter } from './providers/adapter.js'
+// TODO: import { db } from '@studioworks/db'
+// TODO: import { JobSpecSchema } from '@studioworks/shared'
+// TODO: import { generateInvoicePdf } from './providers/invoice-pdf.js'
 
-export async function processRenderJob({ renderJobId }: { renderJobId: string }) {
-  await db.renderJob.update({ where: { id: renderJobId }, data: { status: 'RUNNING' } })
-
-  try {
-    const job = await db.renderJob.findUniqueOrThrow({ where: { id: renderJobId } })
-    await db.renderJob.update({ where: { id: renderJobId }, data: { status: 'UPLOADING' } })
-    await providerAdapter.render(job.spec)
-    await db.renderJob.update({ where: { id: renderJobId }, data: { status: 'COMPLETE' } })
-  } catch {
-    await db.renderJob.update({ where: { id: renderJobId }, data: { status: 'FAILED' } })
-  }
+// processJob is the main entry point called by the BullMQ worker for every dequeued job
+export async function processJob({ jobId }: { jobId: string }) {
+  // TODO: load job from DB, set status to PROCESSING
+  // TODO: parse spec with JobSpecSchema
+  // TODO: switch on spec.type:
+  //   'invoice-pdf' → call generateInvoicePdf(spec.invoiceId)
+  //                   set job.outputPath, set status to COMPLETE
+  // TODO: on any error: set job.error to message, set status to FAILED, rethrow
 }

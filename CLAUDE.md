@@ -8,11 +8,10 @@ Operating rules are in `.claude/rules/`. Docs index is maintained here.
 
 > **Rule:** When a new doc is added to `docs/`, it must also be listed here. CLAUDE.md is the index — if it's not listed here, agents won't know it exists.
 
-- `docs/plan.md` — Full build plan in three parts: Part 1 MVP (Days 1–4 complete, Days 5–9 remaining), Part 2 production deployment roadmap, Part 3 data model & polish. Start at Part 1.
-- `docs/architecture.md` — system design decisions and rationale
-- `docs/render-pipeline.md` — render job lifecycle: API → queue → worker, data flows, state machine, gotchas
-- `docs/deployment-plan.md` — deployment status and post-MVP production roadmap (phases 1–7); detailed phase plan in `plan.md`
+- `docs/architecture.md` — system design decisions, rationale, and source file map
+- `docs/deployment-plan.md` — deployment status and production roadmap (phases 1–7)
 - `docs/local-dev.md` — local environment setup
+- `docs/superpowers/plans/2026-05-07-freelancer-pivot-phase2-implementation.md` — Phase 2 implementation plan (all `// TODO` route handlers)
 
 ---
 

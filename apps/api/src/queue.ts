@@ -1,6 +1,10 @@
-import { Queue } from 'bullmq'
-import { RENDER_QUEUE_NAME } from '@studioworks/shared'
+import { Queue } from 'bullmq' // BullMQ queue client
+import { Redis } from 'ioredis' // ioredis named export — required under NodeNext module resolution
+import { JOB_QUEUE_NAME } from '@studioworks/shared' // canonical queue name — shared with worker
 
-export const queue = new Queue(RENDER_QUEUE_NAME, {
-  connection: { url: process.env.REDIS_URL ?? 'redis://localhost:6379' },
+// create ioredis connection from URL; maxRetriesPerRequest null required by BullMQ
+const redis = new Redis(process.env.REDIS_URL ?? 'redis://localhost:6379', {
+  maxRetriesPerRequest: null,
 })
+
+export const queue = new Queue(JOB_QUEUE_NAME, { connection: redis }) // single queue instance used by route handlers

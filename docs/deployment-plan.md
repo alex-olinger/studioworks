@@ -2,7 +2,7 @@
 
 ## Current State (Local Dev Only)
 
-MVP pipeline (API → queue → worker) is implemented and tested. The frontend is in progress (Days 5–9 of `PLAN.md`). No production deployment exists yet.
+Phase 1 infrastructure pivot is complete. The domain schema (Client, Project, TimeEntry, Expense, Invoice, Job) is migrated. All route plugins and web pages are scaffolded. Route handlers have `// TODO` bodies awaiting Phase 2 implementation. No production deployment exists yet.
 
 **Local development:**
 
@@ -11,7 +11,7 @@ pnpm infra:up   # starts Postgres (5432) + Redis (6379) via Docker Compose
 pnpm dev        # runs web (3000), api (4000), worker concurrently
 ```
 
-See `LOCAL-DEV.md` for full setup instructions.
+See [`docs/local-dev.md`](local-dev.md) for full setup instructions.
 
 ---
 
@@ -37,7 +37,7 @@ Target platform: Railway (preferred) or Render. Cost estimate: ~$20–25/month o
 
 ## Prerequisites Before Phase 1
 
-- [ ] Days 5–9 of MVP plan complete (frontend, GET endpoints, error handling)
+- [ ] Phase 2 implementation complete (all `// TODO` route handlers implemented)
 - [ ] All tests passing (`pnpm test`)
 - [ ] No type errors (`pnpm typecheck`)
 - [ ] E2E flow manually verified end-to-end in local dev
