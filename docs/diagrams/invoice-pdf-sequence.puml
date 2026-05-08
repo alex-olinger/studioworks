@@ -1,0 +1,74 @@
+@startuml invoice-pdf-sequence
+title Invoice PDF Generation — Sequence
+
+skinparam backgroundColor white
+skinparam titleFontSize 16
+skinparam titleFontStyle bold
+skinparam defaultFontSize 11
+skinparam sequenceArrowThickness 1
+skinparam sequenceParticipantBackgroundColor #dae8fc
+skinparam sequenceParticipantBorderColor #6c8ebf
+skinparam noteBorderColor #d6b656
+skinparam noteBackgroundColor #fffacd
+skinparam sequenceGroupBorderColor #888888
+skinparam sequenceGroupBackgroundColor #f5f5f5
+
+actor       "Freelancer"  as user
+boundary    "Web :3000"   as web
+control     "API :4000"   as api
+database    "Postgres"    as pg
+queue       "Redis"       as redis
+control     "Worker"      as worker
+collections "Filesystem"  as fs
+
+autonumber
+
+user -> web : click "Generate Invoice"
+web -> api : POST /projects/:id/invoices
+activate api
+
+group Prisma Transaction
+  api -> pg : SELECT unbilled entries (FOR UPDATE)
+  pg --> api : TimeEntry[], Expense[]
+  api -> pg : CREATE Invoice + Job records
+  api -> pg : COMMIT
+end
+
+api -> redis : ENQUEUE { jobId }
+api --> web : 201 { invoice, job }
+deactivate api
+
+note over web, redis
+  Async: Worker processes while Web polls
+end note
+
+par Web polls for completion
+  loop status not COMPLETE
+    web -> api : GET /jobs/:jobId
+    api --> web : { status: QUEUED | PROCESSING }
+  end
+also Worker processes job
+  worker -> redis : DEQUEUE jobId
+  redis --> worker : { jobId }
+  worker -> pg : SELECT Job + spec WHERE id = jobId
+  pg --> worker : { spec: { type: "invoice-pdf", invoiceId } }
+  worker -> pg : UPDATE Job SET status = PROCESSING
+  worker -> fs ++ : generateInvoicePdf(invoiceId)
+  note right of worker : Puppeteer renders HTML → PDF
+  fs --> worker -- : data/invoices/{invoiceId}.pdf
+  worker -> pg : UPDATE Job SET status = COMPLETE, outputPath
+end
+
+web -> api : GET /jobs/:jobId
+api --> web : { status: COMPLETE }
+
+web -> api : GET /invoices/:id/pdf
+activate api
+api -> fs : fs.readFile(outputPath)
+fs --> api : PDF bytes
+api --> web : 200 application/pdf
+deactivate api
+
+web --> user : PDF download
+
+@enduml

@@ -12,6 +12,12 @@ Operating rules are in `.claude/rules/`. Docs index is maintained here.
 - `docs/deployment-plan.md` — deployment status and production roadmap (phases 1–7)
 - `docs/local-dev.md` — local environment setup
 - `docs/superpowers/plans/2026-05-07-freelancer-pivot-phase2-implementation.md` — Phase 2 implementation plan (all `// TODO` route handlers)
+- `docs/diagrams/system-context.puml` — high-level: Freelancer actor, StudioWorks boundary, future externals
+- `docs/diagrams/service-topology.puml` — all services, shared packages, and infrastructure with relationships
+- `docs/diagrams/prisma-data-model.puml` — ERD: all 6 Prisma models with fields, enums, and relationships
+- `docs/diagrams/invoice-pdf-sequence.puml` — sequence: invoice creation → async PDF job → download flow
+- `docs/index.html` — GitHub Pages diagram viewer (served at the Pages URL)
+- `.github/workflows/render-diagrams.yml` — renders .puml → SVG and deploys docs/ to GitHub Pages on push to main
 
 ---
 
