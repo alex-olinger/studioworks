@@ -8,6 +8,8 @@ StudioWorks drives invoice generation through a persistent job queue, strict sha
 
 ## Architecture Overview
 
+> Interactive diagrams: **[alex-olinger.github.io/studioworks](https://alex-olinger.github.io/studioworks/)**
+
 ```
 studioworks/
   apps/
@@ -155,6 +157,7 @@ State is written by the worker directly to the `Job` record in Postgres.
 
 | Document | Description |
 |---|---|
+| [alex-olinger.github.io/studioworks](https://alex-olinger.github.io/studioworks/) | Live architecture diagram viewer (GitHub Pages) |
 | [`docs/local-dev.md`](docs/local-dev.md) | Local development setup |
 | [`docs/architecture.md`](docs/architecture.md) | System design and key decisions |
 | [`docs/deployment-plan.md`](docs/deployment-plan.md) | Production deployment roadmap |
