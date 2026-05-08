@@ -7,19 +7,119 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum RenderJobStatus {
+enum JobStatus {
   QUEUED
-  RUNNING
-  UPLOADING
+  PROCESSING
   COMPLETE
   FAILED
 }
 
-model RenderJob {
-  id           String          @id @default(uuid())
-  status       RenderJobStatus @default(QUEUED)
-  spec         Json
-  outputAssets Json?
-  createdAt    DateTime        @default(now())
-  updatedAt    DateTime        @updatedAt
+enum ProjectStatus {
+  ACTIVE
+  COMPLETED
+  ARCHIVED
+}
+
+enum InvoiceStatus {
+  DRAFT
+  SENT
+  PAID
+  OVERDUE
+}
+
+model Client {
+  id        String    @id @default(uuid())
+  name      String
+  email     String?
+  address   String?
+  notes     String?
+  projects  Project[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Project {
+  id          String        @id @default(uuid())
+  name        String
+  status      ProjectStatus @default(ACTIVE)
+  hourlyRate  Float?
+  client      Client        @relation(fields: [clientId], references: [id])
+  clientId    String
+  timeEntries TimeEntry[]
+  expenses    Expense[]
+  invoices    Invoice[]
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  @@index([clientId])
+}
+
+model TimeEntry {
+  id          String   @id @default(uuid())
+  description String
+  date        DateTime
+  hours       Float
+  billable    Boolean  @default(true)
+  billed      Boolean  @default(false)
+  project     Project  @relation(fields: [projectId], references: [id])
+  projectId   String
+  invoice     Invoice? @relation(fields: [invoiceId], references: [id])
+  invoiceId   String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([projectId])
+  @@index([invoiceId])
+}
+
+model Expense {
+  id          String   @id @default(uuid())
+  description String
+  date        DateTime
+  amount      Float
+  category    String?
+  billable    Boolean  @default(true)
+  billed      Boolean  @default(false)
+  project     Project  @relation(fields: [projectId], references: [id])
+  projectId   String
+  invoice     Invoice? @relation(fields: [invoiceId], references: [id])
+  invoiceId   String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([projectId])
+  @@index([invoiceId])
+}
+
+model Invoice {
+  id            String        @id @default(uuid())
+  invoiceNumber String        @unique
+  status        InvoiceStatus @default(DRAFT)
+  dueDate       DateTime?
+  subtotal      Float
+  tax           Float         @default(0)
+  total         Float
+  notes         String?
+  project       Project       @relation(fields: [projectId], references: [id])
+  projectId     String
+  timeEntries   TimeEntry[]
+  expenses      Expense[]
+  job           Job?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  @@index([projectId])
+  @@index([status])
+}
+
+model Job {
+  id         String    @id @default(uuid())
+  status     JobStatus @default(QUEUED)
+  spec       Json
+  outputPath String?
+  error      String?
+  invoice    Invoice   @relation(fields: [invoiceId], references: [id])
+  invoiceId  String    @unique
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
 }
