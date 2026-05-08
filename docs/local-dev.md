@@ -37,7 +37,7 @@ Starts Postgres (port 5432) and Redis (port 6379) via Docker Compose.
 ### 4. Apply database migrations
 
 ```bash
-pnpm --filter @studioworks/db db:migrate:deploy
+pnpm db:migrate:deploy
 ```
 
 Creates all tables in Postgres. Migrations live in `packages/db/prisma/migrations/`.
