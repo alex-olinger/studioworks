@@ -5,14 +5,106 @@ skinparam backgroundColor white
 skinparam titleFontSize 16
 skinparam titleFontStyle bold
 skinparam defaultFontSize 11
-skinparam classBackgroundColor #dae8fc
-skinparam classBorderColor #6c8ebf
 skinparam classAttributeIconSize 0
 skinparam ArrowFontBackground white
-skinparam noteBorderColor #d6b656
-skinparam noteBackgroundColor #fffacd
-skinparam nodesep 40
-skinparam ranksep 50
+skinparam ArrowColor #444444
+skinparam ArrowThickness 1.5
+skinparam nodesep 60
+skinparam ranksep 70
+
+' Entity boxes — blue
+skinparam class {
+  BackgroundColor #dae8fc
+  BorderColor #6c8ebf
+}
+
+' Enum boxes — yellow, visually distinct from entities
+skinparam class<<enumeration>> {
+  BackgroundColor #fff2cc
+  BorderColor #d6b656
+}
+
+' ── Entities ───────────────────────────────────────────────────────────────
+
+class Client {
+  +id : String <<PK>>
+  --
+  +name : String
+  +email : String
+  +address : String
+  +notes : String?
+  +createdAt : DateTime
+  +updatedAt : DateTime
+}
+
+class Project {
+  +id : String <<PK>>
+  +clientId : String <<FK>>
+  --
+  +name : String
+  +status : ProjectStatus
+  +hourlyRate : Decimal?
+  +createdAt : DateTime
+  +updatedAt : DateTime
+}
+
+class Invoice {
+  +id : String <<PK>>
+  +projectId : String <<FK>>
+  --
+  +invoiceNumber : String
+  +status : InvoiceStatus
+  +dueDate : DateTime
+  +subtotal : Decimal
+  +tax : Decimal
+  +total : Decimal
+  +notes : String?
+  +createdAt : DateTime
+  +updatedAt : DateTime
+}
+
+class TimeEntry {
+  +id : String <<PK>>
+  +projectId : String <<FK>>
+  +invoiceId : String? <<FK>>
+  --
+  +description : String
+  +date : DateTime
+  +hours : Decimal
+  +billable : Boolean
+  +billed : Boolean
+  +createdAt : DateTime
+  +updatedAt : DateTime
+}
+
+class Expense {
+  +id : String <<PK>>
+  +projectId : String <<FK>>
+  +invoiceId : String? <<FK>>
+  --
+  +description : String
+  +date : DateTime
+  +amount : Decimal
+  +category : String?
+  +billable : Boolean
+  +billed : Boolean
+  +createdAt : DateTime
+  +updatedAt : DateTime
+}
+
+class Job {
+  +id : String <<PK>>
+  +invoiceId : String <<FK>>
+  --
+  +status : JobStatus
+  +spec : Json
+  +outputPath : String?
+  +error : String?
+  +createdAt : DateTime
+  +updatedAt : DateTime
+}
+
+' ── Enums ──────────────────────────────────────────────────────────────────
 
 enum ProjectStatus <<enumeration>> {
   ACTIVE
@@ -34,88 +126,37 @@ enum JobStatus <<enumeration>> {
   FAILED
 }
 
-class Client {
-  +id: String
-  +name: String
-  +email: String
-  +address: String
-  +notes: String?
-  +createdAt: DateTime
-  +updatedAt: DateTime
+' ── Relationships ───────────────────────────────────────────────────────────
+' Directed association (-->) reflects FK references in Prisma.
+' Composition (*--) and aggregation (o--) are not used here because Prisma
+' relationships are database FK constraints, not UML object ownership.
+
+Client "1" --> "0..*" Project : <back:white>has</back>
+Project "1" --> "0..*" TimeEntry : <back:white>logs</back>
+Project "1" --> "0..*" Expense : <back:white>tracks</back>
+Project "1" --> "0..*" Invoice : <back:white>generates</back>
+Invoice "0..1" --> "0..*" TimeEntry : <back:white>bills</back>
+Invoice "0..1" --> "0..*" Expense : <back:white>bills</back>
+Invoice "1" --> "1" Job : <back:white>triggers</back>
+
+' Dashed dependency for enum references — visually distinct from entity associations
+Project ..> ProjectStatus
+Invoice ..> InvoiceStatus
+Job ..> JobStatus
+
+' ── Layout hints ────────────────────────────────────────────────────────────
+' Force TimeEntry and Expense side-by-side to reduce crossing arrows from
+' both Project and Invoice connecting to each of them.
+together {
+  class TimeEntry
+  class Expense
 }
 
-class Project {
-  +id: String
-  +name: String
-  +status: ProjectStatus
-  +hourlyRate: Decimal?
-  +clientId: String
-  +createdAt: DateTime
-  +updatedAt: DateTime
+' Keep all three enums in a cluster away from the main entity flow.
+together {
+  enum ProjectStatus
+  enum InvoiceStatus
+  enum JobStatus
 }
-
-class TimeEntry {
-  +id: String
-  +description: String
-  +date: DateTime
-  +hours: Decimal
-  +billable: Boolean
-  +billed: Boolean
-  +projectId: String
-  +invoiceId: String?
-  +createdAt: DateTime
-  +updatedAt: DateTime
-}
-
-class Expense {
-  +id: String
-  +description: String
-  +date: DateTime
-  +amount: Decimal
-  +category: String?
-  +billable: Boolean
-  +billed: Boolean
-  +projectId: String
-  +invoiceId: String?
-  +createdAt: DateTime
-  +updatedAt: DateTime
-}
-
-class Invoice {
-  +id: String
-  +invoiceNumber: String
-  +status: InvoiceStatus
-  +dueDate: DateTime
-  +subtotal: Decimal
-  +tax: Decimal
-  +total: Decimal
-  +notes: String?
-  +projectId: String
-  +createdAt: DateTime
-  +updatedAt: DateTime
-}
-
-class Job {
-  +id: String
-  +status: JobStatus
-  +spec: Json
-  +outputPath: String?
-  +error: String?
-  +invoiceId: String
-  +createdAt: DateTime
-  +updatedAt: DateTime
-}
-
-Client "1" *-- "0..*" Project : <back:white>has</back>
-Project "1" *-- "0..*" TimeEntry : <back:white>logs</back>
-Project "1" *-- "0..*" Expense : <back:white>tracks</back>
-Project "1" *-- "0..*" Invoice : <back:white>generates</back>
-Invoice "0..1" o-- "0..*" TimeEntry : <back:white>bills</back>
-Invoice "0..1" o-- "0..*" Expense : <back:white>bills</back>
-Invoice "1" *-- "1" Job : <back:white>triggers</back>
-
-Project --> ProjectStatus
-Invoice --> InvoiceStatus
-Job --> JobStatus
 
 @enduml
