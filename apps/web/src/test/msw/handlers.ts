@@ -1,16 +1,11 @@
 import { http, HttpResponse } from 'msw'
 
-// Default happy-path handlers — override in individual tests with server.use()
+// Stub handlers for the invoicing domain — override in individual tests with server.use()
 export const handlers = [
-  http.post('/api/render-jobs', () => {
-    return HttpResponse.json({ id: 'test-render-job-id', status: 'QUEUED' }, { status: 201 })
-  }),
-
-  http.get('/api/render-jobs/:id', ({ params }) => {
-    return HttpResponse.json({
-      id: params.id,
-      status: 'COMPLETE',
-      outputAssets: [],
-    })
-  }),
+  http.get('/api/clients', () => HttpResponse.json({ data: [], nextCursor: null })),
+  http.post('/api/clients', () => HttpResponse.json({ id: 'stub-client-id', name: 'Stub Client' }, { status: 201 })),
+  http.get('/api/invoices', () => HttpResponse.json({ data: [], nextCursor: null })),
+  http.get('/api/jobs/:id', ({ params }) =>
+    HttpResponse.json({ id: params.id, status: 'QUEUED', outputPath: null, error: null })
+  ),
 ]

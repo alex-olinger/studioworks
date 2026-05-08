@@ -3,7 +3,8 @@
 - `apps/` — runtime services
 - `packages/` — shared logic
 - `docker/` — local infrastructure containers
-- `infra/` — production infrastructure definition
+- `infra/` — production infrastructure definition (future)
+- `data/invoices/` — PDF output directory
 
 ---
 
@@ -13,105 +14,85 @@ The platform is split into three services that communicate only through well-def
 
 ```
 web (Next.js)
-  └─ POST /render-jobs ──► api (Fastify)
-                              ├─ validates RenderSpec (Zod)
-                              ├─ persists RenderJob (Postgres, immutable)
-                              └─ enqueues renderJobId ──► Redis
-                                                            └─ worker (BullMQ)
-                                                                ├─ loads spec from DB
-                                                                ├─ calls providerAdapter
-                                                                └─ updates job status
+  └─ POST /projects/:id/invoices ──► api (Fastify)
+                                        ├─ gathers unbilled entries (Postgres transaction)
+                                        ├─ creates Invoice + Job records
+                                        └─ enqueues jobId ──► Redis
+                                                                └─ worker (BullMQ)
+                                                                    ├─ loads JobSpec from DB
+                                                                    ├─ calls invoice-pdf provider
+                                                                    └─ updates job status + outputPath
 ```
 
-**Key constraint:** The API only ever enqueues the `renderJobId`, never the full spec. The worker loads the spec from the database itself. This means the queue stays lightweight and the spec is always read from a single source of truth.
+**Key constraint:** The API only ever enqueues the `jobId`, never the full spec. The worker loads the `JobSpec` from the database itself. This keeps the queue lightweight and the spec read from a single source of truth.
 
 ---
 
 ## Why the Worker Is Split Into Two Layers
 
-The worker has two distinct files: `worker.ts` and `processor.ts`.
+**`worker.ts`** is the BullMQ entry point. It knows about the queue — how to connect, dequeue jobs, and report success or failure back to BullMQ. It contains no business logic.
 
-**`worker.ts`** is the BullMQ entry point. It knows about the queue — how to connect, how to dequeue jobs, and how to report success or failure back to BullMQ. It does no rendering logic itself.
+**`processor.ts`** owns the job state machine (`QUEUED → PROCESSING → COMPLETE / FAILED`) and dispatches to the correct provider based on `JobSpec.type`. It knows nothing about BullMQ internals.
 
-**`processor.ts`** is the rendering logic. It owns the job state machine (`QUEUED → RUNNING → UPLOADING → COMPLETE / FAILED`) and calls the provider adapter to do the actual render. It knows nothing about BullMQ.
-
-This separation matters because the worker is intentionally replaceable. A future GPU service written in Python could consume the same Redis queue and the same Postgres database without touching any of this code. Keeping queue mechanics out of `processor.ts` means the rendering logic can be tested independently without a running queue.
+This separation keeps the processing logic testable without a running queue, and makes it straightforward to add new job types by extending `processor.ts` without touching queue wiring.
 
 ---
 
-## Why the Provider Adapter Exists
+## Why the Provider Pattern Exists
 
-`apps/worker/src/providers/adapter.ts` is a stub that wraps the call to the actual render provider (e.g. a video generation API). It exists as its own module so that:
+`apps/worker/src/providers/invoice-pdf.ts` is the handler for the `invoice-pdf` job type. It exists as its own module so that:
 
-- The processor calls a stable interface (`providerAdapter.render(spec)`) regardless of which provider is active
-- Swapping or adding a provider only requires changes inside `providers/` — no changes to queue logic or state management
-- Tests can `vi.spyOn(providerAdapter, 'render')` to simulate provider success or failure without making real API calls
+- The processor dispatches to a stable function interface (`generateInvoicePdf(invoiceId)`) regardless of implementation details
+- Adding a new job type (e.g. email delivery, Stripe sync) only requires a new provider file and a new case in `processor.ts` — no changes to queue wiring
+- Providers can be tested in isolation without a running queue
 
 ---
 
 ## How Prisma Connects the Database to TypeScript
 
-Prisma acts as the bridge between Postgres and the rest of the codebase in two steps:
-
 ```
-schema.prisma        ← you define the shape here
-      ↓  prisma migrate
-migration.sql        ← Prisma generates SQL to make Postgres match
+schema.prisma        ← define shape here
+      ↓  prisma migrate dev
+migration.sql        ← Prisma generates SQL to match Postgres
       ↓  applied to Postgres
 actual tables
 
 schema.prisma
       ↓  prisma generate
-PrismaClient         ← Prisma generates TypeScript types that match the tables
+PrismaClient         ← Prisma generates TypeScript types
       ↓
-your code            ← db.renderJob.create(), db.renderJob.findUnique(), etc.
+your code            ← db.client.create(), db.invoice.findUnique(), etc.
 ```
 
-"Fully typed" means TypeScript knows the exact shape of every database object at compile time — fields, types, and valid enum values — so mistakes are caught while writing code, not at runtime:
+TypeScript knows the exact shape of every database record at compile time — fields, types, valid enum values — so mistakes are caught while writing code, not at runtime.
 
-```ts
-job.id        // string
-job.status    // RenderJobStatus — QUEUED | RUNNING | UPLOADING | COMPLETE | FAILED
-job.spec      // Json
-
-job.badField  // ✗ TypeScript error — field doesn't exist
-db.renderJob.create({ data: { status: 'INVALID' } })  // ✗ TypeScript error — not a valid enum value
-```
-
-`schema.prisma` is the single source of truth. Migrations keep Postgres in sync with it; `prisma generate` keeps the TypeScript types in sync with it.
+`schema.prisma` is the single source of truth. Migrations keep Postgres in sync; `prisma generate` keeps TypeScript types in sync.
 
 ---
 
 ## Zod vs Prisma
 
-These serve different purposes and operate at different layers — never conflate them.
+**Zod** validates untrusted input at trust boundaries:
+- HTTP request bodies, params, query strings
+- Webhook payloads from third parties
+- Environment variables (`process.env` is untyped)
 
-**Zod** validates untrusted input at trust boundaries. The HTTP request body is the most common case, but the rule is broader — any data that crosses a trust boundary should be parsed with Zod:
-
-- HTTP request body, params, query string — from clients
-- Webhook bodies — from third parties (Stripe, GitHub, etc.)
-- S3 event payloads — from AWS
-- Environment variables — `process.env` is untyped at runtime
-- File contents being parsed (CSV, JSON uploads)
-
-Data that does **not** need Zod: Prisma query results, data from other internal services in the same monorepo (already validated at their own boundary), and constants defined in your own code.
-
-**Prisma** talks to Postgres. It generates TypeScript types from `schema.prisma`, applies migrations, and handles all DB reads and writes. It has no knowledge of HTTP.
+**Prisma** talks to Postgres. It generates TypeScript types from `schema.prisma`, applies migrations, and handles all DB reads and writes.
 
 ```
 HTTP request body (untrusted)
       │
       ▼
-  RenderSpecSchema.parse()     ← Zod: reject bad input before it touches the DB
+  z.object({...}).parse(request.body)   ← Zod: reject bad input at the boundary
       │
       ▼
-  db.renderJob.create()        ← Prisma: write validated data to Postgres
+  db.client.create({ data: ... })       ← Prisma: write validated data to Postgres
       │
       ▼
-  Prisma result (trusted)      ← no Zod needed — typed by generated client
+  Prisma result (trusted)               ← no Zod needed — typed by generated client
 ```
 
-**Rule:** Never use Zod to validate Prisma query results. Data returned from Prisma is trusted internal infrastructure — it was written through a validated path and is fully typed by the generated client. Double-validating it adds noise without safety.
+**Rule:** Never use Zod to validate Prisma query results. Data returned from Prisma was written through a validated path and is fully typed by the generated client.
 
 ---
 
@@ -120,46 +101,46 @@ HTTP request body (untrusted)
 ### `packages/shared`
 | File | Purpose |
 |---|---|
-| `render-spec.ts`  | Zod schema for `RenderSpec` — the canonical cross-service contract |
-| `src/index.ts`    | Re-exports schema types and `RENDER_QUEUE_NAME` constant |
+| `job-spec.ts` | Zod discriminated union for `JobSpec` — canonical cross-service contract |
+| `src/index.ts` | Re-exports `JobSpec` types and `JOB_QUEUE_NAME` constant |
 
 ### `packages/db`
 | File | Purpose |
 |---|---|
-| `src/index.ts`    | Exports `db` — the shared PrismaClient singleton |
-| `prisma/schema.prisma` | DB schema source of truth — `RenderJob` model, `RenderJobStatus` enum |
+| `src/index.ts` | Exports `db` (PrismaClient singleton) and all domain types |
+| `prisma/schema.prisma` | DB schema source of truth — six domain models |
 
 ### `apps/api`
 | File | Purpose |
 |---|---|
-| `src/index.ts`    | Server entry point, listens on port 4000 |
-| `src/app.ts`      | Fastify app — `POST /render-jobs` validates spec, persists job, enqueues by ID |
-| `src/queue.ts`    | BullMQ `Queue` instance connected to Redis |
+| `src/index.ts` | Server entry point, listens on port 4000 |
+| `src/app.ts` | Fastify app — registers all route plugins |
+| `src/queue.ts` | BullMQ `Queue` instance connected to Redis |
+| `src/routes/clients.ts` | Client CRUD — scaffold, awaiting Phase 2 |
+| `src/routes/projects.ts` | Project CRUD — scaffold, awaiting Phase 2 |
+| `src/routes/time-entries.ts` | Time entry routes — scaffold, awaiting Phase 2 |
+| `src/routes/expenses.ts` | Expense routes — scaffold, awaiting Phase 2 |
+| `src/routes/invoices.ts` | Invoice routes including PDF endpoint — scaffold, awaiting Phase 2 |
+| `src/routes/jobs.ts` | Job status polling — scaffold, awaiting Phase 2 |
 
 ### `apps/worker`
 | File | Purpose |
 |---|---|
-| `src/worker.ts`               | BullMQ Worker entry point — dequeues `renderJobId`, calls processor |
-| `src/processor.ts`            | `processRenderJob` — drives state machine (QUEUED → RUNNING → UPLOADING → COMPLETE / FAILED) |
-| `src/providers/adapter.ts`    | Provider adapter stub — wraps the render API call, swappable without touching queue logic |
+| `src/worker.ts` | BullMQ Worker entry point — dequeues `jobId`, calls `processJob` |
+| `src/processor.ts` | `processJob` — drives state machine, dispatches on `JobSpec.type` — scaffold, awaiting Phase 2 |
+| `src/providers/invoice-pdf.ts` | PDF generation provider — scaffold, awaiting Phase 2 |
 
 ### `apps/web`
-
-> **Status:** Layout and home page are minimal stubs. Render pages are placeholder components. Full implementation is Days 5–7 of `PLAN.md`.
-
 | File | Purpose |
 |---|---|
-| `src/app/layout.tsx` | Next.js root layout (minimal — no nav yet) |
-| `src/app/page.tsx` | Home page (stub `<h1>StudioWorks</h1>`) |
-| `src/app/render/page.tsx` | Render job list — placeholder (target: fetch jobs, status table, poll every 5s) |
-| `src/app/render/[id]/page.tsx` | Job detail — placeholder (target: status badge, spec breakdown, poll, output asset link) |
-| `src/app/studio/page.tsx` | Creative marketing studio landing (future) |
-| `src/app/studio/clients/page.tsx` | Client management (future) |
-| `src/app/studio/scripts/page.tsx` | Commercial screenplay storage (future) |
-| `src/app/studio/storyboards/page.tsx` | Storyboard storage (future) |
-| `src/app/studio/prompts/page.tsx` | Prompt builder, template library, and render submission (future) |
-
-### `packages/shared` — studio
-| File | Purpose |
-|---|---|
-| `src/studio/index.ts` | Placeholder for future studio types — `PromptTemplate`, `CommercialScript`, `Storyboard`, `Client` |
+| `src/app/layout.tsx` | Root layout with nav shell |
+| `src/app/page.tsx` | Dashboard — summary stats scaffold |
+| `src/app/clients/page.tsx` | Client list — scaffold |
+| `src/app/clients/new/page.tsx` | New client form — scaffold |
+| `src/app/clients/[id]/page.tsx` | Client detail — scaffold |
+| `src/app/projects/page.tsx` | Project list — scaffold |
+| `src/app/projects/[id]/page.tsx` | Project detail with invoice generation — scaffold |
+| `src/app/projects/[id]/time/page.tsx` | Time entry log — scaffold |
+| `src/app/projects/[id]/expenses/page.tsx` | Expense log — scaffold |
+| `src/app/invoices/page.tsx` | Invoice list — scaffold |
+| `src/app/invoices/[id]/page.tsx` | Invoice detail with job polling and PDF download — scaffold |
