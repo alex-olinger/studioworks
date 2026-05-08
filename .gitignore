@@ -11,6 +11,12 @@ node_modules/
 .next/
 dist/
 build/
+*.js.map
+
+# Compiled JS artifacts (source is TypeScript — compiled outputs are not committed)
+packages/*/src/**/*.js
+packages/*/*.js
+vitest.workspace.js
 
 # Logs
 logs/
@@ -50,3 +56,5 @@ next-env.d.ts
 
 # Misc
 *.tsbuildinfo
+# Added by code-review-graph
+.code-review-graph/
