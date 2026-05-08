@@ -16,6 +16,8 @@ build/
 # Compiled JS artifacts (source is TypeScript — compiled outputs are not committed)
 packages/*/src/**/*.js
 packages/*/*.js
+apps/*/src/**/*.js
+apps/*/*.js
 vitest.workspace.js
 
 # Logs
