@@ -1,0 +1,74 @@
+@startuml service-topology
+title StudioWorks — Service Topology
+
+skinparam backgroundColor white
+skinparam titleFontSize 16
+skinparam titleFontStyle bold
+skinparam defaultFontSize 11
+skinparam nodesep 40
+skinparam ranksep 60
+skinparam ArrowFontBackground white
+
+skinparam actor {
+  BackgroundColor #1168bd
+  BorderColor #08427b
+  FontColor white
+}
+
+skinparam component {
+  BackgroundColor #dae8fc
+  BorderColor #6c8ebf
+  FontSize 11
+}
+
+skinparam database {
+  BackgroundColor #ffe6cc
+  BorderColor #d79b00
+}
+
+skinparam queue {
+  BackgroundColor #d5e8d4
+  BorderColor #82b366
+}
+
+skinparam storage {
+  BackgroundColor #f8cecc
+  BorderColor #b85450
+}
+
+actor "Freelancer" as user
+
+rectangle "StudioWorks Platform" {
+
+  component "**Web**\nNext.js :3000\n--\n/, /clients, /projects\n/invoices" as web
+
+  component "**API**\nFastify :4000\n--\n/clients, /projects\n/invoices, /jobs" as api
+
+  component "**Worker**\nBullMQ Node\n--\nprocessJob()\ngenerateInvoicePdf()" as worker
+
+  component "**@studioworks/shared**\n//[Shared Package]//\n--\nJobSpec, JOB_QUEUE_NAME" as shared #fffacd
+
+  component "**@studioworks/db**\n//[Shared Package]//\n--\nPrisma PrismaClient" as db_pkg #fffacd
+
+  database "**Postgres**\npostgres:16 :5432\n--\nClient, Project\nTimeEntry, Expense\nInvoice, Job" as postgres
+
+  queue "**Redis**\nredis:7 :6379\n--\nqueue: \"jobs\"" as redis
+
+  storage "**Filesystem**\nlocal disk\n--\ndata/invoices/{id}.pdf" as fs
+
+}
+
+user --> web : HTTPS
+web --> api : HTTP REST\n(port 4000)
+api --> postgres : <back:white>Prisma</back>
+api --> redis : <back:white>enqueue jobId\n[BullMQ]</back>
+api --> fs : <back:white>fs.readFile\n(serve PDF)</back>
+worker --> redis : <back:white>dequeue jobId\n[BullMQ]</back>
+worker --> postgres : <back:white>load JobSpec\n[Prisma]</back>
+worker --> fs : <back:white>write PDF\n[Puppeteer]</back>
+api ..> shared : <back:white><<use>></back>
+worker ..> shared : <back:white><<use>></back>
+api ..> db_pkg : <back:white><<use>></back>
+worker ..> db_pkg : <back:white><<use>></back>
+
+@enduml

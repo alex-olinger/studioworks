@@ -1,0 +1,121 @@
+@startuml prisma-data-model
+title StudioWorks — Prisma Data Model
+
+skinparam backgroundColor white
+skinparam titleFontSize 16
+skinparam titleFontStyle bold
+skinparam defaultFontSize 11
+skinparam classBackgroundColor #dae8fc
+skinparam classBorderColor #6c8ebf
+skinparam classAttributeIconSize 0
+skinparam ArrowFontBackground white
+skinparam noteBorderColor #d6b656
+skinparam noteBackgroundColor #fffacd
+skinparam nodesep 40
+skinparam ranksep 50
+
+enum ProjectStatus <<enumeration>> {
+  ACTIVE
+  COMPLETED
+  ARCHIVED
+}
+
+enum InvoiceStatus <<enumeration>> {
+  DRAFT
+  SENT
+  PAID
+  OVERDUE
+}
+
+enum JobStatus <<enumeration>> {
+  QUEUED
+  PROCESSING
+  COMPLETE
+  FAILED
+}
+
+class Client {
+  +id: String
+  +name: String
+  +email: String
+  +address: String
+  +notes: String?
+  +createdAt: DateTime
+  +updatedAt: DateTime
+}
+
+class Project {
+  +id: String
+  +name: String
+  +status: ProjectStatus
+  +hourlyRate: Decimal?
+  +clientId: String
+  +createdAt: DateTime
+  +updatedAt: DateTime
+}
+
+class TimeEntry {
+  +id: String
+  +description: String
+  +date: DateTime
+  +hours: Decimal
+  +billable: Boolean
+  +billed: Boolean
+  +projectId: String
+  +invoiceId: String?
+  +createdAt: DateTime
+  +updatedAt: DateTime
+}
+
+class Expense {
+  +id: String
+  +description: String
+  +date: DateTime
+  +amount: Decimal
+  +category: String?
+  +billable: Boolean
+  +billed: Boolean
+  +projectId: String
+  +invoiceId: String?
+  +createdAt: DateTime
+  +updatedAt: DateTime
+}
+
+class Invoice {
+  +id: String
+  +invoiceNumber: String
+  +status: InvoiceStatus
+  +dueDate: DateTime
+  +subtotal: Decimal
+  +tax: Decimal
+  +total: Decimal
+  +notes: String?
+  +projectId: String
+  +createdAt: DateTime
+  +updatedAt: DateTime
+}
+
+class Job {
+  +id: String
+  +status: JobStatus
+  +spec: Json
+  +outputPath: String?
+  +error: String?
+  +invoiceId: String
+  +createdAt: DateTime
+  +updatedAt: DateTime
+}
+
+Client "1" *-- "0..*" Project : <back:white>has</back>
+Project "1" *-- "0..*" TimeEntry : <back:white>logs</back>
+Project "1" *-- "0..*" Expense : <back:white>tracks</back>
+Project "1" *-- "0..*" Invoice : <back:white>generates</back>
+Invoice "0..1" o-- "0..*" TimeEntry : <back:white>bills</back>
+Invoice "0..1" o-- "0..*" Expense : <back:white>bills</back>
+Invoice "1" *-- "1" Job : <back:white>triggers</back>
+
+Project --> ProjectStatus
+Invoice --> InvoiceStatus
+Job --> JobStatus
+
+@enduml
