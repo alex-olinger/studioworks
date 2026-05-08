@@ -56,7 +56,7 @@ jobs:
           echo "$MERGED_PRS"
 
           # Build the changelog body grouped by conventional commit type
-          BODY="## Summary\n\nPromotion of \`dev\` into \`main\`.\n"
+          BODY="## Summary\n\n- Promotion of \`dev\` into \`main\`.\n"
 
           # Map of type prefix → display label (order determines section order in output)
           declare -A LABELS=(
