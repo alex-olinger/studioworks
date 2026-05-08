@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StudioWorks — Architecture Diagrams</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #f1f5f9;
+      color: #0f172a;
+      min-height: 100vh;
+    }
+
+    /* ── header ── */
+    .site-header {
+      background: #0f172a;
+      color: #f8fafc;
+      padding: 2rem 2.5rem;
+      border-bottom: 3px solid #3b82f6;
+    }
+    .site-header h1 { font-size: 1.4rem; font-weight: 700; letter-spacing: -0.01em; }
+    .site-header p  { margin-top: 0.35rem; font-size: 0.85rem; color: #94a3b8; }
+    .site-header code {
+      font-family: "SF Mono", Menlo, monospace;
+      background: #1e293b;
+      padding: 0.1em 0.4em;
+      border-radius: 3px;
+      font-size: 0.8em;
+    }
+
+    /* ── grid ── */
+    main {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 2.5rem 2rem;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(540px, 1fr));
+      gap: 1.75rem;
+    }
+
+    /* ── card ── */
+    .card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+      transition: box-shadow 0.15s ease;
+    }
+    .card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+
+    .card-header {
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid #f1f5f9;
+    }
+    .card-header h2 { font-size: 0.95rem; font-weight: 600; color: #0f172a; }
+    .card-header p  { font-size: 0.8rem; color: #64748b; margin-top: 0.25rem; line-height: 1.5; }
+
+    .card-body {
+      flex: 1;
+      padding: 1rem;
+      background: #fafafa;
+    }
+    .card-body a { display: block; }
+    .card-body img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 4px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .card-footer {
+      padding: 0.65rem 1.25rem;
+      border-top: 1px solid #f1f5f9;
+      font-size: 0.75rem;
+      color: #94a3b8;
+    }
+    .card-footer a {
+      color: #3b82f6;
+      text-decoration: none;
+      font-family: "SF Mono", Menlo, monospace;
+    }
+    .card-footer a:hover { text-decoration: underline; }
+
+    /* ── responsive ── */
+    @media (max-width: 640px) {
+      .site-header { padding: 1.5rem 1.25rem; }
+      main { padding: 1.5rem 1rem; }
+      .grid { grid-template-columns: 1fr; gap: 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <h1>StudioWorks — Architecture Diagrams</h1>
+    <p>Auto-rendered from <code>docs/diagrams/*.puml</code> on every push to <code>main</code>. Click any diagram to open full-size.</p>
+  </header>
+
+  <main>
+    <div class="grid">
+
+      <article class="card">
+        <div class="card-header">
+          <h2>System Context</h2>
+          <p>High-level view: the Freelancer actor, the StudioWorks system boundary, and planned external integrations.</p>
+        </div>
+        <div class="card-body">
+          <a href="diagrams/system-context.svg" target="_blank" title="Open full-size">
+            <img src="diagrams/system-context.svg" alt="System Context diagram">
+          </a>
+        </div>
+        <div class="card-footer">
+          Source: <a href="diagrams/system-context.puml">system-context.puml</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-header">
+          <h2>Service Topology</h2>
+          <p>All runtime services, shared packages, and infrastructure — with communication channels and protocols.</p>
+        </div>
+        <div class="card-body">
+          <a href="diagrams/service-topology.svg" target="_blank" title="Open full-size">
+            <img src="diagrams/service-topology.svg" alt="Service Topology diagram">
+          </a>
+        </div>
+        <div class="card-footer">
+          Source: <a href="diagrams/service-topology.puml">service-topology.puml</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-header">
+          <h2>Prisma Data Model</h2>
+          <p>All 6 Prisma models — Client, Project, TimeEntry, Expense, Invoice, Job — with fields, enums, and relationships.</p>
+        </div>
+        <div class="card-body">
+          <a href="diagrams/prisma-data-model.svg" target="_blank" title="Open full-size">
+            <img src="diagrams/prisma-data-model.svg" alt="Prisma Data Model diagram">
+          </a>
+        </div>
+        <div class="card-footer">
+          Source: <a href="diagrams/prisma-data-model.puml">prisma-data-model.puml</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-header">
+          <h2>Invoice PDF Sequence</h2>
+          <p>Full async flow: invoice creation triggers a queued PDF job, Worker processes it, Web polls until complete and downloads.</p>
+        </div>
+        <div class="card-body">
+          <a href="diagrams/invoice-pdf-sequence.svg" target="_blank" title="Open full-size">
+            <img src="diagrams/invoice-pdf-sequence.svg" alt="Invoice PDF Sequence diagram">
+          </a>
+        </div>
+        <div class="card-footer">
+          Source: <a href="diagrams/invoice-pdf-sequence.puml">invoice-pdf-sequence.puml</a>
+        </div>
+      </article>
+
+    </div>
+  </main>
+
+</body>
+</html>
