@@ -25,12 +25,12 @@ jobs:
           REPO: ${{ github.repository }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
-          # Find the merge date of the most recent testing → main promotion PR
+          # Find the merge date of the most recent dev → main promotion PR
           # ISO 8601 dates sort lexicographically so string comparison works
           LAST_PROMOTION_DATE=$(gh pr list \
             --repo "$REPO" \
             --base main \
-            --head testing \
+            --head dev \
             --state merged \
             --json mergedAt \
             --jq '.[0].mergedAt // empty' \
