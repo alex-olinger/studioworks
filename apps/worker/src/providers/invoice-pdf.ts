@@ -11,4 +11,5 @@ export async function generateInvoicePdf(invoiceId: string): Promise<string> {
   // TODO: ensure data/invoices/ directory exists
   // TODO: write PDF buffer to data/invoices/{invoiceId}.pdf
   // TODO: return the output file path
+  throw new Error('not implemented') // placeholder — Phase 2 will implement this
 }

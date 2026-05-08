@@ -16,6 +16,6 @@ export function buildApp() {
   app.register(invoiceRoutes) // register all invoice routes
   app.register(jobRoutes) // register job status route
 
-  app.ready().catch(console.error) // kick off Fastify async init so routes are ready before tests
+  Promise.resolve(app.ready()).catch(console.error) // kick off Fastify async init so routes are ready before tests
   return app
 }
