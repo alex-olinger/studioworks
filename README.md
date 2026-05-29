@@ -20,6 +20,13 @@ studioworks/
         projects/               # Project list, detail, time entries, expenses
         invoices/               # Invoice list and detail with PDF download
     api/                        # Fastify backend (port 4000)
+      src/routes/
+        clients.ts              # POST /clients, GET /clients, GET /clients/:id, PATCH /clients/:id
+        projects.ts             # POST /clients/:clientId/projects, GET /clients/:clientId/projects, GET /projects/:id, PATCH /projects/:id
+        time-entries.ts         # POST /projects/:projectId/time-entries, GET /projects/:projectId/time-entries, DELETE /time-entries/:id
+        expenses.ts             # POST /projects/:projectId/expenses, GET /projects/:projectId/expenses, DELETE /expenses/:id
+        invoices.ts             # POST /projects/:projectId/invoices, GET /invoices, GET /invoices/:id, PATCH /invoices/:id, GET /invoices/:id/pdf
+        jobs.ts                 # GET /jobs/:id (status polling)
     worker/                     # BullMQ async job processor
   packages/
     shared/                     # JobSpec Zod schema, queue constants, shared types
@@ -74,6 +81,7 @@ Frontend requests invoice generation
 - **Shared TypeScript contracts** — `@studioworks/shared` is the single source of truth for all cross-service types (`JobSpec`, `JOB_QUEUE_NAME`). `@studioworks/db` is the only path to the database — never import `@prisma/client` directly.
 - **Zod guards trust boundaries, Prisma owns the DB** — Zod validates data that originates outside code we control: HTTP request bodies, webhook payloads, environment variables. Prisma query results are trusted internal infrastructure — already validated at write time and fully typed by the generated client.
 - **Provider-agnostic worker** — the worker dispatches on `JobSpec.type`, making it straightforward to add new job types (e.g. email delivery, Stripe sync) without touching API or queue logic.
+- **Worker two-layer architecture** — `worker.ts` owns the BullMQ lifecycle (setup, teardown, signal handling) while `processor.ts` contains job logic. This keeps infrastructure concerns out of business logic and makes the processor independently testable.
 
 ---
 
@@ -161,6 +169,7 @@ State is written by the worker directly to the `Job` record in Postgres.
 | [`docs/local-dev.md`](docs/local-dev.md) | Local development setup |
 | [`docs/architecture.md`](docs/architecture.md) | System design and key decisions |
 | [`docs/deployment-plan.md`](docs/deployment-plan.md) | Production deployment roadmap |
+| [`docs/diagrams/`](docs/diagrams/) | PlantUML source files (system context, service topology, ERD, invoice sequence) — auto-rendered to SVG and deployed to GitHub Pages by [`.github/workflows/render-diagrams.yml`](.github/workflows/render-diagrams.yml) on push to `main` |
 
 ---
 
