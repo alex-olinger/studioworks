@@ -28,6 +28,11 @@ studioworks/
         invoices.ts             # POST /projects/:projectId/invoices, GET /invoices, GET /invoices/:id, PATCH /invoices/:id, GET /invoices/:id/pdf
         jobs.ts                 # GET /jobs/:id (status polling)
     worker/                     # BullMQ async job processor
+      src/
+        worker.ts               # BullMQ lifecycle: setup, teardown, signal handling
+        processor.ts            # Job dispatch logic (switches on JobSpec.type)
+        providers/
+          invoice-pdf.ts        # PDF generation provider stub (Phase 2)
   packages/
     shared/                     # JobSpec Zod schema, queue constants, shared types
     db/                         # Prisma schema and database client
@@ -129,9 +134,10 @@ Phase 1 (infrastructure pivot) is complete:
 - New Prisma schema with six domain models migrated to Postgres
 - `JobSpec` discriminated union schema replaces `RenderSpec` in `@studioworks/shared`
 - All six API route plugins scaffolded (`/clients`, `/projects`, `/time-entries`, `/expenses`, `/invoices`, `/jobs`)
-- Worker renamed and scaffolded (`processJob`, `invoice-pdf` provider)
+- Worker renamed and scaffolded (`processJob`, `invoice-pdf` provider stub under `providers/`)
 - All web pages scaffolded for clients, projects, time entries, expenses, and invoices
 - `pnpm typecheck` passes clean across all packages
+- Stale compiled `.js` shadows removed from all `src/` trees; `.gitignore` guard updated to `**/src/**/*.js` so artifacts can't leak back in
 
 Route handlers and the PDF provider have `// TODO` bodies — Phase 2 implements them.
 
