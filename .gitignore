@@ -18,11 +18,11 @@ dist/
 build/
 *.js.map
 
-# Compiled JS artifacts (source is TypeScript — compiled outputs are not committed)
-packages/*/src/**/*.js
+# Compiled JS artifacts (source is TypeScript — compiled outputs are not committed).
+# src/ trees hold only .ts/.tsx; package roots hold in-place tsc output (e.g. job-spec.js).
+# App-root config .js (next.config.js, postcss.config.js, tailwind.config.js) is intentionally NOT ignored.
+**/src/**/*.js
 packages/*/*.js
-apps/*/src/**/*.js
-apps/*/*.js
 vitest.workspace.js
 
 # Logs
