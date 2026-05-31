@@ -17,7 +17,7 @@ See [`docs/local-dev.md`](local-dev.md) for full setup instructions.
 
 ## Post-MVP Deployment Roadmap
 
-Detailed phase plan lives in `PLAN.md` under **"Post-MVP: Production Deployment Roadmap"**. Summary:
+Summary:
 
 | Phase | Work | ~Time |
 |---|---|---|
