@@ -118,7 +118,7 @@ Frontend requests invoice generation
 pnpm install
 cp .env.example .env                                    # defaults work with Docker Compose
 pnpm infra:up                                           # start Postgres (5432) + Redis (6379)
-pnpm --filter @studioworks/db db:migrate:deploy         # apply migrations (first time only)
+pnpm db:migrate:deploy                                  # apply migrations (first time only)
 pnpm dev                                                # web (3000), api (4000), worker
 ```
 
