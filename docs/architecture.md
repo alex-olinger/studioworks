@@ -68,6 +68,32 @@ TypeScript knows the exact shape of every database record at compile time — fi
 
 `schema.prisma` is the single source of truth. Migrations keep Postgres in sync; `prisma generate` keeps TypeScript types in sync.
 
+### What `db.client.findMany()` Actually Does at Runtime
+
+A single query call passes through three layers. No layer does all the work — each hands off to the next:
+
+```
+db.client.findMany({ where: {...} })
+      │
+      ▼
+PrismaClient          ← routes the call: "that's the Client delegate's job"
+      │
+      ▼
+Client delegate       ← type-checks the args against the Client model and
+      │                 builds a structured query (does NOT run SQL itself)
+      ▼
+Query engine          ← shared by all delegates; executes the actual SQL
+      │                 against Postgres and returns rows
+      ▼
+typed Client[] result
+```
+
+- **`PrismaClient`** (`db`) is a thin container. It has no `findMany` of its own — it exposes one **delegate** per model (`db.client`, `db.project`, `db.invoice`, …) and routes each call to the right one.
+- **A delegate** is the typed entry point for exactly one model. It enforces the model's contract (only valid fields/types compile) and translates your call into an internal query representation. It does not talk to the database.
+- **The query engine** is a single instance shared by every delegate. It is the only layer that executes SQL against Postgres.
+
+Client-level methods like `db.$transaction()` live on `PrismaClient` itself, not on a delegate — which is why the invoice-creation flow (gather entries → create invoice → mark billed → create job) calls `db.$transaction()` directly rather than going through a model delegate.
+
 ---
 
 ## Zod vs Prisma
