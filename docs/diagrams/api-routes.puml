@@ -34,6 +34,16 @@ skinparam class<<PrismaClient singleton>> {
   BorderColor #ab47bc
 }
 
+skinparam class<<query engine>> {
+  BackgroundColor #ffe6cc
+  BorderColor #d79b00
+}
+
+skinparam class<<datastore>> {
+  BackgroundColor #f5f5f5
+  BorderColor #999999
+}
+
 ' ── External dependencies ───────────────────────────────────────────────────
 
 class db <<PrismaClient singleton>> {
@@ -49,6 +59,27 @@ class db <<PrismaClient singleton>> {
 class queue <<dependency>> {
   +add(name, data): Job
 }
+
+' ── Prisma runtime layers (below the delegates) ──────────────────────────────
+
+class QueryEngine <<query engine>> {
+  +execute(query): rows
+}
+
+class PostgreSQL <<datastore>>
+
+' db (PrismaClient) owns one shared QueryEngine — composition, filled diamond at db
+db *-- QueryEngine : <back:white>owns (one shared)</back>
+
+' the engine is the only layer that runs SQL against the database
+QueryEngine --> PostgreSQL : <back:white>executes SQL</back>
+
+note right of db
+  Each model delegate (client, project, …) is a
+  field db owns (composition) and forwards its
+  built query to the single QueryEngine.
+  $transaction() is a client-level method, not a delegate.
+end note
 
 ' ── Zod schemas ─────────────────────────────────────────────────────────────
 
