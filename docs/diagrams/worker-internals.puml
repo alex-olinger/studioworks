@@ -1,0 +1,85 @@
+@startuml worker-internals
+title StudioWorks — Worker Internal Architecture
+
+skinparam backgroundColor white
+skinparam titleFontSize 16
+skinparam titleFontStyle bold
+skinparam defaultFontSize 11
+skinparam ArrowFontBackground white
+skinparam ArrowColor #444444
+skinparam ArrowThickness 1.5
+skinparam nodesep 40
+skinparam ranksep 60
+
+skinparam component {
+  BackgroundColor #dae8fc
+  BorderColor #6c8ebf
+  FontSize 11
+}
+
+skinparam database {
+  BackgroundColor #ffe6cc
+  BorderColor #d79b00
+}
+
+skinparam queue {
+  BackgroundColor #d5e8d4
+  BorderColor #82b366
+}
+
+skinparam storage {
+  BackgroundColor #f8cecc
+  BorderColor #b85450
+}
+
+skinparam rectangle {
+  BackgroundColor #f5f5f5
+  BorderColor #999999
+  RoundCorner 6
+}
+
+' ── External infrastructure ──────────────────────────────────────────────────
+
+queue    "Redis\n//queue: \"jobs\"//\n--\nBullMQ transport" as redis
+database "Postgres\n--\nJob + Invoice\nrecords" as postgres
+storage  "Filesystem\n--\ndata/invoices/{id}.pdf" as fs
+
+' ── Worker service internals ─────────────────────────────────────────────────
+
+rectangle "**apps/worker**" {
+
+  component "**worker.ts**\n//[BullMQ entry point]//\n--\nnew Worker(JOB_QUEUE_NAME, handler)\nhandler → processJob({ jobId })\nlogs completed / failed events" as workerTs
+
+  component "**processor.ts**\n//[Job state machine]//\n--\nprocessJob({ jobId })\nloads JobSpec from DB\nsets PROCESSING / COMPLETE / FAILED\ndispatches on spec.type" as processorTs
+
+  component "**providers/invoice-pdf.ts**\n//[Provider]//\n--\ngenerateInvoicePdf(invoiceId)\nrenders HTML via Puppeteer\nwrites PDF to filesystem" as provider
+
+}
+
+' ── Flow ─────────────────────────────────────────────────────────────────────
+
+redis       --> workerTs    : <back:white>dequeue jobId</back>
+workerTs    --> processorTs : <back:white>processJob({ jobId })</back>
+processorTs --> postgres    : <back:white>SELECT Job + spec / UPDATE status</back>
+processorTs --> provider    : <back:white>generateInvoicePdf(invoiceId)</back>
+provider    --> postgres    : <back:white>SELECT Invoice + entries</back>
+provider    --> fs          : <back:white>write PDF</back>
+workerTs    --> redis       : <back:white>BullMQ acks / marks failed on throw</back>
+
+note right of processorTs
+  Knows nothing about BullMQ internals.
+  Testable without a running queue.
+  New job types: add a case here
+  + a new provider file.
+end note
+
+note right of workerTs
+  Knows nothing about job logic.
+  Connects BullMQ dequeue to
+  processJob. BullMQ marks the job
+  failed when processJob throws;
+  worker.ts only logs the
+  completed / failed events.
+end note
+
+@enduml
