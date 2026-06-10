@@ -1,0 +1,42 @@
+# .understandignore — patterns excluded from /understand analysis
+
+# Claude Code internals — not project code
+.claude/
+CLAUDE.md
+.mcp.json
+.claudeignore
+C:*
+
+# Other knowledge graph outputs — avoid circular analysis
+graphify-out/
+.code-review-graph/
+
+# Docs that are internal scaffolding, not project docs
+docs/superpowers/
+tasks/
+
+# Compiled JS (TypeScript source is the truth)
+*.js.map
+**/src/**/*.js
+packages/*/*.js
+vitest.workspace.js
+*.tsbuildinfo
+*.timestamp-*.mjs
+next-env.d.ts
+
+# Logs and secrets
+logs/
+npm-debug.log*
+pnpm-debug.log*
+.env
+.env.local
+.env.development
+.env.production
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+*.Identifier
+
+# Git worktrees
+.worktrees/

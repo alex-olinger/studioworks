@@ -1,0 +1,3171 @@
+{
+  "version": "1.0.0",
+  "project": {
+    "name": "studioworks-platform",
+    "languages": [
+      "typescript",
+      "javascript",
+      "sql",
+      "prisma",
+      "yaml",
+      "markdown"
+    ],
+    "frameworks": [
+      "Next.js",
+      "Fastify",
+      "BullMQ",
+      "Prisma",
+      "Vitest",
+      "Zod",
+      "Docker"
+    ],
+    "description": "TypeScript monorepo platform for freelancer invoicing \u2014 client management, project time tracking, expense logging, and automated PDF invoice generation.",
+    "analyzedAt": "2026-06-10T04:01:22.598545+00:00",
+    "gitCommitHash": "235a3e777372e88668413f9def248716109ad3f6"
+  },
+  "nodes": [
+    {
+      "id": "file:apps/api/src/app.ts",
+      "type": "file",
+      "name": "app.ts",
+      "filePath": "apps/api/src/app.ts",
+      "summary": "Fastify application factory that registers all route plugins (clients, expenses, invoices, jobs, projects, time-entries) and returns a ready app instance.",
+      "tags": [
+        "entry-point",
+        "api-handler",
+        "middleware",
+        "factory"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:apps/api/src/app.ts:buildApp",
+      "type": "function",
+      "name": "buildApp",
+      "filePath": "apps/api/src/app.ts",
+      "lineRange": [
+        9,
+        21
+      ],
+      "summary": "Creates and configures a Fastify instance by registering all domain route plugins and awaiting the ready signal.",
+      "tags": [
+        "factory",
+        "api-handler",
+        "entry-point"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/api/src/index.ts",
+      "type": "file",
+      "name": "index.ts",
+      "filePath": "apps/api/src/index.ts",
+      "summary": "Server bootstrap entry point that imports and starts the Fastify application built by app.ts.",
+      "tags": [
+        "entry-point",
+        "api-handler"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/api/src/routes/clients.ts",
+      "type": "file",
+      "name": "clients.ts",
+      "filePath": "apps/api/src/routes/clients.ts",
+      "summary": "Fastify route plugin exposing CRUD endpoints (POST, GET, GET by id, PATCH) for managing client records.",
+      "tags": [
+        "api-handler",
+        "service",
+        "middleware"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:apps/api/src/routes/clients.ts:clientRoutes",
+      "type": "function",
+      "name": "clientRoutes",
+      "filePath": "apps/api/src/routes/clients.ts",
+      "lineRange": [
+        16,
+        32
+      ],
+      "summary": "Registers POST, GET (list), GET (by id), and PATCH routes for the clients resource on the Fastify instance.",
+      "tags": [
+        "api-handler",
+        "service"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/api/src/routes/expenses.ts",
+      "type": "file",
+      "name": "expenses.ts",
+      "filePath": "apps/api/src/routes/expenses.ts",
+      "summary": "Fastify route plugin providing POST, GET, and DELETE endpoints for expense tracking within the invoicing platform.",
+      "tags": [
+        "api-handler",
+        "service",
+        "middleware"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:apps/api/src/routes/expenses.ts:expenseRoutes",
+      "type": "function",
+      "name": "expenseRoutes",
+      "filePath": "apps/api/src/routes/expenses.ts",
+      "lineRange": [
+        14,
+        26
+      ],
+      "summary": "Registers POST, GET, and DELETE routes for the expenses resource, enabling creation, retrieval, and removal of expense records.",
+      "tags": [
+        "api-handler",
+        "service"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/api/src/routes/jobs.ts",
+      "type": "file",
+      "name": "jobs.ts",
+      "filePath": "apps/api/src/routes/jobs.ts",
+      "summary": "Fastify route plugin exposing a GET endpoint for listing or retrieving background job records.",
+      "tags": [
+        "api-handler",
+        "service",
+        "middleware"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:apps/api/src/routes/jobs.ts:jobRoutes",
+      "type": "function",
+      "name": "jobRoutes",
+      "filePath": "apps/api/src/routes/jobs.ts",
+      "lineRange": [
+        4,
+        8
+      ],
+      "summary": "Registers a single GET route for jobs, providing read access to job queue or task data.",
+      "tags": [
+        "api-handler",
+        "service"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/api/src/routes/projects.ts",
+      "type": "file",
+      "name": "projects.ts",
+      "filePath": "apps/api/src/routes/projects.ts",
+      "summary": "Fastify route plugin providing POST, GET (list), GET (by id), and PATCH endpoints for project management in the freelancer platform.",
+      "tags": [
+        "api-handler",
+        "service",
+        "middleware"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:apps/api/src/routes/projects.ts:projectRoutes",
+      "type": "function",
+      "name": "projectRoutes",
+      "filePath": "apps/api/src/routes/projects.ts",
+      "lineRange": [
+        18,
+        34
+      ],
+      "summary": "Registers POST, GET (list), GET (by id), and PATCH routes for the projects resource on the Fastify instance.",
+      "tags": [
+        "api-handler",
+        "service"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/api/src/routes/time-entries.ts",
+      "type": "file",
+      "name": "time-entries.ts",
+      "filePath": "apps/api/src/routes/time-entries.ts",
+      "summary": "Fastify route plugin exposing POST, GET, and DELETE endpoints for time-entry records used in billable-hours tracking.",
+      "tags": [
+        "api-handler",
+        "service",
+        "middleware"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:apps/api/src/routes/time-entries.ts:timeEntryRoutes",
+      "type": "function",
+      "name": "timeEntryRoutes",
+      "filePath": "apps/api/src/routes/time-entries.ts",
+      "lineRange": [
+        13,
+        25
+      ],
+      "summary": "Registers POST, GET, and DELETE routes for time entries, supporting creation, listing, and deletion of billable time records.",
+      "tags": [
+        "api-handler",
+        "service"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/web/src/test/msw/handlers.ts",
+      "type": "file",
+      "name": "handlers.ts",
+      "filePath": "apps/web/src/test/msw/handlers.ts",
+      "summary": "Defines the MSW (Mock Service Worker) request handlers array used to intercept and mock API calls during testing.",
+      "tags": [
+        "test",
+        "msw",
+        "mock",
+        "api-handler"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/web/src/test/msw/server.ts",
+      "type": "file",
+      "name": "server.ts",
+      "filePath": "apps/web/src/test/msw/server.ts",
+      "summary": "Creates and exports the MSW Node.js server instance configured with the project's request handlers for use in the test environment.",
+      "tags": [
+        "test",
+        "msw",
+        "mock",
+        "service"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/web/src/test/setup.ts",
+      "type": "file",
+      "name": "setup.ts",
+      "filePath": "apps/web/src/test/setup.ts",
+      "summary": "Vitest global test setup file that starts, resets, and tears down the MSW server around each test to ensure clean mock state.",
+      "tags": [
+        "test",
+        "setup",
+        "msw",
+        "vitest"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "service:apps/api/.dockerignore",
+      "type": "service",
+      "name": ".dockerignore",
+      "filePath": "apps/api/.dockerignore",
+      "summary": "Docker build context exclusion list for the API service, omitting node_modules, build artifacts, .env files, and log files to keep the image lean and prevent secrets from leaking into the image.",
+      "tags": [
+        "containerization",
+        "infrastructure",
+        "security"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "service:apps/api/Dockerfile",
+      "type": "service",
+      "name": "Dockerfile",
+      "filePath": "apps/api/Dockerfile",
+      "summary": "Placeholder Dockerfile for the StudioWorks API service based on node:20-alpine; currently only sets a working directory and runs a no-op console command, with no application code copied in yet.",
+      "tags": [
+        "containerization",
+        "infrastructure",
+        "deployment"
+      ],
+      "complexity": "simple",
+      "languageNotes": "Uses node:20-alpine as a minimal base image. No COPY or RUN build steps are present \u2014 this is a scaffold placeholder awaiting real build instructions."
+    },
+    {
+      "id": "service:apps/api/Dockerfile:node",
+      "type": "service",
+      "name": "node",
+      "filePath": "apps/api/Dockerfile",
+      "summary": "Single-stage node:20-alpine service definition within the Dockerfile placeholder.",
+      "tags": [
+        "containerization",
+        "infrastructure"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "service:apps/worker/.dockerignore",
+      "type": "service",
+      "name": ".dockerignore",
+      "filePath": "apps/worker/.dockerignore",
+      "summary": "Docker build exclusion list for the worker app, omitting node_modules, build artifacts, environment files, and log files to keep the image lean and prevent secrets from leaking into the Docker build context.",
+      "tags": [
+        "containerization",
+        "infrastructure",
+        "deployment",
+        "security"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "service:apps/worker/Dockerfile",
+      "type": "service",
+      "name": "Dockerfile",
+      "filePath": "apps/worker/Dockerfile",
+      "summary": "Placeholder Dockerfile for the StudioWorks worker service, using a Node.js 20 Alpine base image with a no-op CMD \u2014 intended to be replaced with real worker entrypoint logic.",
+      "tags": [
+        "containerization",
+        "infrastructure",
+        "deployment"
+      ],
+      "complexity": "simple",
+      "languageNotes": "Single-stage placeholder build; no COPY or dependency installation steps yet, indicating this worker service is not yet implemented."
+    },
+    {
+      "id": "service:apps/worker/Dockerfile:node",
+      "type": "service",
+      "name": "node",
+      "filePath": "apps/worker/Dockerfile",
+      "summary": "Single build stage based on node:20-alpine that sets the working directory and runs a placeholder console log command.",
+      "tags": [
+        "containerization",
+        "infrastructure"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "pipeline:.github/workflows/pr-checks.yml",
+      "type": "pipeline",
+      "name": "pr-checks.yml",
+      "filePath": ".github/workflows/pr-checks.yml",
+      "summary": "GitHub Actions workflow that enforces PR quality on every pull request: auto-generates a grouped changelog in the body of dev\u2192main promotion PRs, validates that all PR titles follow Conventional Commits format, and requires a Summary section with at least one bullet point in the description.",
+      "tags": [
+        "ci-cd",
+        "pull-request",
+        "validation",
+        "changelog",
+        "quality-gate"
+      ],
+      "complexity": "moderate",
+      "languageNotes": "Uses a dependent job pattern: validate-description needs generate-changelog (with if: always()) so body validation always runs but sees the auto-filled body after the changelog step writes it."
+    },
+    {
+      "id": "step:.github/workflows/pr-checks.yml:Generate changelog from merged testing PRs",
+      "type": "pipeline",
+      "name": "Generate changelog from merged testing PRs",
+      "filePath": ".github/workflows/pr-checks.yml",
+      "lineRange": [
+        23,
+        103
+      ],
+      "summary": "Fetches all PRs merged into dev since the last promotion, groups them by Conventional Commit type, and writes a formatted markdown changelog to /tmp/pr_body.md.",
+      "tags": [
+        "ci-cd",
+        "changelog",
+        "automation"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "step:.github/workflows/pr-checks.yml:Update PR body with changelog",
+      "type": "pipeline",
+      "name": "Update PR body with changelog",
+      "filePath": ".github/workflows/pr-checks.yml",
+      "lineRange": [
+        104,
+        113
+      ],
+      "summary": "Applies the generated changelog file to the PR body using gh pr edit.",
+      "tags": [
+        "ci-cd",
+        "automation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "step:.github/workflows/pr-checks.yml:Check conventional commit format",
+      "type": "pipeline",
+      "name": "Check conventional commit format",
+      "filePath": ".github/workflows/pr-checks.yml",
+      "lineRange": [
+        120,
+        133
+      ],
+      "summary": "Validates the PR title against the Conventional Commits regex pattern and fails the job with a descriptive error if the format is not met.",
+      "tags": [
+        "ci-cd",
+        "validation",
+        "quality-gate"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "step:.github/workflows/pr-checks.yml:Check for Summary section with content",
+      "type": "pipeline",
+      "name": "Check for Summary section with content",
+      "filePath": ".github/workflows/pr-checks.yml",
+      "lineRange": [
+        143,
+        168
+      ],
+      "summary": "Fetches the live PR body via the GitHub API and verifies it contains a ## Summary heading with at least one bullet-point entry.",
+      "tags": [
+        "ci-cd",
+        "validation",
+        "quality-gate"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "pipeline:.github/workflows/render-diagrams.yml",
+      "type": "pipeline",
+      "name": "render-diagrams.yml",
+      "filePath": ".github/workflows/render-diagrams.yml",
+      "summary": "GitHub Actions workflow that renders PlantUML diagrams to SVG on pushes to main that touch the docs/ directory, then builds and deploys the docs site to GitHub Pages using the official pages actions.",
+      "tags": [
+        "ci-cd",
+        "deployment",
+        "documentation",
+        "github-pages",
+        "plantuml"
+      ],
+      "complexity": "simple",
+      "languageNotes": "Uses concurrency group github-pages with cancel-in-progress: false to let any in-flight deployment finish before starting the next, preventing partial doc deploys."
+    },
+    {
+      "id": "step:.github/workflows/render-diagrams.yml:Install PlantUML",
+      "type": "pipeline",
+      "name": "Install PlantUML",
+      "filePath": ".github/workflows/render-diagrams.yml",
+      "lineRange": [
+        27,
+        30
+      ],
+      "summary": "Installs the plantuml system package via apt on the Ubuntu runner.",
+      "tags": [
+        "ci-cd",
+        "build-system",
+        "plantuml"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "step:.github/workflows/render-diagrams.yml:Render .puml \u2192 SVG",
+      "type": "pipeline",
+      "name": "Render .puml \u2192 SVG",
+      "filePath": ".github/workflows/render-diagrams.yml",
+      "lineRange": [
+        32,
+        33
+      ],
+      "summary": "Finds all .puml files under docs/diagrams and converts each to SVG using PlantUML.",
+      "tags": [
+        "ci-cd",
+        "plantuml",
+        "documentation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "step:.github/workflows/render-diagrams.yml:Configure Pages",
+      "type": "pipeline",
+      "name": "Configure Pages",
+      "filePath": ".github/workflows/render-diagrams.yml",
+      "lineRange": [
+        35,
+        36
+      ],
+      "summary": "Runs the official actions/configure-pages action to prepare the GitHub Pages environment.",
+      "tags": [
+        "ci-cd",
+        "deployment",
+        "github-pages"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "step:.github/workflows/render-diagrams.yml:Upload Pages artifact",
+      "type": "pipeline",
+      "name": "Upload Pages artifact",
+      "filePath": ".github/workflows/render-diagrams.yml",
+      "lineRange": [
+        38,
+        41
+      ],
+      "summary": "Uploads the docs/ directory as the GitHub Pages artifact for deployment.",
+      "tags": [
+        "ci-cd",
+        "deployment",
+        "github-pages"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "step:.github/workflows/render-diagrams.yml:Deploy to GitHub Pages",
+      "type": "pipeline",
+      "name": "Deploy to GitHub Pages",
+      "filePath": ".github/workflows/render-diagrams.yml",
+      "lineRange": [
+        49,
+        52
+      ],
+      "summary": "Deploys the uploaded Pages artifact to the github-pages environment using the official deploy-pages action.",
+      "tags": [
+        "ci-cd",
+        "deployment",
+        "github-pages"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "service:.dockerignore",
+      "type": "service",
+      "name": ".dockerignore",
+      "filePath": ".dockerignore",
+      "summary": "Docker ignore file that excludes development artifacts, node_modules, and environment files from the Docker build context to reduce image size and prevent secret leakage.",
+      "tags": [
+        "containerization",
+        "infrastructure",
+        "deployment",
+        "security"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:.env.example",
+      "type": "config",
+      "name": ".env.example",
+      "filePath": ".env.example",
+      "summary": "Template listing all required environment variables for the platform, covering database connection (DATABASE_URL), Redis (REDIS_URL), server port (PORT), and the public API base URL (NEXT_PUBLIC_API_BASE).",
+      "tags": [
+        "configuration",
+        "environment",
+        "security",
+        "documentation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "README.md",
+      "summary": "Comprehensive project documentation covering architecture overview, services, domain models, data flow, tech stack, local development setup, current state, JobSpec format, and job lifecycle across 16 sections.",
+      "tags": [
+        "documentation",
+        "entry-point",
+        "architecture",
+        "overview"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "config:package.json",
+      "type": "config",
+      "name": "package.json",
+      "filePath": "package.json",
+      "summary": "Monorepo root package manifest defining workspace-level scripts (dev, build, lint, test, db:migrate, db:generate) and shared devDependencies including Turbo, TypeScript, and Prettier.",
+      "tags": [
+        "configuration",
+        "build-system",
+        "monorepo",
+        "scripts"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:pnpm-workspace.yaml",
+      "type": "config",
+      "name": "pnpm-workspace.yaml",
+      "filePath": "pnpm-workspace.yaml",
+      "summary": "pnpm workspace configuration that declares the packages glob patterns, enabling pnpm to manage the monorepo's package linking and hoisting.",
+      "tags": [
+        "configuration",
+        "monorepo",
+        "build-system"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:tsconfig.json",
+      "type": "config",
+      "name": "tsconfig.json",
+      "filePath": "tsconfig.json",
+      "summary": "Root TypeScript compiler configuration providing shared compilerOptions (strict mode, module resolution, path aliases) inherited by all packages in the monorepo.",
+      "tags": [
+        "configuration",
+        "typescript",
+        "build-system",
+        "monorepo"
+      ],
+      "complexity": "simple",
+      "languageNotes": "Root tsconfig acts as a base that individual package tsconfigs extend via 'extends', a standard TypeScript monorepo pattern."
+    },
+    {
+      "id": "config:turbo.json",
+      "type": "config",
+      "name": "turbo.json",
+      "filePath": "turbo.json",
+      "summary": "Turborepo pipeline configuration defining task dependencies and caching rules for build, lint, test, and dev tasks across monorepo packages.",
+      "tags": [
+        "configuration",
+        "build-system",
+        "monorepo",
+        "ci-cd"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:docs/architecture.md",
+      "type": "document",
+      "name": "architecture.md",
+      "filePath": "docs/architecture.md",
+      "summary": "Comprehensive architecture reference covering service topology, worker layering, provider pattern, Prisma/Zod separation, and a full source file map for the monorepo \u2014 the canonical design document for the StudioWorks platform.",
+      "tags": [
+        "documentation",
+        "architecture",
+        "design",
+        "monorepo"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:docs/deployment-plan.md",
+      "type": "document",
+      "name": "deployment-plan.md",
+      "filePath": "docs/deployment-plan.md",
+      "summary": "Describes the current local-only state of the platform and a seven-phase post-MVP deployment roadmap covering Dockerization, managed services, auth, S3 integration, CI/CD, and observability.",
+      "tags": [
+        "documentation",
+        "deployment",
+        "roadmap"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:docs/index.html",
+      "type": "file",
+      "name": "index.html",
+      "filePath": "docs/index.html",
+      "summary": "Static HTML gallery page that renders five auto-generated PlantUML architecture diagrams (system context, service topology, Prisma data model, invoice PDF sequence, API routes) with card-based layout and links to SVG sources.",
+      "tags": [
+        "documentation",
+        "diagrams",
+        "markup"
+      ],
+      "complexity": "moderate",
+      "languageNotes": "Standalone HTML page with inline CSS using CSS Grid for responsive card layout; no JavaScript or external dependencies."
+    },
+    {
+      "id": "document:docs/local-dev.md",
+      "type": "document",
+      "name": "local-dev.md",
+      "filePath": "docs/local-dev.md",
+      "summary": "Step-by-step local development guide covering prerequisites, first-time setup (install, env config, Docker infra, DB migrations), routine startup commands, and database/Prisma maintenance tasks.",
+      "tags": [
+        "documentation",
+        "development",
+        "setup"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:.gitattributes",
+      "type": "file",
+      "name": ".gitattributes",
+      "filePath": ".gitattributes",
+      "summary": "Git attributes configuration specifying line-ending normalization and diff driver rules for the repository.",
+      "tags": [
+        "configuration",
+        "git",
+        "build-system"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:.github/PULL_REQUEST_TEMPLATE.md",
+      "type": "document",
+      "name": "PULL_REQUEST_TEMPLATE.md",
+      "filePath": ".github/PULL_REQUEST_TEMPLATE.md",
+      "summary": "Pull request template enforcing a two-section structure (Summary and Test Plan) for all PRs in the repository.",
+      "tags": [
+        "documentation",
+        "development",
+        "process"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:.understand-anything/.understandignore",
+      "type": "file",
+      "name": ".understandignore",
+      "filePath": ".understand-anything/.understandignore",
+      "summary": "Ignore file for the understand-anything knowledge graph tool, listing paths and patterns to exclude from analysis.",
+      "tags": [
+        "configuration",
+        "tooling",
+        "build-system"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:apps/api/package.json",
+      "type": "config",
+      "name": "package.json",
+      "filePath": "apps/api/package.json",
+      "summary": "Package manifest for the API app declaring Fastify, Drizzle ORM, BullMQ, and Zod dependencies along with build and dev scripts.",
+      "tags": [
+        "configuration",
+        "build-system",
+        "dependencies"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/api/src/queue.ts",
+      "type": "file",
+      "name": "queue.ts",
+      "filePath": "apps/api/src/queue.ts",
+      "summary": "Initializes and exports the BullMQ Queue instance used for background job processing (e.g., invoice PDF generation).",
+      "tags": [
+        "service",
+        "queue",
+        "singleton"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/api/src/routes/invoices.ts",
+      "type": "file",
+      "name": "invoices.ts",
+      "filePath": "apps/api/src/routes/invoices.ts",
+      "summary": "Registers Fastify invoice routes (create, list, get, update status, download PDF) and enqueues PDF generation jobs via the shared BullMQ queue.",
+      "tags": [
+        "api-handler",
+        "route",
+        "invoices"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:apps/api/src/routes/invoices.ts:invoiceRoutes",
+      "type": "function",
+      "name": "invoiceRoutes",
+      "filePath": "apps/api/src/routes/invoices.ts",
+      "lineRange": [
+        14,
+        38
+      ],
+      "summary": "Plugin function that registers all invoice-related HTTP routes on the Fastify app instance, including PDF download via queue dispatch.",
+      "tags": [
+        "api-handler",
+        "route",
+        "invoices"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:apps/api/src/test/global-setup.ts",
+      "type": "file",
+      "name": "global-setup.ts",
+      "filePath": "apps/api/src/test/global-setup.ts",
+      "summary": "Vitest global setup that spins up PostgreSQL and Redis testcontainers, runs database migrations, and tears everything down after the test suite.",
+      "tags": [
+        "test",
+        "setup",
+        "infrastructure"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:apps/api/src/test/global-setup.ts:setup",
+      "type": "function",
+      "name": "setup",
+      "filePath": "apps/api/src/test/global-setup.ts",
+      "lineRange": [
+        8,
+        28
+      ],
+      "summary": "Starts PostgreSQL and Redis testcontainers in parallel, sets environment variables with their connection details, and runs Drizzle migrations.",
+      "tags": [
+        "test",
+        "setup",
+        "infrastructure"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:apps/api/src/test/global-setup.ts:teardown",
+      "type": "function",
+      "name": "teardown",
+      "filePath": "apps/api/src/test/global-setup.ts",
+      "lineRange": [
+        30,
+        32
+      ],
+      "summary": "Stops the PostgreSQL and Redis testcontainers after the test suite completes.",
+      "tags": [
+        "test",
+        "cleanup",
+        "infrastructure"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/api/src/test/setup.ts",
+      "type": "file",
+      "name": "setup.ts",
+      "filePath": "apps/api/src/test/setup.ts",
+      "summary": "Per-file Vitest setup module that configures the test environment before each test file runs (e.g., database cleanup or env initialization).",
+      "tags": [
+        "test",
+        "setup",
+        "configuration"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:apps/api/tsconfig.json",
+      "type": "config",
+      "name": "tsconfig.json",
+      "filePath": "apps/api/tsconfig.json",
+      "summary": "TypeScript compiler configuration for the API app enabling strict mode and targeting Node.js ESM output.",
+      "tags": [
+        "configuration",
+        "typescript",
+        "build-system"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/api/vitest.config.ts",
+      "type": "file",
+      "name": "vitest.config.ts",
+      "filePath": "apps/api/vitest.config.ts",
+      "summary": "Vitest configuration for the API app wiring the global setup/teardown files and per-file setup module for integration tests.",
+      "tags": [
+        "configuration",
+        "test",
+        "build-system"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/web/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "apps/web/.gitkeep",
+      "summary": "Empty placeholder file used to track the apps/web directory in git before any content is added.",
+      "tags": [
+        "placeholder",
+        "git"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/web/next.config.mjs",
+      "type": "file",
+      "name": "next.config.mjs",
+      "filePath": "apps/web/next.config.mjs",
+      "summary": "Minimal Next.js configuration file exporting default settings for the web application.",
+      "tags": [
+        "configuration",
+        "next-js",
+        "build-system"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:apps/web/package.json",
+      "type": "config",
+      "name": "package.json",
+      "filePath": "apps/web/package.json",
+      "summary": "Package manifest for the Next.js web app declaring React, Next.js, and Tailwind CSS dependencies along with dev scripts.",
+      "tags": [
+        "configuration",
+        "build-system",
+        "dependencies"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/web/src/app/clients/[id]/page.tsx",
+      "type": "file",
+      "name": "page.tsx",
+      "filePath": "apps/web/src/app/clients/[id]/page.tsx",
+      "summary": "Next.js dynamic route page rendering the detail view for a single client identified by URL parameter.",
+      "tags": [
+        "component",
+        "page",
+        "clients"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:apps/web/src/app/clients/[id]/page.tsx:ClientDetailPage",
+      "type": "function",
+      "name": "ClientDetailPage",
+      "filePath": "apps/web/src/app/clients/[id]/page.tsx",
+      "lineRange": [
+        4,
+        11
+      ],
+      "summary": "Server component rendering the detail view for a client fetched by dynamic route ID parameter.",
+      "tags": [
+        "component",
+        "page",
+        "clients"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/web/src/app/clients/new/page.tsx",
+      "type": "file",
+      "name": "page.tsx",
+      "filePath": "apps/web/src/app/clients/new/page.tsx",
+      "summary": "Next.js page providing a form for creating a new client, redirecting to the client list on success.",
+      "tags": [
+        "component",
+        "page",
+        "clients"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:apps/web/src/app/clients/new/page.tsx:NewClientPage",
+      "type": "function",
+      "name": "NewClientPage",
+      "filePath": "apps/web/src/app/clients/new/page.tsx",
+      "lineRange": [
+        5,
+        15
+      ],
+      "summary": "Client component rendering a new-client form and using the Next.js router to redirect after successful submission.",
+      "tags": [
+        "component",
+        "page",
+        "clients"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/web/src/app/clients/page.tsx",
+      "type": "file",
+      "name": "page.tsx",
+      "filePath": "apps/web/src/app/clients/page.tsx",
+      "summary": "Next.js page listing all clients with navigation links to individual client detail pages.",
+      "tags": [
+        "component",
+        "page",
+        "clients"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:apps/web/src/app/clients/page.tsx:ClientsPage",
+      "type": "function",
+      "name": "ClientsPage",
+      "filePath": "apps/web/src/app/clients/page.tsx",
+      "lineRange": [
+        4,
+        13
+      ],
+      "summary": "Server component that renders the clients index page listing all clients.",
+      "tags": [
+        "component",
+        "page",
+        "clients"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/web/src/app/invoices/[id]/page.tsx",
+      "type": "file",
+      "name": "page.tsx",
+      "filePath": "apps/web/src/app/invoices/[id]/page.tsx",
+      "summary": "Next.js dynamic route page rendering the detail and status view for a single invoice.",
+      "tags": [
+        "component",
+        "page",
+        "invoices"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:apps/web/src/app/invoices/[id]/page.tsx:InvoiceDetailPage",
+      "type": "function",
+      "name": "InvoiceDetailPage",
+      "filePath": "apps/web/src/app/invoices/[id]/page.tsx",
+      "lineRange": [
+        4,
+        14
+      ],
+      "summary": "Server component rendering invoice details fetched by dynamic route ID parameter.",
+      "tags": [
+        "component",
+        "page",
+        "invoices"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/web/src/app/invoices/page.tsx",
+      "type": "file",
+      "name": "page.tsx",
+      "filePath": "apps/web/src/app/invoices/page.tsx",
+      "summary": "Next.js page listing all invoices with status indicators and links to individual invoice pages.",
+      "tags": [
+        "component",
+        "page",
+        "invoices"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:apps/web/src/app/invoices/page.tsx:InvoicesPage",
+      "type": "function",
+      "name": "InvoicesPage",
+      "filePath": "apps/web/src/app/invoices/page.tsx",
+      "lineRange": [
+        4,
+        12
+      ],
+      "summary": "Server component rendering the invoices index page with a list of all invoices.",
+      "tags": [
+        "component",
+        "page",
+        "invoices"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/web/src/app/layout.tsx",
+      "type": "file",
+      "name": "layout.tsx",
+      "filePath": "apps/web/src/app/layout.tsx",
+      "summary": "Root Next.js layout component wrapping all pages with global HTML structure, metadata, and shared UI shell.",
+      "tags": [
+        "component",
+        "layout",
+        "entry-point"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:apps/web/src/app/layout.tsx:RootLayout",
+      "type": "function",
+      "name": "RootLayout",
+      "filePath": "apps/web/src/app/layout.tsx",
+      "lineRange": [
+        5,
+        16
+      ],
+      "summary": "Root layout component providing the HTML shell and wrapping all child pages with shared structure and metadata.",
+      "tags": [
+        "component",
+        "layout",
+        "entry-point"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/web/src/app/page.tsx",
+      "type": "file",
+      "name": "page.tsx",
+      "filePath": "apps/web/src/app/page.tsx",
+      "summary": "Next.js root dashboard page serving as the application home screen with navigation to clients, projects, and invoices.",
+      "tags": [
+        "component",
+        "page",
+        "entry-point"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:apps/web/src/app/page.tsx:DashboardPage",
+      "type": "function",
+      "name": "DashboardPage",
+      "filePath": "apps/web/src/app/page.tsx",
+      "lineRange": [
+        4,
+        16
+      ],
+      "summary": "Root dashboard component rendering summary cards and navigation links for the main application sections.",
+      "tags": [
+        "component",
+        "page",
+        "entry-point"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/web/src/app/projects/[id]/expenses/page.tsx",
+      "type": "file",
+      "name": "page.tsx",
+      "filePath": "apps/web/src/app/projects/[id]/expenses/page.tsx",
+      "summary": "Next.js dynamic route page listing expenses for a specific project identified by URL parameter.",
+      "tags": [
+        "component",
+        "page",
+        "projects"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:apps/web/src/app/projects/[id]/expenses/page.tsx:ExpensesPage",
+      "type": "function",
+      "name": "ExpensesPage",
+      "filePath": "apps/web/src/app/projects/[id]/expenses/page.tsx",
+      "lineRange": [
+        4,
+        15
+      ],
+      "summary": "Server component rendering the expense list for a project fetched by dynamic route ID parameter.",
+      "tags": [
+        "component",
+        "page",
+        "projects"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/web/src/app/projects/[id]/page.tsx",
+      "type": "file",
+      "name": "page.tsx",
+      "filePath": "apps/web/src/app/projects/[id]/page.tsx",
+      "summary": "Next.js dynamic route page displaying the detail view for a single project, including links to time and expense sub-pages.",
+      "tags": [
+        "component",
+        "page",
+        "projects"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:apps/web/src/app/projects/[id]/page.tsx:ProjectDetailPage",
+      "type": "function",
+      "name": "ProjectDetailPage",
+      "filePath": "apps/web/src/app/projects/[id]/page.tsx",
+      "lineRange": [
+        4,
+        13
+      ],
+      "summary": "Server component rendering project details and navigation links to time entries and expenses sub-routes.",
+      "tags": [
+        "component",
+        "page",
+        "projects"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/web/src/app/projects/[id]/time/page.tsx",
+      "type": "file",
+      "name": "page.tsx",
+      "filePath": "apps/web/src/app/projects/[id]/time/page.tsx",
+      "summary": "Next.js dynamic route page listing time entries for a specific project.",
+      "tags": [
+        "component",
+        "page",
+        "projects"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:apps/web/src/app/projects/[id]/time/page.tsx:TimeEntriesPage",
+      "type": "function",
+      "name": "TimeEntriesPage",
+      "filePath": "apps/web/src/app/projects/[id]/time/page.tsx",
+      "lineRange": [
+        4,
+        15
+      ],
+      "summary": "Server component rendering time entries for a project fetched by dynamic route ID parameter.",
+      "tags": [
+        "component",
+        "page",
+        "projects"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/web/src/app/projects/page.tsx",
+      "type": "file",
+      "name": "page.tsx",
+      "filePath": "apps/web/src/app/projects/page.tsx",
+      "summary": "Next.js page listing all projects with links to individual project detail pages.",
+      "tags": [
+        "component",
+        "page",
+        "projects"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:apps/web/src/app/projects/page.tsx:ProjectsPage",
+      "type": "function",
+      "name": "ProjectsPage",
+      "filePath": "apps/web/src/app/projects/page.tsx",
+      "lineRange": [
+        4,
+        14
+      ],
+      "summary": "Server component rendering the projects index page listing all projects.",
+      "tags": [
+        "component",
+        "page",
+        "projects"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:apps/web/tsconfig.json",
+      "type": "config",
+      "name": "tsconfig.json",
+      "filePath": "apps/web/tsconfig.json",
+      "summary": "TypeScript compiler configuration for the Next.js web app with strict mode, JSX support, and path aliases for the src directory.",
+      "tags": [
+        "configuration",
+        "typescript",
+        "build-system"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/web/vitest.config.ts",
+      "type": "file",
+      "name": "vitest.config.ts",
+      "filePath": "apps/web/vitest.config.ts",
+      "summary": "Vitest configuration for the web app, setting up jsdom environment with React plugin and v8 coverage for all TypeScript and TSX source files.",
+      "tags": [
+        "configuration",
+        "test",
+        "build-system"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:apps/worker/package.json",
+      "type": "config",
+      "name": "package.json",
+      "filePath": "apps/worker/package.json",
+      "summary": "Package manifest for the @studioworks/worker app, declaring BullMQ, ioredis, and shared workspace dependencies alongside testcontainer-based dev tooling.",
+      "tags": [
+        "configuration",
+        "build-system",
+        "dependencies"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/worker/src/processor.ts",
+      "type": "file",
+      "name": "processor.ts",
+      "filePath": "apps/worker/src/processor.ts",
+      "summary": "BullMQ job processor stub that defines the processJob entry point for dispatching queued jobs to the appropriate handler based on job spec type.",
+      "tags": [
+        "entry-point",
+        "service",
+        "api-handler"
+      ],
+      "complexity": "simple",
+      "languageNotes": "All implementation is stubbed with TODO comments \u2014 Phase 2 will wire DB loading, spec parsing, and the invoice-pdf handler."
+    },
+    {
+      "id": "function:apps/worker/src/processor.ts:processJob",
+      "type": "function",
+      "name": "processJob",
+      "filePath": "apps/worker/src/processor.ts",
+      "lineRange": [
+        6,
+        13
+      ],
+      "summary": "Exported async function that serves as the main BullMQ job handler, intended to load the job from the DB, parse its spec, and dispatch to the correct provider.",
+      "tags": [
+        "api-handler",
+        "service",
+        "entry-point"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/worker/src/providers/invoice-pdf.ts",
+      "type": "file",
+      "name": "invoice-pdf.ts",
+      "filePath": "apps/worker/src/providers/invoice-pdf.ts",
+      "summary": "Invoice PDF provider stub that will render a PDF via Puppeteer for a given invoice ID and persist it to the data/invoices/ directory.",
+      "tags": [
+        "service",
+        "utility"
+      ],
+      "complexity": "simple",
+      "languageNotes": "Currently throws 'not implemented'; designed to use Puppeteer for headless HTML-to-PDF rendering in Phase 2."
+    },
+    {
+      "id": "function:apps/worker/src/providers/invoice-pdf.ts:generateInvoicePdf",
+      "type": "function",
+      "name": "generateInvoicePdf",
+      "filePath": "apps/worker/src/providers/invoice-pdf.ts",
+      "lineRange": [
+        7,
+        15
+      ],
+      "summary": "Exported async function that will generate a PDF for the given invoice ID and return the output file path; currently a stub that throws.",
+      "tags": [
+        "service",
+        "utility"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/worker/src/test/global-setup.ts",
+      "type": "file",
+      "name": "global-setup.ts",
+      "filePath": "apps/worker/src/test/global-setup.ts",
+      "summary": "Vitest global setup module that spins up ephemeral Testcontainers (Postgres 16 + Redis 7) before the test suite and tears them down afterward, injecting connection URLs into process.env.",
+      "tags": [
+        "test",
+        "configuration",
+        "infrastructure"
+      ],
+      "complexity": "moderate",
+      "languageNotes": "Uses @testcontainers/postgresql and @testcontainers/redis to create real containers per test run, then runs Prisma migrations via execSync for full integration testing."
+    },
+    {
+      "id": "function:apps/worker/src/test/global-setup.ts:setup",
+      "type": "function",
+      "name": "setup",
+      "filePath": "apps/worker/src/test/global-setup.ts",
+      "lineRange": [
+        8,
+        25
+      ],
+      "summary": "Starts PostgreSQL and Redis Testcontainers in parallel, sets DATABASE_URL and REDIS_URL environment variables, then runs Prisma migration deploy to prepare a clean test database.",
+      "tags": [
+        "test",
+        "infrastructure",
+        "configuration"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:apps/worker/src/test/global-setup.ts:teardown",
+      "type": "function",
+      "name": "teardown",
+      "filePath": "apps/worker/src/test/global-setup.ts",
+      "lineRange": [
+        27,
+        29
+      ],
+      "summary": "Stops both Testcontainers (Postgres and Redis) in parallel after the test suite completes.",
+      "tags": [
+        "test",
+        "infrastructure"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/worker/src/test/setup.ts",
+      "type": "file",
+      "name": "setup.ts",
+      "filePath": "apps/worker/src/test/setup.ts",
+      "summary": "Per-test cleanup hook that truncates all tables in FK-safe order (jobs \u2192 invoices \u2192 time entries \u2192 expenses \u2192 projects \u2192 clients) after each test to ensure isolation.",
+      "tags": [
+        "test",
+        "database",
+        "configuration"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/worker/src/worker.ts",
+      "type": "file",
+      "name": "worker.ts",
+      "filePath": "apps/worker/src/worker.ts",
+      "summary": "BullMQ worker process entry point that connects to Redis, registers a worker on the shared job queue, and delegates each job to processJob with completion and failure logging.",
+      "tags": [
+        "entry-point",
+        "service",
+        "event-handler"
+      ],
+      "complexity": "simple",
+      "languageNotes": "Uses maxRetriesPerRequest: null on the ioredis connection as required by BullMQ; relies on NodeNext module resolution for the .js import extension."
+    },
+    {
+      "id": "config:apps/worker/tsconfig.json",
+      "type": "config",
+      "name": "tsconfig.json",
+      "filePath": "apps/worker/tsconfig.json",
+      "summary": "TypeScript compiler configuration for the worker app targeting ES2022 with NodeNext module resolution and strict mode enabled.",
+      "tags": [
+        "configuration",
+        "typescript",
+        "build-system"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:apps/worker/vitest.config.ts",
+      "type": "file",
+      "name": "vitest.config.ts",
+      "filePath": "apps/worker/vitest.config.ts",
+      "summary": "Vitest configuration for the worker app using node environment, Testcontainers-backed global setup, a single-fork pool for container lifecycle safety, and extended timeouts for integration tests.",
+      "tags": [
+        "configuration",
+        "test",
+        "build-system"
+      ],
+      "complexity": "simple",
+      "languageNotes": "singleFork: true is required to ensure the global Testcontainers setup/teardown lifecycle is not split across parallel worker processes."
+    },
+    {
+      "id": "file:data/invoices/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "data/invoices/.gitkeep",
+      "summary": "Empty placeholder file that ensures the data/invoices/ output directory is tracked in git for generated invoice PDFs.",
+      "tags": [
+        "configuration",
+        "infrastructure"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "service:docker/compose.dev.yml",
+      "type": "service",
+      "name": "compose.dev.yml",
+      "filePath": "docker/compose.dev.yml",
+      "summary": "Docker Compose development configuration that starts a Postgres 16 and Redis 7 instance for local development, mapping standard ports 5432 and 6379.",
+      "tags": [
+        "orchestration",
+        "infrastructure",
+        "configuration"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:docker/postgres/init/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "docker/postgres/init/.gitkeep",
+      "summary": "Empty placeholder preserving the docker/postgres/init/ directory in git for SQL initialization scripts to be added later.",
+      "tags": [
+        "configuration",
+        "infrastructure"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:docker/redis/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "docker/redis/.gitkeep",
+      "summary": "Empty placeholder preserving the docker/redis/ directory in git for Redis configuration files to be added later.",
+      "tags": [
+        "configuration",
+        "infrastructure"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:docs/diagrams/api-routes.puml",
+      "type": "file",
+      "name": "api-routes.puml",
+      "filePath": "docs/diagrams/api-routes.puml",
+      "summary": "PlantUML diagram documenting all API routes for the StudioWorks platform, covering clients, projects, time entries, expenses, invoices, and job endpoints.",
+      "tags": [
+        "documentation",
+        "api-schema",
+        "diagram"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:docs/diagrams/invoice-pdf-sequence.puml",
+      "type": "file",
+      "name": "invoice-pdf-sequence.puml",
+      "filePath": "docs/diagrams/invoice-pdf-sequence.puml",
+      "summary": "PlantUML sequence diagram illustrating the full flow of invoice PDF generation, from API trigger through BullMQ queue to worker processing and PDF output.",
+      "tags": [
+        "documentation",
+        "diagram",
+        "service"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:docs/diagrams/prisma-data-model.puml",
+      "type": "file",
+      "name": "prisma-data-model.puml",
+      "filePath": "docs/diagrams/prisma-data-model.puml",
+      "summary": "PlantUML class diagram of the Prisma data model, depicting all entities (Client, Project, TimeEntry, Expense, Invoice, Job) with their fields and relationships.",
+      "tags": [
+        "documentation",
+        "diagram",
+        "data-model"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:docs/diagrams/service-topology.puml",
+      "type": "file",
+      "name": "service-topology.puml",
+      "filePath": "docs/diagrams/service-topology.puml",
+      "summary": "PlantUML deployment diagram showing the StudioWorks service topology including the web app, API server, worker, Redis queue, and Postgres database.",
+      "tags": [
+        "documentation",
+        "diagram",
+        "infrastructure"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:docs/diagrams/system-context.puml",
+      "type": "file",
+      "name": "system-context.puml",
+      "filePath": "docs/diagrams/system-context.puml",
+      "summary": "PlantUML C4 system context diagram placing StudioWorks in the broader landscape with the freelancer user and any external actors.",
+      "tags": [
+        "documentation",
+        "diagram",
+        "infrastructure"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:infra/ci/README.placeholder.md",
+      "type": "document",
+      "name": "README.placeholder.md",
+      "filePath": "infra/ci/README.placeholder.md",
+      "summary": "Placeholder document marking the CI infrastructure directory as reserved for future GitHub Actions or CI pipeline configuration.",
+      "tags": [
+        "documentation",
+        "ci-cd",
+        "infrastructure"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:infra/k8s/README.placeholder.md",
+      "type": "document",
+      "name": "README.placeholder.md",
+      "filePath": "infra/k8s/README.placeholder.md",
+      "summary": "Placeholder document marking the Kubernetes infrastructure directory as reserved for future K8s manifests and deployment configuration.",
+      "tags": [
+        "documentation",
+        "infrastructure",
+        "deployment"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:infra/terraform/README.placeholder.md",
+      "type": "document",
+      "name": "README.placeholder.md",
+      "filePath": "infra/terraform/README.placeholder.md",
+      "summary": "Placeholder document marking the Terraform infrastructure directory as reserved for future infrastructure-as-code resource definitions.",
+      "tags": [
+        "documentation",
+        "infrastructure",
+        "deployment"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:packages/db/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "packages/db/.gitkeep",
+      "summary": "Empty placeholder file tracking the packages/db/ monorepo package directory in git.",
+      "tags": [
+        "configuration"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:packages/db/package.json",
+      "type": "config",
+      "name": "package.json",
+      "filePath": "packages/db/package.json",
+      "summary": "Package manifest for the @studioworks/db shared library, exposing the Prisma client via src/index.ts and providing Prisma migration scripts for use across the monorepo.",
+      "tags": [
+        "configuration",
+        "database",
+        "build-system"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "table:packages/db/prisma/migrations/20260228101128_init/migration.sql:RenderJob",
+      "type": "table",
+      "name": "RenderJob",
+      "filePath": "packages/db/prisma/migrations/20260228101128_init/migration.sql",
+      "lineRange": [
+        5,
+        14
+      ],
+      "summary": "Initial RenderJob table from the first migration, tracking render job status, spec (JSON), output assets, and audit timestamps; later replaced by the Job table in the freelancer invoicing pivot.",
+      "tags": [
+        "database",
+        "migration"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "table:packages/db/prisma/migrations/20260508015200_pivot_to_freelancer_invoicing/migration.sql:Client",
+      "type": "table",
+      "name": "Client",
+      "filePath": "packages/db/prisma/migrations/20260508015200_pivot_to_freelancer_invoicing/migration.sql",
+      "lineRange": [
+        23,
+        33
+      ],
+      "summary": "Client table storing freelancer customer records including name, email, address, and notes with audit timestamps.",
+      "tags": [
+        "database",
+        "migration",
+        "data-model"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "table:packages/db/prisma/migrations/20260508015200_pivot_to_freelancer_invoicing/migration.sql:Project",
+      "type": "table",
+      "name": "Project",
+      "filePath": "packages/db/prisma/migrations/20260508015200_pivot_to_freelancer_invoicing/migration.sql",
+      "lineRange": [
+        36,
+        46
+      ],
+      "summary": "Project table linking to a Client with a name, status, and hourly rate for time-tracked billing.",
+      "tags": [
+        "database",
+        "migration",
+        "data-model"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "table:packages/db/prisma/migrations/20260508015200_pivot_to_freelancer_invoicing/migration.sql:TimeEntry",
+      "type": "table",
+      "name": "TimeEntry",
+      "filePath": "packages/db/prisma/migrations/20260508015200_pivot_to_freelancer_invoicing/migration.sql",
+      "lineRange": [
+        49,
+        62
+      ],
+      "summary": "TimeEntry table recording billable hours against a project, optionally linked to an invoice once billed.",
+      "tags": [
+        "database",
+        "migration",
+        "data-model"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "table:packages/db/prisma/migrations/20260508015200_pivot_to_freelancer_invoicing/migration.sql:Expense",
+      "type": "table",
+      "name": "Expense",
+      "filePath": "packages/db/prisma/migrations/20260508015200_pivot_to_freelancer_invoicing/migration.sql",
+      "lineRange": [
+        65,
+        79
+      ],
+      "summary": "Expense table recording project-level expenses with amount, category, billability flag, and optional invoice linkage.",
+      "tags": [
+        "database",
+        "migration",
+        "data-model"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "table:packages/db/prisma/migrations/20260508015200_pivot_to_freelancer_invoicing/migration.sql:Invoice",
+      "type": "table",
+      "name": "Invoice",
+      "filePath": "packages/db/prisma/migrations/20260508015200_pivot_to_freelancer_invoicing/migration.sql",
+      "lineRange": [
+        82,
+        96
+      ],
+      "summary": "Invoice table with a unique invoice number, status, due date, financial totals (subtotal, tax, total), notes, and project FK; indexed for status and number lookups.",
+      "tags": [
+        "database",
+        "migration",
+        "data-model"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "table:packages/db/prisma/migrations/20260508015200_pivot_to_freelancer_invoicing/migration.sql:Job",
+      "type": "table",
+      "name": "Job",
+      "filePath": "packages/db/prisma/migrations/20260508015200_pivot_to_freelancer_invoicing/migration.sql",
+      "lineRange": [
+        99,
+        110
+      ],
+      "summary": "Job table tracking async BullMQ job state for invoice-PDF generation, with status, spec, outputPath, error, and a one-to-one FK to Invoice.",
+      "tags": [
+        "database",
+        "migration",
+        "data-model"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "table:packages/db/prisma/migrations/20260228101128_init/migration.sql",
+      "type": "table",
+      "name": "migration.sql",
+      "filePath": "packages/db/prisma/migrations/20260228101128_init/migration.sql",
+      "summary": "Initial database migration creating the original RenderJob table before the pivot to freelancer invoicing.",
+      "tags": [
+        "database",
+        "migration"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "table:packages/db/prisma/migrations/20260508015200_pivot_to_freelancer_invoicing/migration.sql",
+      "type": "table",
+      "name": "migration.sql",
+      "filePath": "packages/db/prisma/migrations/20260508015200_pivot_to_freelancer_invoicing/migration.sql",
+      "summary": "Major schema pivot migration that drops the RenderJob table and introduces the full freelancer invoicing schema: Client, Project, TimeEntry, Expense, Invoice, and Job tables with indexes and foreign keys.",
+      "tags": [
+        "database",
+        "migration",
+        "schema-definition"
+      ],
+      "complexity": "complex",
+      "languageNotes": "Migration drops the prior RenderJob table and re-creates Job as a BullMQ async task tracker with a 1:1 relationship to Invoice."
+    },
+    {
+      "id": "config:packages/db/prisma/migrations/migration_lock.toml",
+      "type": "config",
+      "name": "migration_lock.toml",
+      "filePath": "packages/db/prisma/migrations/migration_lock.toml",
+      "summary": "Prisma migration lock file recording the active database provider (postgresql) to prevent accidental provider switches.",
+      "tags": [
+        "configuration",
+        "database",
+        "migration",
+        "prisma"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "schema:packages/db/prisma/schema.prisma",
+      "type": "schema",
+      "name": "schema.prisma",
+      "filePath": "packages/db/prisma/schema.prisma",
+      "summary": "Core Prisma schema defining all domain models (Client, Project, TimeEntry, Expense, Invoice, Job) with relationships and status enums for the freelancer invoicing platform.",
+      "tags": [
+        "schema-definition",
+        "database",
+        "data-model",
+        "prisma"
+      ],
+      "complexity": "moderate",
+      "languageNotes": "Uses Prisma discriminated enum pattern for JobStatus, ProjectStatus, and InvoiceStatus; Job model carries a Json spec field that is validated at runtime by the shared JobSpecSchema."
+    },
+    {
+      "id": "file:packages/db/src/index.ts",
+      "type": "file",
+      "name": "index.ts",
+      "filePath": "packages/db/src/index.ts",
+      "summary": "Exports the singleton PrismaClient instance and all domain model types as the public API surface of the @studioworks/db package.",
+      "tags": [
+        "entry-point",
+        "barrel",
+        "singleton",
+        "database"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:packages/db/src/test/global-setup.ts",
+      "type": "file",
+      "name": "global-setup.ts",
+      "filePath": "packages/db/src/test/global-setup.ts",
+      "summary": "Vitest global setup/teardown that spins up a disposable PostgreSQL Testcontainer and runs Prisma migrations against it before the test suite starts.",
+      "tags": [
+        "test",
+        "database",
+        "infrastructure"
+      ],
+      "complexity": "simple",
+      "languageNotes": "Uses @testcontainers/postgresql to provision a real Postgres instance for integration tests, ensuring schema correctness without mocking."
+    },
+    {
+      "id": "function:packages/db/src/test/global-setup.ts:setup",
+      "type": "function",
+      "name": "setup",
+      "filePath": "packages/db/src/test/global-setup.ts",
+      "lineRange": [
+        6,
+        21
+      ],
+      "summary": "Starts a PostgreSQL Testcontainer, sets the DATABASE_URL environment variable, and runs Prisma migrations so integration tests run against a fully migrated schema.",
+      "tags": [
+        "test",
+        "database",
+        "infrastructure"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:packages/db/src/test/global-setup.ts:teardown",
+      "type": "function",
+      "name": "teardown",
+      "filePath": "packages/db/src/test/global-setup.ts",
+      "lineRange": [
+        23,
+        25
+      ],
+      "summary": "Stops the PostgreSQL Testcontainer after the test suite completes.",
+      "tags": [
+        "test",
+        "database"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:packages/db/tsconfig.json",
+      "type": "config",
+      "name": "tsconfig.json",
+      "filePath": "packages/db/tsconfig.json",
+      "summary": "TypeScript compiler configuration for the db package, extending the monorepo base tsconfig and specifying source inclusions.",
+      "tags": [
+        "configuration",
+        "typescript",
+        "build-system"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:packages/db/vitest.config.ts",
+      "type": "file",
+      "name": "vitest.config.ts",
+      "filePath": "packages/db/vitest.config.ts",
+      "summary": "Vitest configuration for the db package, enforcing serial single-fork execution with extended timeouts to accommodate Testcontainer startup and Prisma migrations.",
+      "tags": [
+        "configuration",
+        "test",
+        "build-system"
+      ],
+      "complexity": "simple",
+      "languageNotes": "Uses singleFork pool mode to ensure stateful Testcontainer + Prisma migration lifecycle is not parallelized across workers."
+    },
+    {
+      "id": "file:packages/shared/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "packages/shared/.gitkeep",
+      "summary": "Empty placeholder file ensuring the packages/shared directory is tracked by git.",
+      "tags": [
+        "utility"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:packages/shared/job-spec.ts",
+      "type": "file",
+      "name": "job-spec.ts",
+      "filePath": "packages/shared/job-spec.ts",
+      "summary": "Defines the Zod discriminated union schema for background job specifications, currently supporting the invoice-pdf job type used by the worker.",
+      "tags": [
+        "validation",
+        "type-definition",
+        "data-model"
+      ],
+      "complexity": "simple",
+      "languageNotes": "Uses z.discriminatedUnion on the 'type' field so the worker can safely narrow job payloads at runtime."
+    },
+    {
+      "id": "config:packages/shared/package.json",
+      "type": "config",
+      "name": "package.json",
+      "filePath": "packages/shared/package.json",
+      "summary": "Package manifest for the @studioworks/shared monorepo package, declaring exports, scripts, Zod runtime dependency, and build tooling.",
+      "tags": [
+        "configuration",
+        "build-system"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:packages/shared/src/index.ts",
+      "type": "file",
+      "name": "index.ts",
+      "filePath": "packages/shared/src/index.ts",
+      "summary": "Barrel entry point for the @studioworks/shared package, re-exporting all JobSpec types and exposing the JOB_QUEUE_NAME constant used by both the API and worker.",
+      "tags": [
+        "entry-point",
+        "barrel",
+        "exports"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:packages/shared/tsconfig.json",
+      "type": "config",
+      "name": "tsconfig.json",
+      "filePath": "packages/shared/tsconfig.json",
+      "summary": "TypeScript compiler configuration for the shared package, extending the monorepo base tsconfig and specifying source inclusions.",
+      "tags": [
+        "configuration",
+        "typescript",
+        "build-system"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:packages/shared/vitest.config.ts",
+      "type": "file",
+      "name": "vitest.config.ts",
+      "filePath": "packages/shared/vitest.config.ts",
+      "summary": "Vitest configuration for the shared package, running tests in a Node environment with v8 coverage.",
+      "tags": [
+        "configuration",
+        "test",
+        "build-system"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:tasks/lessons.md",
+      "type": "document",
+      "name": "lessons.md",
+      "filePath": "tasks/lessons.md",
+      "summary": "Running log of corrections and rules derived from past mistakes, intended to be reviewed at the start of each development session.",
+      "tags": [
+        "documentation",
+        "development"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:tasks/todo.md",
+      "type": "document",
+      "name": "todo.md",
+      "filePath": "tasks/todo.md",
+      "summary": "Active task plan placeholder \u2014 records the current non-trivial task description when development is in progress.",
+      "tags": [
+        "documentation",
+        "development"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:vitest.workspace.ts",
+      "type": "file",
+      "name": "vitest.workspace.ts",
+      "filePath": "vitest.workspace.ts",
+      "summary": "Root Vitest workspace configuration aggregating all package-level vitest configs for shared, db, api, worker, and web packages into a single monorepo test run.",
+      "tags": [
+        "configuration",
+        "test",
+        "entry-point",
+        "build-system"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:apps/api/src/app.ts",
+      "target": "function:apps/api/src/app.ts:buildApp",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:apps/api/src/app.ts",
+      "target": "function:apps/api/src/app.ts:buildApp",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:apps/api/src/routes/clients.ts",
+      "target": "function:apps/api/src/routes/clients.ts:clientRoutes",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:apps/api/src/routes/clients.ts",
+      "target": "function:apps/api/src/routes/clients.ts:clientRoutes",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:apps/api/src/routes/expenses.ts",
+      "target": "function:apps/api/src/routes/expenses.ts:expenseRoutes",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:apps/api/src/routes/expenses.ts",
+      "target": "function:apps/api/src/routes/expenses.ts:expenseRoutes",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:apps/api/src/routes/jobs.ts",
+      "target": "function:apps/api/src/routes/jobs.ts:jobRoutes",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:apps/api/src/routes/jobs.ts",
+      "target": "function:apps/api/src/routes/jobs.ts:jobRoutes",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:apps/api/src/routes/projects.ts",
+      "target": "function:apps/api/src/routes/projects.ts:projectRoutes",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:apps/api/src/routes/projects.ts",
+      "target": "function:apps/api/src/routes/projects.ts:projectRoutes",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:apps/api/src/routes/time-entries.ts",
+      "target": "function:apps/api/src/routes/time-entries.ts:timeEntryRoutes",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:apps/api/src/routes/time-entries.ts",
+      "target": "function:apps/api/src/routes/time-entries.ts:timeEntryRoutes",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:apps/api/src/app.ts",
+      "target": "file:apps/api/src/routes/clients.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:apps/api/src/app.ts",
+      "target": "file:apps/api/src/routes/expenses.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:apps/api/src/app.ts",
+      "target": "file:apps/api/src/routes/invoices.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:apps/api/src/app.ts",
+      "target": "file:apps/api/src/routes/jobs.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:apps/api/src/app.ts",
+      "target": "file:apps/api/src/routes/projects.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:apps/api/src/app.ts",
+      "target": "file:apps/api/src/routes/time-entries.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:apps/api/src/index.ts",
+      "target": "file:apps/api/src/app.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "function:apps/api/src/app.ts:buildApp",
+      "target": "function:apps/api/src/routes/invoices.ts:invoiceRoutes",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:apps/web/src/test/msw/server.ts",
+      "target": "file:apps/web/src/test/msw/handlers.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:apps/web/src/test/setup.ts",
+      "target": "file:apps/web/src/test/msw/server.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "service:apps/api/Dockerfile",
+      "target": "service:apps/api/Dockerfile:node",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "service:apps/api/.dockerignore",
+      "target": "service:apps/api/Dockerfile",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "service:apps/worker/Dockerfile",
+      "target": "service:apps/worker/Dockerfile:node",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "service:apps/worker/.dockerignore",
+      "target": "service:apps/worker/Dockerfile",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "pipeline:.github/workflows/pr-checks.yml",
+      "target": "step:.github/workflows/pr-checks.yml:Generate changelog from merged testing PRs",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "pipeline:.github/workflows/pr-checks.yml",
+      "target": "step:.github/workflows/pr-checks.yml:Update PR body with changelog",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "pipeline:.github/workflows/pr-checks.yml",
+      "target": "step:.github/workflows/pr-checks.yml:Check conventional commit format",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "pipeline:.github/workflows/pr-checks.yml",
+      "target": "step:.github/workflows/pr-checks.yml:Check for Summary section with content",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "pipeline:.github/workflows/render-diagrams.yml",
+      "target": "step:.github/workflows/render-diagrams.yml:Install PlantUML",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "pipeline:.github/workflows/render-diagrams.yml",
+      "target": "step:.github/workflows/render-diagrams.yml:Render .puml \u2192 SVG",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "pipeline:.github/workflows/render-diagrams.yml",
+      "target": "step:.github/workflows/render-diagrams.yml:Configure Pages",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "pipeline:.github/workflows/render-diagrams.yml",
+      "target": "step:.github/workflows/render-diagrams.yml:Upload Pages artifact",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "pipeline:.github/workflows/render-diagrams.yml",
+      "target": "step:.github/workflows/render-diagrams.yml:Deploy to GitHub Pages",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "config:tsconfig.json",
+      "target": "config:package.json",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:turbo.json",
+      "target": "config:package.json",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:pnpm-workspace.yaml",
+      "target": "config:package.json",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "document:README.md",
+      "target": "config:package.json",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "config:.env.example",
+      "target": "config:package.json",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "service:.dockerignore",
+      "target": "config:package.json",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/architecture.md",
+      "target": "file:apps/api/src/index.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/architecture.md",
+      "target": "file:apps/worker/src/worker.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/architecture.md",
+      "target": "file:apps/worker/src/processor.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/architecture.md",
+      "target": "file:apps/worker/src/providers/invoice-pdf.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/architecture.md",
+      "target": "file:packages/shared/src/index.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/architecture.md",
+      "target": "file:packages/db/src/index.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/deployment-plan.md",
+      "target": "document:docs/local-dev.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:docs/index.html",
+      "target": "document:docs/architecture.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:apps/api/src/routes/invoices.ts",
+      "target": "file:apps/api/src/queue.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:apps/api/src/routes/invoices.ts",
+      "target": "function:apps/api/src/routes/invoices.ts:invoiceRoutes",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:apps/api/src/routes/invoices.ts",
+      "target": "function:apps/api/src/routes/invoices.ts:invoiceRoutes",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:apps/api/src/routes/invoices.ts:invoiceRoutes",
+      "target": "file:apps/api/src/queue.ts",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:apps/api/src/routes/invoices.ts",
+      "target": "file:apps/api/src/app.ts",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:apps/api/src/test/global-setup.ts",
+      "target": "function:apps/api/src/test/global-setup.ts:setup",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:apps/api/src/test/global-setup.ts",
+      "target": "function:apps/api/src/test/global-setup.ts:teardown",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:apps/api/src/test/global-setup.ts",
+      "target": "function:apps/api/src/test/global-setup.ts:setup",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:apps/api/src/test/global-setup.ts",
+      "target": "function:apps/api/src/test/global-setup.ts:teardown",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "config:apps/api/tsconfig.json",
+      "target": "file:apps/api/src/queue.ts",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:apps/api/tsconfig.json",
+      "target": "file:apps/api/src/routes/invoices.ts",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:apps/api/vitest.config.ts",
+      "target": "file:apps/api/src/test/global-setup.ts",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:apps/api/vitest.config.ts",
+      "target": "file:apps/api/src/test/setup.ts",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:apps/web/src/app/clients/[id]/page.tsx",
+      "target": "function:apps/web/src/app/clients/[id]/page.tsx:ClientDetailPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:apps/web/src/app/clients/[id]/page.tsx",
+      "target": "function:apps/web/src/app/clients/[id]/page.tsx:ClientDetailPage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:apps/web/src/app/clients/new/page.tsx",
+      "target": "function:apps/web/src/app/clients/new/page.tsx:NewClientPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:apps/web/src/app/clients/new/page.tsx",
+      "target": "function:apps/web/src/app/clients/new/page.tsx:NewClientPage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:apps/web/src/app/clients/page.tsx",
+      "target": "function:apps/web/src/app/clients/page.tsx:ClientsPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:apps/web/src/app/clients/page.tsx",
+      "target": "function:apps/web/src/app/clients/page.tsx:ClientsPage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:apps/web/src/app/invoices/[id]/page.tsx",
+      "target": "function:apps/web/src/app/invoices/[id]/page.tsx:InvoiceDetailPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:apps/web/src/app/invoices/[id]/page.tsx",
+      "target": "function:apps/web/src/app/invoices/[id]/page.tsx:InvoiceDetailPage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:apps/web/src/app/invoices/page.tsx",
+      "target": "function:apps/web/src/app/invoices/page.tsx:InvoicesPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:apps/web/src/app/invoices/page.tsx",
+      "target": "function:apps/web/src/app/invoices/page.tsx:InvoicesPage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:apps/web/src/app/layout.tsx",
+      "target": "function:apps/web/src/app/layout.tsx:RootLayout",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:apps/web/src/app/layout.tsx",
+      "target": "function:apps/web/src/app/layout.tsx:RootLayout",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:apps/web/src/app/page.tsx",
+      "target": "function:apps/web/src/app/page.tsx:DashboardPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:apps/web/src/app/page.tsx",
+      "target": "function:apps/web/src/app/page.tsx:DashboardPage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:apps/web/src/app/projects/[id]/expenses/page.tsx",
+      "target": "function:apps/web/src/app/projects/[id]/expenses/page.tsx:ExpensesPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:apps/web/src/app/projects/[id]/expenses/page.tsx",
+      "target": "function:apps/web/src/app/projects/[id]/expenses/page.tsx:ExpensesPage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:apps/web/src/app/projects/[id]/page.tsx",
+      "target": "function:apps/web/src/app/projects/[id]/page.tsx:ProjectDetailPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:apps/web/src/app/projects/[id]/page.tsx",
+      "target": "function:apps/web/src/app/projects/[id]/page.tsx:ProjectDetailPage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:apps/web/src/app/projects/[id]/time/page.tsx",
+      "target": "function:apps/web/src/app/projects/[id]/time/page.tsx:TimeEntriesPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:apps/web/src/app/projects/[id]/time/page.tsx",
+      "target": "function:apps/web/src/app/projects/[id]/time/page.tsx:TimeEntriesPage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:apps/web/src/app/projects/page.tsx",
+      "target": "function:apps/web/src/app/projects/page.tsx:ProjectsPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:apps/web/src/app/projects/page.tsx",
+      "target": "function:apps/web/src/app/projects/page.tsx:ProjectsPage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "config:apps/web/tsconfig.json",
+      "target": "file:apps/web/src/app/layout.tsx",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:apps/web/tsconfig.json",
+      "target": "file:apps/web/src/app/page.tsx",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:apps/worker/src/worker.ts",
+      "target": "file:apps/worker/src/processor.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:apps/worker/src/processor.ts",
+      "target": "function:apps/worker/src/processor.ts:processJob",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:apps/worker/src/processor.ts",
+      "target": "function:apps/worker/src/processor.ts:processJob",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:apps/worker/src/providers/invoice-pdf.ts",
+      "target": "function:apps/worker/src/providers/invoice-pdf.ts:generateInvoicePdf",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:apps/worker/src/providers/invoice-pdf.ts",
+      "target": "function:apps/worker/src/providers/invoice-pdf.ts:generateInvoicePdf",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:apps/worker/src/test/global-setup.ts",
+      "target": "function:apps/worker/src/test/global-setup.ts:setup",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:apps/worker/src/test/global-setup.ts",
+      "target": "function:apps/worker/src/test/global-setup.ts:setup",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:apps/worker/src/test/global-setup.ts",
+      "target": "function:apps/worker/src/test/global-setup.ts:teardown",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:apps/worker/src/test/global-setup.ts",
+      "target": "function:apps/worker/src/test/global-setup.ts:teardown",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:apps/worker/src/worker.ts",
+      "target": "function:apps/worker/src/processor.ts:processJob",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "config:apps/worker/tsconfig.json",
+      "target": "file:apps/worker/src/worker.ts",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:apps/worker/vitest.config.ts",
+      "target": "file:apps/worker/src/test/global-setup.ts",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:apps/worker/vitest.config.ts",
+      "target": "file:apps/worker/src/test/setup.ts",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "service:docker/compose.dev.yml",
+      "target": "file:apps/worker/src/worker.ts",
+      "type": "deploys",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "table:packages/db/prisma/migrations/20260228101128_init/migration.sql",
+      "target": "table:packages/db/prisma/migrations/20260228101128_init/migration.sql:RenderJob",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "table:packages/db/prisma/migrations/20260508015200_pivot_to_freelancer_invoicing/migration.sql",
+      "target": "table:packages/db/prisma/migrations/20260508015200_pivot_to_freelancer_invoicing/migration.sql:Client",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "table:packages/db/prisma/migrations/20260508015200_pivot_to_freelancer_invoicing/migration.sql",
+      "target": "table:packages/db/prisma/migrations/20260508015200_pivot_to_freelancer_invoicing/migration.sql:Project",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "table:packages/db/prisma/migrations/20260508015200_pivot_to_freelancer_invoicing/migration.sql",
+      "target": "table:packages/db/prisma/migrations/20260508015200_pivot_to_freelancer_invoicing/migration.sql:TimeEntry",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "table:packages/db/prisma/migrations/20260508015200_pivot_to_freelancer_invoicing/migration.sql",
+      "target": "table:packages/db/prisma/migrations/20260508015200_pivot_to_freelancer_invoicing/migration.sql:Expense",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "table:packages/db/prisma/migrations/20260508015200_pivot_to_freelancer_invoicing/migration.sql",
+      "target": "table:packages/db/prisma/migrations/20260508015200_pivot_to_freelancer_invoicing/migration.sql:Invoice",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "table:packages/db/prisma/migrations/20260508015200_pivot_to_freelancer_invoicing/migration.sql",
+      "target": "table:packages/db/prisma/migrations/20260508015200_pivot_to_freelancer_invoicing/migration.sql:Job",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "config:packages/db/package.json",
+      "target": "table:packages/db/prisma/migrations/20260508015200_pivot_to_freelancer_invoicing/migration.sql",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:docs/diagrams/prisma-data-model.puml",
+      "target": "table:packages/db/prisma/migrations/20260508015200_pivot_to_freelancer_invoicing/migration.sql",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:docs/diagrams/invoice-pdf-sequence.puml",
+      "target": "file:apps/worker/src/worker.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:docs/diagrams/service-topology.puml",
+      "target": "service:docker/compose.dev.yml",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:packages/db/src/test/global-setup.ts",
+      "target": "function:packages/db/src/test/global-setup.ts:setup",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:packages/db/src/test/global-setup.ts",
+      "target": "function:packages/db/src/test/global-setup.ts:teardown",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:packages/db/src/test/global-setup.ts",
+      "target": "function:packages/db/src/test/global-setup.ts:setup",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:packages/db/src/test/global-setup.ts",
+      "target": "function:packages/db/src/test/global-setup.ts:teardown",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "config:packages/db/tsconfig.json",
+      "target": "file:packages/db/src/index.ts",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:packages/shared/tsconfig.json",
+      "target": "file:packages/shared/src/index.ts",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:packages/db/vitest.config.ts",
+      "target": "file:packages/db/src/test/global-setup.ts",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:vitest.workspace.ts",
+      "target": "file:packages/db/vitest.config.ts",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:vitest.workspace.ts",
+      "target": "file:packages/shared/vitest.config.ts",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "schema:packages/db/prisma/schema.prisma",
+      "target": "file:packages/db/src/index.ts",
+      "type": "defines_schema",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "config:packages/db/prisma/migrations/migration_lock.toml",
+      "target": "schema:packages/db/prisma/schema.prisma",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:packages/shared/src/index.ts",
+      "target": "file:packages/shared/job-spec.ts",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "pipeline:.github/workflows/render-diagrams.yml",
+      "target": "file:docs/index.html",
+      "type": "triggers",
+      "direction": "forward",
+      "weight": 0.6
+    }
+  ],
+  "layers": [
+    {
+      "id": "layer:frontend",
+      "name": "Frontend (Next.js Web App)",
+      "description": "Next.js pages, layouts, and configuration for the freelancer-facing web UI covering clients, projects, invoices, and time/expense views.",
+      "nodeIds": [
+        "file:apps/web/src/app/clients/[id]/page.tsx",
+        "file:apps/web/src/app/clients/new/page.tsx",
+        "file:apps/web/src/app/clients/page.tsx",
+        "file:apps/web/src/app/invoices/[id]/page.tsx",
+        "file:apps/web/src/app/invoices/page.tsx",
+        "file:apps/web/src/app/layout.tsx",
+        "file:apps/web/src/app/page.tsx",
+        "file:apps/web/src/app/projects/[id]/expenses/page.tsx",
+        "file:apps/web/src/app/projects/[id]/page.tsx",
+        "file:apps/web/src/app/projects/[id]/time/page.tsx",
+        "file:apps/web/src/app/projects/page.tsx",
+        "file:apps/web/next.config.mjs",
+        "file:apps/web/.gitkeep",
+        "config:apps/web/package.json",
+        "config:apps/web/tsconfig.json"
+      ]
+    },
+    {
+      "id": "layer:api",
+      "name": "API Layer (Fastify Backend)",
+      "description": "Fastify application factory, HTTP route plugins for all domain resources (clients, projects, invoices, expenses, time entries, jobs), and the BullMQ queue producer used to dispatch PDF generation jobs.",
+      "nodeIds": [
+        "file:apps/api/src/app.ts",
+        "file:apps/api/src/index.ts",
+        "file:apps/api/src/routes/clients.ts",
+        "file:apps/api/src/routes/expenses.ts",
+        "file:apps/api/src/routes/jobs.ts",
+        "file:apps/api/src/routes/projects.ts",
+        "file:apps/api/src/routes/time-entries.ts",
+        "file:apps/api/src/routes/invoices.ts",
+        "file:apps/api/src/queue.ts",
+        "config:apps/api/package.json",
+        "config:apps/api/tsconfig.json"
+      ]
+    },
+    {
+      "id": "layer:worker",
+      "name": "Background Worker",
+      "description": "BullMQ worker process that consumes Redis-backed job queues and dispatches jobs to provider implementations such as the invoice PDF renderer.",
+      "nodeIds": [
+        "file:apps/worker/src/worker.ts",
+        "file:apps/worker/src/processor.ts",
+        "file:apps/worker/src/providers/invoice-pdf.ts",
+        "config:apps/worker/package.json",
+        "config:apps/worker/tsconfig.json"
+      ]
+    },
+    {
+      "id": "layer:data",
+      "name": "Data Layer (Prisma & Shared Types)",
+      "description": "Prisma schema, SQL migrations, the singleton PrismaClient export, the Zod-validated JobSpec discriminated union shared between the API and worker, and the generated invoice output directory.",
+      "nodeIds": [
+        "file:packages/db/src/index.ts",
+        "file:packages/db/.gitkeep",
+        "schema:packages/db/prisma/schema.prisma",
+        "table:packages/db/prisma/migrations/20260228101128_init/migration.sql",
+        "table:packages/db/prisma/migrations/20260508015200_pivot_to_freelancer_invoicing/migration.sql",
+        "config:packages/db/package.json",
+        "config:packages/db/prisma/migrations/migration_lock.toml",
+        "config:packages/db/tsconfig.json",
+        "file:packages/shared/job-spec.ts",
+        "file:packages/shared/src/index.ts",
+        "file:packages/shared/.gitkeep",
+        "config:packages/shared/package.json",
+        "config:packages/shared/tsconfig.json",
+        "file:data/invoices/.gitkeep",
+        "table:packages/db/prisma/migrations/20260228101128_init/migration.sql:RenderJob",
+        "table:packages/db/prisma/migrations/20260508015200_pivot_to_freelancer_invoicing/migration.sql:Client",
+        "table:packages/db/prisma/migrations/20260508015200_pivot_to_freelancer_invoicing/migration.sql:Project",
+        "table:packages/db/prisma/migrations/20260508015200_pivot_to_freelancer_invoicing/migration.sql:TimeEntry",
+        "table:packages/db/prisma/migrations/20260508015200_pivot_to_freelancer_invoicing/migration.sql:Expense",
+        "table:packages/db/prisma/migrations/20260508015200_pivot_to_freelancer_invoicing/migration.sql:Invoice",
+        "table:packages/db/prisma/migrations/20260508015200_pivot_to_freelancer_invoicing/migration.sql:Job"
+      ]
+    },
+    {
+      "id": "layer:test",
+      "name": "Test Infrastructure",
+      "description": "Vitest configurations, global setup/teardown modules using Testcontainers for real Postgres and Redis, MSW mock handlers for the web app, and per-test cleanup hooks across all monorepo packages.",
+      "nodeIds": [
+        "file:apps/api/src/test/global-setup.ts",
+        "file:apps/api/src/test/setup.ts",
+        "file:apps/api/vitest.config.ts",
+        "file:apps/web/src/test/msw/handlers.ts",
+        "file:apps/web/src/test/msw/server.ts",
+        "file:apps/web/src/test/setup.ts",
+        "file:apps/web/vitest.config.ts",
+        "file:apps/worker/src/test/global-setup.ts",
+        "file:apps/worker/src/test/setup.ts",
+        "file:apps/worker/vitest.config.ts",
+        "file:packages/db/src/test/global-setup.ts",
+        "file:packages/db/vitest.config.ts",
+        "file:packages/shared/vitest.config.ts",
+        "file:vitest.workspace.ts"
+      ]
+    },
+    {
+      "id": "layer:infrastructure",
+      "name": "Infrastructure",
+      "description": "Docker build files and ignore lists for the API and worker services, the Docker Compose development environment with Postgres and Redis, placeholder directories for future K8s, Terraform, and CI configuration.",
+      "nodeIds": [
+        "service:apps/api/Dockerfile",
+        "service:apps/api/.dockerignore",
+        "service:apps/worker/Dockerfile",
+        "service:apps/worker/.dockerignore",
+        "service:.dockerignore",
+        "service:docker/compose.dev.yml",
+        "file:docker/postgres/init/.gitkeep",
+        "file:docker/redis/.gitkeep",
+        "document:infra/ci/README.placeholder.md",
+        "document:infra/k8s/README.placeholder.md",
+        "document:infra/terraform/README.placeholder.md",
+        "service:apps/api/Dockerfile:node",
+        "service:apps/worker/Dockerfile:node"
+      ]
+    },
+    {
+      "id": "layer:ci-cd",
+      "name": "CI/CD",
+      "description": "GitHub Actions workflows for PR quality gates (conventional commits, changelog generation, summary validation) and PlantUML diagram rendering with GitHub Pages deployment, plus the PR description template.",
+      "nodeIds": [
+        "pipeline:.github/workflows/pr-checks.yml",
+        "pipeline:.github/workflows/render-diagrams.yml",
+        "document:.github/PULL_REQUEST_TEMPLATE.md",
+        "step:.github/workflows/pr-checks.yml:Generate changelog from merged testing PRs",
+        "step:.github/workflows/pr-checks.yml:Update PR body with changelog",
+        "step:.github/workflows/pr-checks.yml:Check conventional commit format",
+        "step:.github/workflows/pr-checks.yml:Check for Summary section with content",
+        "step:.github/workflows/render-diagrams.yml:Install PlantUML",
+        "step:.github/workflows/render-diagrams.yml:Render .puml \u2192 SVG",
+        "step:.github/workflows/render-diagrams.yml:Configure Pages",
+        "step:.github/workflows/render-diagrams.yml:Upload Pages artifact",
+        "step:.github/workflows/render-diagrams.yml:Deploy to GitHub Pages"
+      ]
+    },
+    {
+      "id": "layer:documentation",
+      "name": "Documentation",
+      "description": "Architecture and deployment docs, local development guide, PlantUML architecture diagrams (system context, service topology, data model, API routes, invoice sequence), the diagram gallery page, and active development notes.",
+      "nodeIds": [
+        "file:docs/diagrams/api-routes.puml",
+        "file:docs/diagrams/invoice-pdf-sequence.puml",
+        "file:docs/diagrams/prisma-data-model.puml",
+        "file:docs/diagrams/service-topology.puml",
+        "file:docs/diagrams/system-context.puml",
+        "file:docs/index.html",
+        "document:docs/architecture.md",
+        "document:docs/deployment-plan.md",
+        "document:docs/local-dev.md",
+        "document:README.md",
+        "document:tasks/lessons.md",
+        "document:tasks/todo.md"
+      ]
+    },
+    {
+      "id": "layer:config",
+      "name": "Monorepo Configuration",
+      "description": "Root-level build and workspace configuration files for the pnpm monorepo: Turborepo pipeline definitions, shared TypeScript base config, pnpm workspace manifest, root package.json scripts, and the environment variable template.",
+      "nodeIds": [
+        "config:package.json",
+        "config:pnpm-workspace.yaml",
+        "config:tsconfig.json",
+        "config:turbo.json",
+        "config:.env.example"
+      ]
+    },
+    {
+      "id": "layer:tooling",
+      "name": "Tooling & Repository Metadata",
+      "description": "Git repository metadata and developer tooling configuration files including line-ending normalization rules and the understand-anything knowledge graph ignore list.",
+      "nodeIds": [
+        "file:.gitattributes",
+        "file:.understand-anything/.understandignore"
+      ]
+    }
+  ],
+  "tour": [
+    {
+      "order": 1,
+      "title": "Project Overview",
+      "description": "Start with the README to understand what StudioWorks is and why it exists: a TypeScript-first monorepo platform for freelancers to manage clients, track time and expenses, and generate PDF invoices automatically. The README spans 16 sections covering architecture, domain models, data flow, the tech stack, and the JobSpec format \u2014 reading it gives you the full mental model before touching any code.",
+      "nodeIds": [
+        "document:README.md"
+      ]
+    },
+    {
+      "order": 2,
+      "title": "Monorepo Structure",
+      "description": "The root package.json, pnpm-workspace.yaml, and turbo.json together define how this monorepo is organized and built. pnpm workspaces link the apps (api, worker, web) and packages (shared, db) together, while Turborepo orchestrates tasks like build, test, and lint with dependency-aware caching. Understanding this layer tells you how to run the project and why changes in one package can trigger rebuilds in others.",
+      "nodeIds": [
+        "config:package.json",
+        "config:pnpm-workspace.yaml",
+        "config:turbo.json"
+      ],
+      "languageLesson": "Turborepo uses a pipeline definition in turbo.json where each task declares its upstream dependencies via 'dependsOn'. When you run 'turbo build', it builds packages in topological order \u2014 shared first, then db, then the apps \u2014 and skips tasks whose inputs haven't changed by comparing content hashes."
+    },
+    {
+      "order": 3,
+      "title": "Shared Contracts",
+      "description": "The @studioworks/shared package exports two things the entire platform depends on: the JOB_QUEUE_NAME constant and the JobSpec Zod discriminated union schema. Both the API (which enqueues jobs) and the worker (which processes them) import from this package, making it the single source of truth for what a background job looks like. This is the lowest-level shared contract in the system.",
+      "nodeIds": [
+        "file:packages/shared/src/index.ts",
+        "file:packages/shared/job-spec.ts"
+      ],
+      "languageLesson": "Zod discriminated unions use z.discriminatedUnion('type', [...]) to let TypeScript narrow a payload to its specific variant based on the 'type' field. At runtime, .parse() throws if the shape doesn't match; the worker can safely switch on job.data.type after parsing."
+    },
+    {
+      "order": 4,
+      "title": "Database Schema",
+      "description": "The Prisma schema is the canonical definition of every domain model: Client, Project, TimeEntry, Expense, Invoice, and Job. Each model maps to a PostgreSQL table and carries typed status enums (ProjectStatus, InvoiceStatus, JobStatus). The Job model's Json spec field bridges the strongly-typed Zod JobSpec at the application layer with schemaless storage in Postgres \u2014 the worker validates the spec at runtime after reading it from the database.",
+      "nodeIds": [
+        "schema:packages/db/prisma/schema.prisma"
+      ],
+      "languageLesson": "Prisma uses enum declarations that generate TypeScript union types and Postgres CHECK constraints in the same migration. The Json field type stores arbitrary JSON without schema enforcement at the database level, which is intentional here \u2014 the application-layer Zod schema is the enforcement point."
+    },
+    {
+      "order": 5,
+      "title": "Database Migrations",
+      "description": "Two migrations tell the story of the project's evolution. The first migration created a RenderJob table for a prior video-rendering use case. The second, the freelancer invoicing pivot, drops that table and introduces the full six-table schema: Client, Project, TimeEntry, Expense, Invoice, and Job with foreign keys and indexes. Reading the pivot migration reveals the relational design: clients own projects, projects accumulate time entries and expenses, projects are invoiced, and invoices trigger async PDF generation jobs.",
+      "nodeIds": [
+        "table:packages/db/prisma/migrations/20260508015200_pivot_to_freelancer_invoicing/migration.sql"
+      ],
+      "languageLesson": "Prisma migrations are append-only SQL files generated by 'prisma migrate dev'. Each file is idempotent when applied in order. The migration_lock.toml prevents accidentally switching database providers mid-project."
+    },
+    {
+      "order": 6,
+      "title": "Database Client Package",
+      "description": "The @studioworks/db package exports a singleton PrismaClient and re-exports all generated domain types from the Prisma schema. Every app that needs database access (api, worker) imports only from this package, not directly from @prisma/client. This single-package pattern ensures the connection pool is shared and that type changes in the schema propagate to all consumers in one step.",
+      "nodeIds": [
+        "file:packages/db/src/index.ts",
+        "config:packages/db/package.json"
+      ]
+    },
+    {
+      "order": 7,
+      "title": "API Server Entry & App Factory",
+      "description": "The API is a Fastify server split across two files. index.ts is the minimal bootstrap that calls buildApp() and starts listening; app.ts is the factory that assembles the full server by registering all six route plugins. This two-file split makes the app factory independently testable \u2014 integration tests import buildApp() directly without binding to a port. With fan-out of 8, app.ts is the most structurally central code file in the project.",
+      "nodeIds": [
+        "file:apps/api/src/index.ts",
+        "file:apps/api/src/app.ts"
+      ],
+      "languageLesson": "Fastify uses a plugin system where route handlers are registered with fastify.register(). Each plugin receives the same Fastify instance, which means plugins share the same type context, decorators, and lifecycle hooks. The factory pattern (buildApp) returns the configured instance before calling listen(), keeping server creation and binding separate."
+    },
+    {
+      "order": 8,
+      "title": "Core API Routes",
+      "description": "Four route plugins \u2014 clients, projects, time-entries, and expenses \u2014 implement the CRUD operations that back the freelancer workflow. Each follows the same Fastify plugin pattern: export a function that receives the Fastify instance and registers typed handlers. Together they implement the data-entry layer: a freelancer creates a client, creates a project under that client, logs time and expenses against the project, and eventually triggers invoice generation.",
+      "nodeIds": [
+        "file:apps/api/src/routes/clients.ts",
+        "file:apps/api/src/routes/projects.ts",
+        "file:apps/api/src/routes/time-entries.ts",
+        "file:apps/api/src/routes/expenses.ts"
+      ]
+    },
+    {
+      "order": 9,
+      "title": "Invoice Routes & Job Queue",
+      "description": "The invoices route plugin is the most complex in the API: it handles invoice CRUD plus a PDF download endpoint that enqueues a background job via BullMQ rather than generating the PDF synchronously. queue.ts initializes and exports the singleton BullMQ Queue instance that both the invoice route (producer) and the worker (consumer) share by name. This producer\u2013queue boundary is where the synchronous HTTP world hands off to the asynchronous background processing world.",
+      "nodeIds": [
+        "file:apps/api/src/routes/invoices.ts",
+        "file:apps/api/src/queue.ts",
+        "file:apps/api/src/routes/jobs.ts"
+      ],
+      "languageLesson": "BullMQ queues are identified by a string name shared between producers and consumers. The Queue class (used here in the API) only adds jobs; the Worker class (used in the worker app) processes them. Both connect to the same Redis instance. Using a shared JOB_QUEUE_NAME constant from @studioworks/shared prevents typos that would silently create two disconnected queues."
+    },
+    {
+      "order": 10,
+      "title": "Worker: Entry & Processor",
+      "description": "The worker app is a separate Node.js process that connects to Redis and registers a BullMQ Worker on the shared job queue. worker.ts is the entry point that wires the BullMQ connection and delegates each job to processJob. processor.ts is the dispatch layer that will load the job from the database, parse its spec using the shared Zod schema, and route to the appropriate provider \u2014 currently stubbed with TODOs marking Phase 2 implementation.",
+      "nodeIds": [
+        "file:apps/worker/src/worker.ts",
+        "file:apps/worker/src/processor.ts"
+      ]
+    },
+    {
+      "order": 11,
+      "title": "Invoice PDF Provider",
+      "description": "invoice-pdf.ts is the concrete handler that will execute when a job with type 'invoice-pdf' is dispatched by the processor. Its contract is simple: take an invoice ID, render a PDF via Puppeteer, and write the output to data/invoices/. It is currently a stub that throws 'not implemented', clearly marking the Phase 2 boundary. Understanding this file reveals the full async job lifecycle: API enqueues \u2192 worker receives \u2192 processor dispatches \u2192 provider executes.",
+      "nodeIds": [
+        "file:apps/worker/src/providers/invoice-pdf.ts"
+      ]
+    },
+    {
+      "order": 12,
+      "title": "Architecture Deep Dive",
+      "description": "With the full code path understood, docs/architecture.md provides the canonical design reference that ties everything together. It documents service topology, the worker's provider pattern, Prisma/Zod separation concerns, and the complete source file map. This document is the design contract the codebase implements \u2014 reading it after the code reinforces why the architecture is structured this way rather than as a single monolithic service.",
+      "nodeIds": [
+        "document:docs/architecture.md"
+      ]
+    },
+    {
+      "order": 13,
+      "title": "Local Dev Infrastructure",
+      "description": "The docker/compose.dev.yml file starts the two external dependencies every developer needs: Postgres 16 and Redis 7. The .env.example documents the four environment variables that wire the apps to these services. docs/local-dev.md provides the step-by-step setup guide from prerequisites through running migrations to starting all three services. Together these three files are everything a new contributor needs to go from clone to running.",
+      "nodeIds": [
+        "service:docker/compose.dev.yml",
+        "config:.env.example",
+        "document:docs/local-dev.md"
+      ]
+    },
+    {
+      "order": 14,
+      "title": "CI/CD Pipelines",
+      "description": "Two GitHub Actions workflows automate quality and documentation. pr-checks.yml runs on every PR: it auto-generates a grouped changelog for dev\u2192main promotions, validates PR titles against Conventional Commits format, and enforces a Summary section in the PR body. render-diagrams.yml triggers on main pushes that touch docs/, runs PlantUML to convert .puml diagrams to SVG, and deploys the docs gallery to GitHub Pages. These pipelines encode the team's process as executable rules rather than wiki guidelines.",
+      "nodeIds": [
+        "pipeline:.github/workflows/pr-checks.yml",
+        "pipeline:.github/workflows/render-diagrams.yml"
+      ],
+      "languageLesson": "GitHub Actions dependent jobs use 'needs' to sequence execution and 'if: always()' to run a job even when a dependency fails. In pr-checks.yml the validate-description job needs generate-changelog with 'if: always()' so description validation always runs but can read the changelog-updated PR body written by the previous job."
+    },
+    {
+      "order": 15,
+      "title": "Deployment Roadmap",
+      "description": "docs/deployment-plan.md closes the tour by documenting where the platform is heading. The project is currently local-only, and the plan outlines seven post-MVP phases: Dockerization (the placeholder Dockerfiles in apps/api and apps/worker), managed services, authentication, S3 for PDF storage, CI/CD, and observability. The placeholder infra directories (infra/k8s, infra/terraform, infra/ci) mark future work. Reading this gives a clear sense of which parts of the codebase are production-ready versus intentionally stubbed.",
+      "nodeIds": [
+        "document:docs/deployment-plan.md",
+        "service:apps/api/Dockerfile",
+        "service:apps/worker/Dockerfile"
+      ]
+    }
+  ]
+}
