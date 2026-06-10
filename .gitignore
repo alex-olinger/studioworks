@@ -63,8 +63,11 @@ next-env.d.ts
 
 # Misc
 *.tsbuildinfo
-# Added by code-review-graph
-.code-review-graph/
 
 # Git worktrees
 .worktrees/
+
+# Understand Anything — exclude scratch/intermediate, keep graph + config
+.understand-anything/.trash-*/
+.understand-anything/intermediate/
+.understand-anything/tmp/

@@ -1,0 +1,1699 @@
+{
+  "version": "1.0.0",
+  "gitCommitHash": "235a3e777372e88668413f9def248716109ad3f6",
+  "generatedAt": "2026-06-10T04:02:10.435Z",
+  "files": {
+    "apps/api/src/app.ts": {
+      "filePath": "apps/api/src/app.ts",
+      "contentHash": "dec5d9aeb94989cdb83c9ff7859198ffaa4a82e59c5d3e93cc6fe430a1b2fda5",
+      "functions": [
+        {
+          "name": "buildApp",
+          "params": [],
+          "exported": true,
+          "lineCount": 13
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "fastify",
+          "specifiers": [
+            "Fastify"
+          ]
+        },
+        {
+          "source": "./routes/clients.js",
+          "specifiers": [
+            "clientRoutes"
+          ]
+        },
+        {
+          "source": "./routes/projects.js",
+          "specifiers": [
+            "projectRoutes"
+          ]
+        },
+        {
+          "source": "./routes/time-entries.js",
+          "specifiers": [
+            "timeEntryRoutes"
+          ]
+        },
+        {
+          "source": "./routes/expenses.js",
+          "specifiers": [
+            "expenseRoutes"
+          ]
+        },
+        {
+          "source": "./routes/invoices.js",
+          "specifiers": [
+            "invoiceRoutes"
+          ]
+        },
+        {
+          "source": "./routes/jobs.js",
+          "specifiers": [
+            "jobRoutes"
+          ]
+        }
+      ],
+      "exports": [
+        "buildApp"
+      ],
+      "totalLines": 22,
+      "hasStructuralAnalysis": true
+    },
+    "apps/api/src/index.ts": {
+      "filePath": "apps/api/src/index.ts",
+      "contentHash": "6363f54db75901d86a2ea5d4cd9c89cbb63c306cf23dec7e964738a68811a402",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "dotenv/config",
+          "specifiers": []
+        },
+        {
+          "source": "./app.js",
+          "specifiers": [
+            "buildApp"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 12,
+      "hasStructuralAnalysis": true
+    },
+    "apps/api/src/routes/clients.ts": {
+      "filePath": "apps/api/src/routes/clients.ts",
+      "contentHash": "5711e518e4c084196e9d287e34ae963ad6e8c9b732d046512267545d84de0ca3",
+      "functions": [
+        {
+          "name": "clientRoutes",
+          "params": [
+            "app"
+          ],
+          "exported": true,
+          "lineCount": 17
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "fastify",
+          "specifiers": [
+            "FastifyPluginAsync"
+          ]
+        },
+        {
+          "source": "zod",
+          "specifiers": [
+            "z"
+          ]
+        },
+        {
+          "source": "@studioworks/db",
+          "specifiers": [
+            "db"
+          ]
+        }
+      ],
+      "exports": [
+        "clientRoutes"
+      ],
+      "totalLines": 33,
+      "hasStructuralAnalysis": true
+    },
+    "apps/api/src/routes/expenses.ts": {
+      "filePath": "apps/api/src/routes/expenses.ts",
+      "contentHash": "a6b11071db2a93bf30733d4cb0d20e6278a4d929e933dd3b94efba68c7aadace",
+      "functions": [
+        {
+          "name": "expenseRoutes",
+          "params": [
+            "app"
+          ],
+          "exported": true,
+          "lineCount": 13
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "fastify",
+          "specifiers": [
+            "FastifyPluginAsync"
+          ]
+        },
+        {
+          "source": "zod",
+          "specifiers": [
+            "z"
+          ]
+        },
+        {
+          "source": "@studioworks/db",
+          "specifiers": [
+            "db"
+          ]
+        }
+      ],
+      "exports": [
+        "expenseRoutes"
+      ],
+      "totalLines": 27,
+      "hasStructuralAnalysis": true
+    },
+    "apps/api/src/routes/jobs.ts": {
+      "filePath": "apps/api/src/routes/jobs.ts",
+      "contentHash": "dd4921a5e2d39ff0474ca134ebef14132ad6c43cd0cc7bb5d5472861ce1a2bdd",
+      "functions": [
+        {
+          "name": "jobRoutes",
+          "params": [
+            "app"
+          ],
+          "exported": true,
+          "lineCount": 5
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "fastify",
+          "specifiers": [
+            "FastifyPluginAsync"
+          ]
+        },
+        {
+          "source": "@studioworks/db",
+          "specifiers": [
+            "db"
+          ]
+        }
+      ],
+      "exports": [
+        "jobRoutes"
+      ],
+      "totalLines": 9,
+      "hasStructuralAnalysis": true
+    },
+    "apps/api/src/routes/projects.ts": {
+      "filePath": "apps/api/src/routes/projects.ts",
+      "contentHash": "431a266f7fab4505767b622ba64024118b4664757d304a9bab30440b2275622d",
+      "functions": [
+        {
+          "name": "projectRoutes",
+          "params": [
+            "app"
+          ],
+          "exported": true,
+          "lineCount": 17
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "fastify",
+          "specifiers": [
+            "FastifyPluginAsync"
+          ]
+        },
+        {
+          "source": "zod",
+          "specifiers": [
+            "z"
+          ]
+        },
+        {
+          "source": "@studioworks/db",
+          "specifiers": [
+            "db"
+          ]
+        }
+      ],
+      "exports": [
+        "projectRoutes"
+      ],
+      "totalLines": 35,
+      "hasStructuralAnalysis": true
+    },
+    "apps/api/src/routes/time-entries.ts": {
+      "filePath": "apps/api/src/routes/time-entries.ts",
+      "contentHash": "f5231fc7b5a1ee477190e32cb59f0d3b9c72b69eb8814d38fbf742173d6adec4",
+      "functions": [
+        {
+          "name": "timeEntryRoutes",
+          "params": [
+            "app"
+          ],
+          "exported": true,
+          "lineCount": 13
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "fastify",
+          "specifiers": [
+            "FastifyPluginAsync"
+          ]
+        },
+        {
+          "source": "zod",
+          "specifiers": [
+            "z"
+          ]
+        },
+        {
+          "source": "@studioworks/db",
+          "specifiers": [
+            "db"
+          ]
+        }
+      ],
+      "exports": [
+        "timeEntryRoutes"
+      ],
+      "totalLines": 26,
+      "hasStructuralAnalysis": true
+    },
+    "apps/web/src/test/msw/handlers.ts": {
+      "filePath": "apps/web/src/test/msw/handlers.ts",
+      "contentHash": "0f35fe3494d47ae5326604af1536f803a4f81cd0d9243767f2024198bdb0ca90",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "msw",
+          "specifiers": [
+            "http",
+            "HttpResponse"
+          ]
+        }
+      ],
+      "exports": [
+        "handlers"
+      ],
+      "totalLines": 12,
+      "hasStructuralAnalysis": true
+    },
+    "apps/web/src/test/msw/server.ts": {
+      "filePath": "apps/web/src/test/msw/server.ts",
+      "contentHash": "cb653f82a7da2bee4bee79311d5f4c9eb76245b9e8307fc6079027b93e6f483a",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "msw/node",
+          "specifiers": [
+            "setupServer"
+          ]
+        },
+        {
+          "source": "./handlers",
+          "specifiers": [
+            "handlers"
+          ]
+        }
+      ],
+      "exports": [
+        "server"
+      ],
+      "totalLines": 6,
+      "hasStructuralAnalysis": true
+    },
+    "apps/web/src/test/setup.ts": {
+      "filePath": "apps/web/src/test/setup.ts",
+      "contentHash": "dfc2bf634c881095bd345cd9a1b84c1acbd316ee36445663d5f78fb98f2aef38",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@testing-library/jest-dom/vitest",
+          "specifiers": []
+        },
+        {
+          "source": "@testing-library/react",
+          "specifiers": [
+            "cleanup"
+          ]
+        },
+        {
+          "source": "./msw/server",
+          "specifiers": [
+            "server"
+          ]
+        },
+        {
+          "source": "vitest",
+          "specifiers": [
+            "afterAll",
+            "afterEach",
+            "beforeAll"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 16,
+      "hasStructuralAnalysis": true
+    },
+    "apps/api/.dockerignore": {
+      "filePath": "apps/api/.dockerignore",
+      "contentHash": "6d5a9aeba5c9094612fb775e47db685afcf6148773f399061725d74927721772",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 12,
+      "hasStructuralAnalysis": false
+    },
+    "apps/api/Dockerfile": {
+      "filePath": "apps/api/Dockerfile",
+      "contentHash": "d409642d6aad4318075f82255034d23fedc8228a2f2b8406a155cfe1df331994",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 5,
+      "hasStructuralAnalysis": true
+    },
+    "apps/worker/.dockerignore": {
+      "filePath": "apps/worker/.dockerignore",
+      "contentHash": "6d5a9aeba5c9094612fb775e47db685afcf6148773f399061725d74927721772",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 12,
+      "hasStructuralAnalysis": false
+    },
+    "apps/worker/Dockerfile": {
+      "filePath": "apps/worker/Dockerfile",
+      "contentHash": "c37f86ee0e9d6008daa5ac88caf63ffa0a74756fbc8d301a6561b2ffcb9bee00",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 5,
+      "hasStructuralAnalysis": true
+    },
+    ".github/workflows/pr-checks.yml": {
+      "filePath": ".github/workflows/pr-checks.yml",
+      "contentHash": "e4ac80992646e7dfcf135651eafcb979b8942574c3ea186468091c302b9bdc02",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 169,
+      "hasStructuralAnalysis": true
+    },
+    ".github/workflows/render-diagrams.yml": {
+      "filePath": ".github/workflows/render-diagrams.yml",
+      "contentHash": "cf554acce9d1da255d71099c5fc56eaf81ee103040be29c2d95d7e483cef51c0",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 53,
+      "hasStructuralAnalysis": true
+    },
+    ".dockerignore": {
+      "filePath": ".dockerignore",
+      "contentHash": "3045bb4e0532f47ec73533efb7c483d57486fa98893ad068d4d3ec0cd966ecaa",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 32,
+      "hasStructuralAnalysis": false
+    },
+    ".env.example": {
+      "filePath": ".env.example",
+      "contentHash": "f81bcbcc208a555c8c724df142f364a45d4927f370ae07138be476bc4a9a0309",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 24,
+      "hasStructuralAnalysis": true
+    },
+    "README.md": {
+      "filePath": "README.md",
+      "contentHash": "b6562ecfc15fd7e717189356aefe517111fffa3c0fda190cc848aae3d357f939",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 185,
+      "hasStructuralAnalysis": true
+    },
+    "package.json": {
+      "filePath": "package.json",
+      "contentHash": "1a761732a6b87ac5bb310a9644d24e980373fb9257efe7f1e9f5738104274acd",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 38,
+      "hasStructuralAnalysis": true
+    },
+    "pnpm-workspace.yaml": {
+      "filePath": "pnpm-workspace.yaml",
+      "contentHash": "08d75840c97ab0e72d1d9b5b84a17e47a2e06cb159a5fbec5ee0a6a56682dad7",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 4,
+      "hasStructuralAnalysis": true
+    },
+    "tsconfig.json": {
+      "filePath": "tsconfig.json",
+      "contentHash": "f652198fab61ef6d5cb86add0cbed59a9e715ed66aaab35d23a4f475cf6dd007",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 14,
+      "hasStructuralAnalysis": true
+    },
+    "turbo.json": {
+      "filePath": "turbo.json",
+      "contentHash": "bf32105ffdc820a54d53bcb3edb6237725b1f2d3758fb57d4d8c144c057cfa13",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 8,
+      "hasStructuralAnalysis": true
+    },
+    "docs/architecture.md": {
+      "filePath": "docs/architecture.md",
+      "contentHash": "c5cd32f7ebe70947f35ecfab1502a9c7978bc3a7fd677b03d4f10c424ab9a6b4",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 173,
+      "hasStructuralAnalysis": true
+    },
+    "docs/deployment-plan.md": {
+      "filePath": "docs/deployment-plan.md",
+      "contentHash": "a2519d4509b0b355b8d78189e3eb4dcd8e7dff3c61de3d8efecdce495a3ca654",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 44,
+      "hasStructuralAnalysis": true
+    },
+    "docs/index.html": {
+      "filePath": "docs/index.html",
+      "contentHash": "28d15e073fa6917dc382f8b0db9a44c8f721a905cde30fb13a2708d7956fd170",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 191,
+      "hasStructuralAnalysis": false
+    },
+    "docs/local-dev.md": {
+      "filePath": "docs/local-dev.md",
+      "contentHash": "b92bee5347a34d5f866442f212ae95decda8694a4e9e58ae1e2763c304214c53",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 105,
+      "hasStructuralAnalysis": true
+    },
+    ".gitattributes": {
+      "filePath": ".gitattributes",
+      "contentHash": "c65ced1c0a62429b7cde9ff6a80e33f62747d19c8faf8231a652368171055010",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 10,
+      "hasStructuralAnalysis": false
+    },
+    ".github/PULL_REQUEST_TEMPLATE.md": {
+      "filePath": ".github/PULL_REQUEST_TEMPLATE.md",
+      "contentHash": "5453e2235ce252d0abc5bc164b13857cf8a9d251ced92dd5954e1be1a07d6cfa",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 8,
+      "hasStructuralAnalysis": true
+    },
+    ".understand-anything/.understandignore": {
+      "filePath": ".understand-anything/.understandignore",
+      "contentHash": "18f9aaca3821583abf9e3f1a366ce38c40ecc9676012f552180db26181548e6e",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 30,
+      "hasStructuralAnalysis": false
+    },
+    "apps/api/package.json": {
+      "filePath": "apps/api/package.json",
+      "contentHash": "b5f1e359a7810cb16088cc954922f7203b414adda1512579b646e4f70eac500d",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 35,
+      "hasStructuralAnalysis": true
+    },
+    "apps/api/src/queue.ts": {
+      "filePath": "apps/api/src/queue.ts",
+      "contentHash": "0ffbfd8a2371c87464ba42681390a7c5b83023ce92645e72ff23153ad2d5f713",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "bullmq",
+          "specifiers": [
+            "Queue"
+          ]
+        },
+        {
+          "source": "ioredis",
+          "specifiers": [
+            "Redis"
+          ]
+        },
+        {
+          "source": "@studioworks/shared",
+          "specifiers": [
+            "JOB_QUEUE_NAME"
+          ]
+        }
+      ],
+      "exports": [
+        "queue"
+      ],
+      "totalLines": 11,
+      "hasStructuralAnalysis": true
+    },
+    "apps/api/src/routes/invoices.ts": {
+      "filePath": "apps/api/src/routes/invoices.ts",
+      "contentHash": "43e84128fe2091c761d5a352a2efe039488009369772729443fc5afcc4f74d11",
+      "functions": [
+        {
+          "name": "invoiceRoutes",
+          "params": [
+            "app"
+          ],
+          "exported": true,
+          "lineCount": 25
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "fastify",
+          "specifiers": [
+            "FastifyPluginAsync"
+          ]
+        },
+        {
+          "source": "zod",
+          "specifiers": [
+            "z"
+          ]
+        },
+        {
+          "source": "@studioworks/db",
+          "specifiers": [
+            "db"
+          ]
+        },
+        {
+          "source": "../queue.js",
+          "specifiers": [
+            "queue"
+          ]
+        }
+      ],
+      "exports": [
+        "invoiceRoutes"
+      ],
+      "totalLines": 39,
+      "hasStructuralAnalysis": true
+    },
+    "apps/api/src/test/global-setup.ts": {
+      "filePath": "apps/api/src/test/global-setup.ts",
+      "contentHash": "7996586a7ecb42aee06e06847543ef76f33975e68b570c6e7dd48ff3d34fda22",
+      "functions": [
+        {
+          "name": "setup",
+          "params": [],
+          "exported": true,
+          "lineCount": 21
+        },
+        {
+          "name": "teardown",
+          "params": [],
+          "exported": true,
+          "lineCount": 3
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@testcontainers/postgresql",
+          "specifiers": [
+            "PostgreSqlContainer"
+          ]
+        },
+        {
+          "source": "@testcontainers/redis",
+          "specifiers": [
+            "RedisContainer"
+          ]
+        },
+        {
+          "source": "child_process",
+          "specifiers": [
+            "execSync"
+          ]
+        }
+      ],
+      "exports": [
+        "setup",
+        "teardown"
+      ],
+      "totalLines": 33,
+      "hasStructuralAnalysis": true
+    },
+    "apps/api/src/test/setup.ts": {
+      "filePath": "apps/api/src/test/setup.ts",
+      "contentHash": "3644a96afad82ac99cf2fafe5f8861c2abb09f9eab9125a362feb0b2ec16a975",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@studioworks/db",
+          "specifiers": [
+            "db"
+          ]
+        },
+        {
+          "source": "vitest",
+          "specifiers": [
+            "afterEach"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 13,
+      "hasStructuralAnalysis": true
+    },
+    "apps/api/tsconfig.json": {
+      "filePath": "apps/api/tsconfig.json",
+      "contentHash": "921877de43934d2f3176047f493f3107c3ae5885c23a18afed9f650d125271b8",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 13,
+      "hasStructuralAnalysis": true
+    },
+    "apps/api/vitest.config.ts": {
+      "filePath": "apps/api/vitest.config.ts",
+      "contentHash": "e6195eafb410dfece99d995edb34768b56b569c8beb2dd05c7e6398b8c58d5d1",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "vitest/config",
+          "specifiers": [
+            "defineConfig"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 25,
+      "hasStructuralAnalysis": true
+    },
+    "apps/web/.gitkeep": {
+      "filePath": "apps/web/.gitkeep",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": false
+    },
+    "apps/web/next.config.mjs": {
+      "filePath": "apps/web/next.config.mjs",
+      "contentHash": "3927bd44e2d345db871e63bcbb926ae0c038ff1da09dd55ac0ebb6dad3590b38",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 5,
+      "hasStructuralAnalysis": true
+    },
+    "apps/web/package.json": {
+      "filePath": "apps/web/package.json",
+      "contentHash": "4c30d8ed001a48c2cf28c7abff513c52c049a71bd2abc2c3c5442021fecc38e8",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 32,
+      "hasStructuralAnalysis": true
+    },
+    "apps/web/src/app/clients/[id]/page.tsx": {
+      "filePath": "apps/web/src/app/clients/[id]/page.tsx",
+      "contentHash": "1643dfb6f547d92bebf3f55e60d628441e4190b88783357427565c11d1c1c892",
+      "functions": [
+        {
+          "name": "ClientDetailPage",
+          "params": [
+            "{ params }"
+          ],
+          "exported": true,
+          "lineCount": 8
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "useState",
+            "useEffect"
+          ]
+        }
+      ],
+      "exports": [
+        "ClientDetailPage"
+      ],
+      "totalLines": 12,
+      "hasStructuralAnalysis": true
+    },
+    "apps/web/src/app/clients/new/page.tsx": {
+      "filePath": "apps/web/src/app/clients/new/page.tsx",
+      "contentHash": "4ee19311190ddb21c7a70a18fc541584eec6249f6ed9400c68951f0a4334999c",
+      "functions": [
+        {
+          "name": "NewClientPage",
+          "params": [],
+          "exported": true,
+          "lineCount": 11
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "useState"
+          ]
+        },
+        {
+          "source": "next/navigation",
+          "specifiers": [
+            "useRouter"
+          ]
+        }
+      ],
+      "exports": [
+        "NewClientPage"
+      ],
+      "totalLines": 16,
+      "hasStructuralAnalysis": true
+    },
+    "apps/web/src/app/clients/page.tsx": {
+      "filePath": "apps/web/src/app/clients/page.tsx",
+      "contentHash": "efffb635e9bafadf622639e13605dff4915b01544ab23da553c59898a4bbe6e5",
+      "functions": [
+        {
+          "name": "ClientsPage",
+          "params": [],
+          "exported": true,
+          "lineCount": 10
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "useState",
+            "useEffect"
+          ]
+        }
+      ],
+      "exports": [
+        "ClientsPage"
+      ],
+      "totalLines": 14,
+      "hasStructuralAnalysis": true
+    },
+    "apps/web/src/app/invoices/[id]/page.tsx": {
+      "filePath": "apps/web/src/app/invoices/[id]/page.tsx",
+      "contentHash": "7f9e173ec8c533262aad62a6b463cecd3829a19e6c85d86496ea8124286e409c",
+      "functions": [
+        {
+          "name": "InvoiceDetailPage",
+          "params": [
+            "{ params }"
+          ],
+          "exported": true,
+          "lineCount": 11
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "useState",
+            "useEffect"
+          ]
+        }
+      ],
+      "exports": [
+        "InvoiceDetailPage"
+      ],
+      "totalLines": 15,
+      "hasStructuralAnalysis": true
+    },
+    "apps/web/src/app/invoices/page.tsx": {
+      "filePath": "apps/web/src/app/invoices/page.tsx",
+      "contentHash": "b2aa34cf7e6c6cfe2b2352a6e2c37a5bdc42417db8af2c285e6f08098fe54db2",
+      "functions": [
+        {
+          "name": "InvoicesPage",
+          "params": [],
+          "exported": true,
+          "lineCount": 9
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "useState",
+            "useEffect"
+          ]
+        }
+      ],
+      "exports": [
+        "InvoicesPage"
+      ],
+      "totalLines": 13,
+      "hasStructuralAnalysis": true
+    },
+    "apps/web/src/app/layout.tsx": {
+      "filePath": "apps/web/src/app/layout.tsx",
+      "contentHash": "a3438e44ea64a762196298d270846d77c8901346461de455545f441aabb47f96",
+      "functions": [
+        {
+          "name": "RootLayout",
+          "params": [
+            "{ children }"
+          ],
+          "exported": true,
+          "lineCount": 12
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "next",
+          "specifiers": [
+            "Metadata"
+          ]
+        }
+      ],
+      "exports": [
+        "metadata",
+        "RootLayout"
+      ],
+      "totalLines": 17,
+      "hasStructuralAnalysis": true
+    },
+    "apps/web/src/app/page.tsx": {
+      "filePath": "apps/web/src/app/page.tsx",
+      "contentHash": "75af1d027422d76dc55c4598e7cabb485292200acde6403fbbd9f7922e2362a6",
+      "functions": [
+        {
+          "name": "DashboardPage",
+          "params": [],
+          "exported": true,
+          "lineCount": 13
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "useState",
+            "useEffect"
+          ]
+        }
+      ],
+      "exports": [
+        "DashboardPage"
+      ],
+      "totalLines": 17,
+      "hasStructuralAnalysis": true
+    },
+    "apps/web/src/app/projects/[id]/expenses/page.tsx": {
+      "filePath": "apps/web/src/app/projects/[id]/expenses/page.tsx",
+      "contentHash": "8a9c1dee8da0040841fc5ae8ca42daf4b03e3ac3653df819d9434b35718db91a",
+      "functions": [
+        {
+          "name": "ExpensesPage",
+          "params": [
+            "{ params }"
+          ],
+          "exported": true,
+          "lineCount": 12
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "useState",
+            "useEffect"
+          ]
+        }
+      ],
+      "exports": [
+        "ExpensesPage"
+      ],
+      "totalLines": 16,
+      "hasStructuralAnalysis": true
+    },
+    "apps/web/src/app/projects/[id]/page.tsx": {
+      "filePath": "apps/web/src/app/projects/[id]/page.tsx",
+      "contentHash": "3b5733a98dc9001881070f727b7bbddec6eb479062b67d592fcc451d9effd443",
+      "functions": [
+        {
+          "name": "ProjectDetailPage",
+          "params": [
+            "{ params }"
+          ],
+          "exported": true,
+          "lineCount": 10
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "useState",
+            "useEffect"
+          ]
+        }
+      ],
+      "exports": [
+        "ProjectDetailPage"
+      ],
+      "totalLines": 14,
+      "hasStructuralAnalysis": true
+    },
+    "apps/web/src/app/projects/[id]/time/page.tsx": {
+      "filePath": "apps/web/src/app/projects/[id]/time/page.tsx",
+      "contentHash": "2cc843ddbbd8762ef560092af61fd991dd7f833d5315459fee72627581ce9bc7",
+      "functions": [
+        {
+          "name": "TimeEntriesPage",
+          "params": [
+            "{ params }"
+          ],
+          "exported": true,
+          "lineCount": 12
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "useState",
+            "useEffect"
+          ]
+        }
+      ],
+      "exports": [
+        "TimeEntriesPage"
+      ],
+      "totalLines": 16,
+      "hasStructuralAnalysis": true
+    },
+    "apps/web/src/app/projects/page.tsx": {
+      "filePath": "apps/web/src/app/projects/page.tsx",
+      "contentHash": "c1bc5b9283e8ed608a2ddbdff781c26016b5a4a075d9060402f72ca22d2451d0",
+      "functions": [
+        {
+          "name": "ProjectsPage",
+          "params": [],
+          "exported": true,
+          "lineCount": 11
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "useState",
+            "useEffect"
+          ]
+        }
+      ],
+      "exports": [
+        "ProjectsPage"
+      ],
+      "totalLines": 15,
+      "hasStructuralAnalysis": true
+    },
+    "apps/web/tsconfig.json": {
+      "filePath": "apps/web/tsconfig.json",
+      "contentHash": "b826fe242b9d74286940e2ad3ad419e6eb7f53d83284e873d9b79c4588688d61",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 22,
+      "hasStructuralAnalysis": true
+    },
+    "apps/web/vitest.config.ts": {
+      "filePath": "apps/web/vitest.config.ts",
+      "contentHash": "7775a20a0563f7735f9239a1b01153e7d0dcc039a64691b5b65fddcb7b8536e2",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "vitest/config",
+          "specifiers": [
+            "defineConfig"
+          ]
+        },
+        {
+          "source": "@vitejs/plugin-react",
+          "specifiers": [
+            "react"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 18,
+      "hasStructuralAnalysis": true
+    },
+    "apps/worker/package.json": {
+      "filePath": "apps/worker/package.json",
+      "contentHash": "646eb4da6542e79ef60b90c088a94e9f54cd81c4421d63014b0df5e12c41deec",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 30,
+      "hasStructuralAnalysis": true
+    },
+    "apps/worker/src/processor.ts": {
+      "filePath": "apps/worker/src/processor.ts",
+      "contentHash": "923b936520ba3da2c062e33dea5345d85f06351bef629360ca351822475b51ae",
+      "functions": [
+        {
+          "name": "processJob",
+          "params": [
+            "{ jobId }"
+          ],
+          "exported": true,
+          "lineCount": 8
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [
+        "processJob"
+      ],
+      "totalLines": 14,
+      "hasStructuralAnalysis": true
+    },
+    "apps/worker/src/providers/invoice-pdf.ts": {
+      "filePath": "apps/worker/src/providers/invoice-pdf.ts",
+      "contentHash": "c8ae018ae011f532f28a8dbed16e4c9b548bcb0f9dbf4d1bae672a37bd32bcf4",
+      "functions": [
+        {
+          "name": "generateInvoicePdf",
+          "params": [
+            "invoiceId"
+          ],
+          "returnType": "Promise<string>",
+          "exported": true,
+          "lineCount": 9
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [
+        "generateInvoicePdf"
+      ],
+      "totalLines": 16,
+      "hasStructuralAnalysis": true
+    },
+    "apps/worker/src/test/global-setup.ts": {
+      "filePath": "apps/worker/src/test/global-setup.ts",
+      "contentHash": "3b8a0150a2bda7e83a3453ae44a1decaec994ff5632a3114379cecbae5cf8773",
+      "functions": [
+        {
+          "name": "setup",
+          "params": [],
+          "exported": true,
+          "lineCount": 18
+        },
+        {
+          "name": "teardown",
+          "params": [],
+          "exported": true,
+          "lineCount": 3
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@testcontainers/postgresql",
+          "specifiers": [
+            "PostgreSqlContainer"
+          ]
+        },
+        {
+          "source": "@testcontainers/redis",
+          "specifiers": [
+            "RedisContainer"
+          ]
+        },
+        {
+          "source": "child_process",
+          "specifiers": [
+            "execSync"
+          ]
+        }
+      ],
+      "exports": [
+        "setup",
+        "teardown"
+      ],
+      "totalLines": 30,
+      "hasStructuralAnalysis": true
+    },
+    "apps/worker/src/test/setup.ts": {
+      "filePath": "apps/worker/src/test/setup.ts",
+      "contentHash": "3644a96afad82ac99cf2fafe5f8861c2abb09f9eab9125a362feb0b2ec16a975",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@studioworks/db",
+          "specifiers": [
+            "db"
+          ]
+        },
+        {
+          "source": "vitest",
+          "specifiers": [
+            "afterEach"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 13,
+      "hasStructuralAnalysis": true
+    },
+    "apps/worker/src/worker.ts": {
+      "filePath": "apps/worker/src/worker.ts",
+      "contentHash": "8cc2a46efb5a6be1ecad30fb55c7fae2e7c6a722776fda6d8bb16abbc69e06c8",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "dotenv/config",
+          "specifiers": []
+        },
+        {
+          "source": "bullmq",
+          "specifiers": [
+            "Worker"
+          ]
+        },
+        {
+          "source": "ioredis",
+          "specifiers": [
+            "Redis"
+          ]
+        },
+        {
+          "source": "@studioworks/shared",
+          "specifiers": [
+            "JOB_QUEUE_NAME"
+          ]
+        },
+        {
+          "source": "./processor.js",
+          "specifiers": [
+            "processJob"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 25,
+      "hasStructuralAnalysis": true
+    },
+    "apps/worker/tsconfig.json": {
+      "filePath": "apps/worker/tsconfig.json",
+      "contentHash": "921877de43934d2f3176047f493f3107c3ae5885c23a18afed9f650d125271b8",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 13,
+      "hasStructuralAnalysis": true
+    },
+    "apps/worker/vitest.config.ts": {
+      "filePath": "apps/worker/vitest.config.ts",
+      "contentHash": "4cb5ececac02224c37028bf4de664fb18071d796f25b739d16bc97a88f856852",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "vitest/config",
+          "specifiers": [
+            "defineConfig"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 25,
+      "hasStructuralAnalysis": true
+    },
+    "data/invoices/.gitkeep": {
+      "filePath": "data/invoices/.gitkeep",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": false
+    },
+    "docker/compose.dev.yml": {
+      "filePath": "docker/compose.dev.yml",
+      "contentHash": "f1c858a42e8211a434101ebe5ae05fe31f8d33cf7f7fc5c3343accecb6643999",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 15,
+      "hasStructuralAnalysis": true
+    },
+    "docker/postgres/init/.gitkeep": {
+      "filePath": "docker/postgres/init/.gitkeep",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": false
+    },
+    "docker/redis/.gitkeep": {
+      "filePath": "docker/redis/.gitkeep",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": false
+    },
+    "docs/diagrams/api-routes.puml": {
+      "filePath": "docs/diagrams/api-routes.puml",
+      "contentHash": "0ac476d7bf4914860b8e5b245b5af05a9050d182d6957b31dc145729826f91dd",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 234,
+      "hasStructuralAnalysis": false
+    },
+    "docs/diagrams/invoice-pdf-sequence.puml": {
+      "filePath": "docs/diagrams/invoice-pdf-sequence.puml",
+      "contentHash": "1d62c37d6cedc5814455e60b8881499ed4456237a5677d80036ca71d2ed75f22",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 75,
+      "hasStructuralAnalysis": false
+    },
+    "docs/diagrams/prisma-data-model.puml": {
+      "filePath": "docs/diagrams/prisma-data-model.puml",
+      "contentHash": "67f1ea24171c55c63eee1303ec2e81f4bc6c180ca47ead2eb506a4f4a7f69203",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 163,
+      "hasStructuralAnalysis": false
+    },
+    "docs/diagrams/service-topology.puml": {
+      "filePath": "docs/diagrams/service-topology.puml",
+      "contentHash": "fc556ed60549a910a0568c14a79fb829cd8607cb24d0d1bfcd2f74e20a98c60e",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 75,
+      "hasStructuralAnalysis": false
+    },
+    "docs/diagrams/system-context.puml": {
+      "filePath": "docs/diagrams/system-context.puml",
+      "contentHash": "f027709634ca01b1394bef1e76c96eb573855a3c51635b8305fb98cc9a27481c",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 39,
+      "hasStructuralAnalysis": false
+    },
+    "infra/ci/README.placeholder.md": {
+      "filePath": "infra/ci/README.placeholder.md",
+      "contentHash": "887335432732c9da9b763d2b9fa93e0afe1e8be182ff869dad8f26b52e1cb64e",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 2,
+      "hasStructuralAnalysis": true
+    },
+    "infra/k8s/README.placeholder.md": {
+      "filePath": "infra/k8s/README.placeholder.md",
+      "contentHash": "9f57a1579af10d4f646e4a40318034851f18a0139c179f7e1e444122240e978a",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 2,
+      "hasStructuralAnalysis": true
+    },
+    "infra/terraform/README.placeholder.md": {
+      "filePath": "infra/terraform/README.placeholder.md",
+      "contentHash": "46e643620f14b395a84d9211418c71388b5505466996471a81589362b0536889",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 2,
+      "hasStructuralAnalysis": true
+    },
+    "packages/db/.gitkeep": {
+      "filePath": "packages/db/.gitkeep",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": false
+    },
+    "packages/db/package.json": {
+      "filePath": "packages/db/package.json",
+      "contentHash": "215a2ce2939dd6c03f0b6b7e63d59523de8defe7aa4fbf4caba349844909c320",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 26,
+      "hasStructuralAnalysis": true
+    },
+    "packages/db/prisma/migrations/20260228101128_init/migration.sql": {
+      "filePath": "packages/db/prisma/migrations/20260228101128_init/migration.sql",
+      "contentHash": "d56e09046b2a83bcf9feaf1930e24fed86621777367f8ec6d73b7e5609a7b0ce",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 15,
+      "hasStructuralAnalysis": true
+    },
+    "packages/db/prisma/migrations/20260508015200_pivot_to_freelancer_invoicing/migration.sql": {
+      "filePath": "packages/db/prisma/migrations/20260508015200_pivot_to_freelancer_invoicing/migration.sql",
+      "contentHash": "a0b614110fc450d3550cfc5b386a22d1789179be3f5b484bc31f09559ca44c88",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 159,
+      "hasStructuralAnalysis": true
+    },
+    "packages/db/prisma/migrations/migration_lock.toml": {
+      "filePath": "packages/db/prisma/migrations/migration_lock.toml",
+      "contentHash": "693566b52c49db47a2b0901d12400aa3d710d13a49f4a2a154b80c0505ed737c",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 3,
+      "hasStructuralAnalysis": true
+    },
+    "packages/db/prisma/schema.prisma": {
+      "filePath": "packages/db/prisma/schema.prisma",
+      "contentHash": "4b5669d64c52c1db0e7904c6b306a781825279405c3d5ff02d9ff0b96953bdeb",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 126,
+      "hasStructuralAnalysis": false
+    },
+    "packages/db/src/index.ts": {
+      "filePath": "packages/db/src/index.ts",
+      "contentHash": "1ec4ac270c0616c5186bad1b3a71074866a00ac7eeefc56941f5445c172f95f3",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@prisma/client",
+          "specifiers": [
+            "PrismaClient"
+          ]
+        }
+      ],
+      "exports": [
+        "db",
+        "Client",
+        "Project",
+        "TimeEntry",
+        "Expense",
+        "Invoice",
+        "Job",
+        "JobStatus",
+        "ProjectStatus",
+        "InvoiceStatus"
+      ],
+      "totalLines": 16,
+      "hasStructuralAnalysis": true
+    },
+    "packages/db/src/test/global-setup.ts": {
+      "filePath": "packages/db/src/test/global-setup.ts",
+      "contentHash": "47cf532780d612028a66958d8c36e2db8d7535125340c80ee1fbb6a9769f83f5",
+      "functions": [
+        {
+          "name": "setup",
+          "params": [],
+          "exported": true,
+          "lineCount": 16
+        },
+        {
+          "name": "teardown",
+          "params": [],
+          "exported": true,
+          "lineCount": 3
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@testcontainers/postgresql",
+          "specifiers": [
+            "PostgreSqlContainer"
+          ]
+        },
+        {
+          "source": "child_process",
+          "specifiers": [
+            "execSync"
+          ]
+        }
+      ],
+      "exports": [
+        "setup",
+        "teardown"
+      ],
+      "totalLines": 26,
+      "hasStructuralAnalysis": true
+    },
+    "packages/db/tsconfig.json": {
+      "filePath": "packages/db/tsconfig.json",
+      "contentHash": "c4ef5588f4e0e442aa72db545d02653e9ac2144621d081a486ee64879a5f5dcd",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 5,
+      "hasStructuralAnalysis": true
+    },
+    "packages/db/vitest.config.ts": {
+      "filePath": "packages/db/vitest.config.ts",
+      "contentHash": "0b116ba2a5f66fa25f7619e89e5e74c41401ecd762411c285b3b06e9c79e2303",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "vitest/config",
+          "specifiers": [
+            "defineConfig"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 26,
+      "hasStructuralAnalysis": true
+    },
+    "packages/shared/.gitkeep": {
+      "filePath": "packages/shared/.gitkeep",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": false
+    },
+    "packages/shared/job-spec.ts": {
+      "filePath": "packages/shared/job-spec.ts",
+      "contentHash": "49999ed9b71f58c56f123ca34cac6e94c0881e40c14c1c3e55c801ac948fa319",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "zod",
+          "specifiers": [
+            "z"
+          ]
+        }
+      ],
+      "exports": [
+        "JobSpecSchema"
+      ],
+      "totalLines": 14,
+      "hasStructuralAnalysis": true
+    },
+    "packages/shared/package.json": {
+      "filePath": "packages/shared/package.json",
+      "contentHash": "f91af3d12f81f28d9815779e0b894280a3fef0d063fc29e0d6d0deab0a5e8da1",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 22,
+      "hasStructuralAnalysis": true
+    },
+    "packages/shared/src/index.ts": {
+      "filePath": "packages/shared/src/index.ts",
+      "contentHash": "daa7018eb1e0776b49fa83edabc231ea5c60250d738cb5a0cbcd677941e217ce",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [
+        "JOB_QUEUE_NAME"
+      ],
+      "totalLines": 4,
+      "hasStructuralAnalysis": true
+    },
+    "packages/shared/tsconfig.json": {
+      "filePath": "packages/shared/tsconfig.json",
+      "contentHash": "879d5752f638fbd53ec26b16df8ea65a8435fcd16d8cf114bf4e9071aece439d",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 5,
+      "hasStructuralAnalysis": true
+    },
+    "packages/shared/vitest.config.ts": {
+      "filePath": "packages/shared/vitest.config.ts",
+      "contentHash": "dceaf18e0bb7f4f3d26d47144c140535d6ee9782099d461aa0e8ff098730f913",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "vitest/config",
+          "specifiers": [
+            "defineConfig"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 15,
+      "hasStructuralAnalysis": true
+    },
+    "tasks/lessons.md": {
+      "filePath": "tasks/lessons.md",
+      "contentHash": "49b0b53def80c11a877d8c86e1b2c3815013b57147a19d99964bafe8d3c4adb2",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 4,
+      "hasStructuralAnalysis": true
+    },
+    "tasks/todo.md": {
+      "filePath": "tasks/todo.md",
+      "contentHash": "bbbdbde28994cea4d6d5486028fa4488396971fef4b12b4eeec3de20d2dc7dce",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 4,
+      "hasStructuralAnalysis": true
+    },
+    "vitest.workspace.ts": {
+      "filePath": "vitest.workspace.ts",
+      "contentHash": "c35ea2c53b7906262de2c61e93d1e99fa47b9f0a8f4e3a6a0697d791d0fed403",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "vitest/config",
+          "specifiers": [
+            "defineWorkspace"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 10,
+      "hasStructuralAnalysis": true
+    }
+  }
+}
