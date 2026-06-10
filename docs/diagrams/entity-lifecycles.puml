@@ -1,0 +1,75 @@
+@startuml entity-lifecycles
+title StudioWorks — Entity Lifecycle State Machines
+
+skinparam backgroundColor white
+skinparam titleFontSize 16
+skinparam titleFontStyle bold
+skinparam defaultFontSize 11
+
+skinparam state {
+  BackgroundColor #dae8fc
+  BorderColor #6c8ebf
+  ArrowColor #444444
+  FontSize 11
+}
+
+skinparam ArrowFontBackground white
+
+' ── Job Lifecycle ────────────────────────────────────────────────────────────
+
+state "Job Lifecycle" as Job {
+  [*] --> QUEUED : invoice created
+
+  QUEUED --> PROCESSING : worker dequeues jobId
+
+  PROCESSING --> COMPLETE : PDF written\n(outputPath set)
+  PROCESSING --> FAILED : unhandled error\n(error message set)
+
+  COMPLETE --> [*]
+  FAILED --> [*]
+
+  note right of PROCESSING
+    processor.ts drives this
+    state machine; worker.ts
+    handles queue I/O only.
+  end note
+}
+
+' ── Invoice Lifecycle ────────────────────────────────────────────────────────
+
+state "Invoice Lifecycle" as Invoice {
+  [*] --> DRAFT : invoice generated\nfrom unbilled entries
+
+  DRAFT --> SENT : PATCH status=SENT
+  SENT --> PAID : PATCH status=PAID
+  SENT --> OVERDUE : PATCH status=OVERDUE
+  OVERDUE --> PAID : PATCH status=PAID
+
+  PAID --> [*]
+
+  note right of DRAFT
+    All transitions are manual via
+    PATCH /invoices/:id { status }.
+    The API enforces no state machine
+    and does NOT auto-transition on
+    due date — any status is settable
+    (dueDate is even nullable).
+    Arrows show the intended business
+    flow, not an enforced one.
+  end note
+}
+
+' ── Project Lifecycle ────────────────────────────────────────────────────────
+
+state "Project Lifecycle" as Project {
+  [*] --> ACTIVE : project created
+
+  ACTIVE --> COMPLETED : PATCH status=COMPLETED
+  ACTIVE --> ARCHIVED : PATCH status=ARCHIVED
+
+  COMPLETED --> ARCHIVED : PATCH status=ARCHIVED
+
+  ARCHIVED --> [*]
+}
+
+@enduml
