@@ -9,7 +9,6 @@ C:*
 
 # Other knowledge graph outputs — avoid circular analysis
 graphify-out/
-.code-review-graph/
 
 # Docs that are internal scaffolding, not project docs
 docs/superpowers/
