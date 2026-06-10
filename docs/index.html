@@ -183,6 +183,51 @@
         </div>
       </article>
 
+      <article class="card">
+        <div class="card-header">
+          <h2>Entity Lifecycles</h2>
+          <p>State machines for Job (QUEUED → PROCESSING → COMPLETE/FAILED), Invoice (DRAFT → SENT → PAID/OVERDUE), and Project (ACTIVE → COMPLETED → ARCHIVED) statuses.</p>
+        </div>
+        <div class="card-body">
+          <a href="diagrams/entity-lifecycles.svg" target="_blank" title="Open full-size">
+            <img src="diagrams/entity-lifecycles.svg" alt="Entity Lifecycles diagram">
+          </a>
+        </div>
+        <div class="card-footer">
+          Source: <a href="diagrams/entity-lifecycles.puml">entity-lifecycles.puml</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-header">
+          <h2>Frontend Page Routing</h2>
+          <p>Next.js App Router page tree — all 10 pages, their routes, and the navigation paths between them.</p>
+        </div>
+        <div class="card-body">
+          <a href="diagrams/frontend-routing.svg" target="_blank" title="Open full-size">
+            <img src="diagrams/frontend-routing.svg" alt="Frontend Page Routing diagram">
+          </a>
+        </div>
+        <div class="card-footer">
+          Source: <a href="diagrams/frontend-routing.puml">frontend-routing.puml</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-header">
+          <h2>Worker Internals</h2>
+          <p>Worker's 2-layer design: worker.ts (BullMQ wiring) → processor.ts (job state machine) → providers/invoice-pdf.ts, with all external dependencies.</p>
+        </div>
+        <div class="card-body">
+          <a href="diagrams/worker-internals.svg" target="_blank" title="Open full-size">
+            <img src="diagrams/worker-internals.svg" alt="Worker Internals diagram">
+          </a>
+        </div>
+        <div class="card-footer">
+          Source: <a href="diagrams/worker-internals.puml">worker-internals.puml</a>
+        </div>
+      </article>
+
     </div>
   </main>
 
